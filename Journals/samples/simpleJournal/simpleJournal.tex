@@ -1,0 +1,47 @@
+\documentclass{book}
+\usepackage{lipsum}
+\usepackage{graphicx}
+
+\newenvironment{loggentry}[2]% date, heading
+{\noindent\textbf{#2}\marginnote{#1}\\}{\vspace{0.5cm}}
+
+\begin{document}
+\begin{titlepage}
+	\centering
+	\includegraphics[width=0.15\textwidth]{example-image-1x1}\par\vspace{1cm}
+	{\scshape\LARGE Insttution \par}
+	\vspace{1cm}
+	{\scshape\Large Project Classification\par}
+	\vspace{1.5cm}
+	{\huge\bfseries Project Title\par}
+	\vspace{2cm}
+	{\Large\itshape John Doe\par}
+	\vfill
+	supervised by\par
+	Dr. John \textsc{Doe}
+
+	\vfill
+
+% Bottom of the page
+	{\large \today\par}
+\end{titlepage}
+
+
+
+\begin{loggentry}{2009-Oct-31}{Snow}
+    \lipsum[1]
+\end{loggentry}
+
+\begin{loggentry}{2010-Dez-31}{Water of Life}
+    \lipsum[2]
+\end{loggentry}
+
+\begin{loggentry}{2011-Nov-15}{Cold}
+    \lipsum[3-5]
+\end{loggentry}
+
+\begin{loggentry}{2012-Aug-24}{Sunrise}
+    \lipsum[6-7]
+\end{loggentry}
+
+\end{document}
