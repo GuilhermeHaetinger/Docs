@@ -1,7 +1,6 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2019/dev/Debian) (preloaded format=pdflatex 2019.5.21)  30 MAY 2019 00:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2019/dev/Debian) (preloaded format=pdflatex 2019.5.21)  2 JUN 2019 15:02
 entering extended mode
  restricted \write18 enabled.
- file:line:error style messages enabled.
  %&-line parsing enabled.
 **simpleJournal.tex
 (./simpleJournal.tex
@@ -23,9 +22,12 @@ File: bk10.clo 2018/09/03 v1.4i Standard LaTeX file (size option)
 \abovecaptionskip=\skip41
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
-) (/usr/share/texlive/texmf-dist/tex/latex/lipsum/lipsum.sty (/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/lipsum/lipsum.sty
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3.sty
 Package: expl3 2019-02-15 L3 programming layer (loader) 
- (/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3-code.tex
+
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/expl3-code.tex
 Package: expl3 2019-02-15 L3 programming layer (code)
 \c_max_int=\count89
 \l_tmpa_int=\count90
@@ -174,10 +176,12 @@ Package: expl3 2019-02-15 L3 programming layer (code)
 \l__coffin_scaled_width_dim=\dimen134
 \l__seq_internal_a_int=\count171
 \l__seq_internal_b_int=\count172
-) (/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3pdfmode.def
+)
+(/usr/share/texlive/texmf-dist/tex/latex/l3kernel/l3pdfmode.def
 File: l3pdfmode.def 2019-02-15 v L3 Experimental driver: PDF mode
 \l__driver_color_stack_int=\count173
-)) (/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
+))
+(/usr/share/texlive/texmf-dist/tex/latex/l3packages/xparse/xparse.sty
 Package: xparse 2018-10-17 L3 Experimental document command parser
 \l__xparse_current_arg_int=\count174
 \g__xparse_grabber_int=\count175
@@ -186,37 +190,35 @@ Package: xparse 2018-10-17 L3 Experimental document command parser
 \l__xparse_v_nesting_int=\count178
 )
 Package: lipsum 2019/01/02 v2.2 150 paragraphs of Lorem Ipsum dummy text
- (/usr/share/texlive/texmf-dist/tex/latex/lipsum/lipsum.ltd.tex
+
+(/usr/share/texlive/texmf-dist/tex/latex/lipsum/lipsum.ltd.tex
 File: lipsum.ltd.tex 2019/01/02 v2.2 The Lorem ipsum dummy text
-)) (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
+))
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2017/06/01 v1.1a Enhanced LaTeX Graphics (DPC,SPQR)
- (/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks14
-) (/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2017/06/25 v1.2c Standard LaTeX Graphics (DPC,SPQR)
- (/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
-) (/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
+)
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/graphics.cfg
 File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 99.
- (/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-def/pdftex.def
 File: pdftex.def 2018/01/08 v1.0l Graphics/color driver for pdftex
 ))
 \Gin@req@height=\dimen135
 \Gin@req@width=\dimen136
-) (./simpleJournal.aux
-./simpleJournal.aux:19: Undefined control sequence.
-l.19 \ttl@finishall
-                   
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
-
 )
+(./tmp//simpleJournal.aux)
 \openout1 = `simpleJournal.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 8.
@@ -231,7 +233,8 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 8.
 LaTeX Font Info:    ... okay on input line 8.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 8.
 LaTeX Font Info:    ... okay on input line 8.
- (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+
+(/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count179
 \scratchdimen=\dimen137
@@ -246,26 +249,37 @@ LaTeX Font Info:    ... okay on input line 8.
 \everyMPtoPDFconversion=\toks16
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
- (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/infwarerr.sty
 Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
-) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
+)
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/grfext.sty
 Package: grfext 2016/05/16 v1.2 Manage graphics extensions (HO)
- (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
 Package: kvdefinekeys 2016/05/16 v1.4 Define keys (HO)
- (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
 Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
-))) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+)))
+(/usr/share/texlive/texmf-dist/tex/latex/oberdiek/kvoptions.sty
 Package: kvoptions 2016/05/16 v3.12 Key value format for package options (HO)
- (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
 Package: kvsetkeys 2016/05/16 v1.17 Key value parser (HO)
- (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/etexcmds.sty
 Package: etexcmds 2016/05/16 v1.6 Avoid name clashes with e-TeX commands (HO)
- (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifluatex.sty
 Package: ifluatex 2016/05/16 v1.4 Provides the ifluatex switch (HO)
 Package ifluatex Info: LuaTeX not detected.
-)))) (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
-Package: pdftexcmds 2018/09/10 v0.29 Utility functions of pdfTeX for LuaTeX (HO)
- (/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+))))
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2018/09/10 v0.29 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/share/texlive/texmf-dist/tex/generic/oberdiek/ifpdf.sty
 Package: ifpdf 2018/09/07 v3.3 Provides the ifpdf switch
 )
 Package pdftexcmds Info: LuaTeX not detected.
@@ -273,81 +287,107 @@ Package pdftexcmds Info: \pdf@primitive is available.
 Package pdftexcmds Info: \pdf@ifprimitive is available.
 Package pdftexcmds Info: \pdfdraftmode found.
 )
-Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 438.
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+38.
 Package grfext Info: Graphics extension search list:
-(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPEG,.JBIG2,.JB2,.eps]
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
- (/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
-File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
+
+(/usr/share/texlive/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
 ))
 <example-image-1x1.pdf, id=1, 200.75pt x 200.75pt>
 File: example-image-1x1.pdf Graphic file (type pdf)
 <use example-image-1x1.pdf>
 Package pdftex.def Info: example-image-1x1.pdf  used on input line 11.
 (pdftex.def)             Requested size: 51.7479pt x 51.74654pt.
- [1
+
+[1
 
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} </usr/share/texlive/texmf-dist/tex/latex/mwe/example-image-1x1.pdf>]
-./simpleJournal.tex:31: Undefined control sequence.
-<recently read> \marginnote 
-                            
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} </usr/share/texlive/texmf-d
+ist/tex/latex/mwe/example-image-1x1.pdf>]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 31.
+
+(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 31.
+
+! Undefined control sequence.
+\loggentry ... \textbf {#2}\newline \{\marginnote 
+                                                  {#1}\}\newline \\
 l.31 \begin{loggentry}{2009-Oct-31}{Snow}
                                          
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+? 
 
-./simpleJournal.tex:35: Undefined control sequence.
-<recently read> \marginnote 
-                            
+Underfull \hbox (badness 10000) in paragraph at lines 31--34
+
+ []
+
+! Undefined control sequence.
+\loggentry ... \textbf {#2}\newline \{\marginnote 
+                                                  {#1}\}\newline \\
 l.35 \begin{loggentry}{2010-Dez-31}{Water of Life}
                                                   
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+? 
 
-./simpleJournal.tex:39: Undefined control sequence.
-<recently read> \marginnote 
-                            
+Underfull \hbox (badness 10000) in paragraph at lines 35--38
+
+ []
+
+! Undefined control sequence.
+\loggentry ... \textbf {#2}\newline \{\marginnote 
+                                                  {#1}\}\newline \\
 l.39 \begin{loggentry}{2011-Nov-15}{Cold}
                                          
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+? 
 
-[2]
-./simpleJournal.tex:43: Undefined control sequence.
-<recently read> \marginnote 
-                            
+Underfull \hbox (badness 10000) in paragraph at lines 39--41
+
+ []
+
+
+Underfull \vbox (badness 1590) has occurred while \output is active []
+
+ [2]
+! Undefined control sequence.
+\loggentry ... \textbf {#2}\newline \{\marginnote 
+                                                  {#1}\}\newline \\
 l.43 \begin{loggentry}{2012-Aug-24}{Sunrise}
                                             
-The control sequence at the end of the top line
-of your error message was never \def'ed. If you have
-misspelled it (e.g., `\hobx'), type `I' and the correct
-spelling (e.g., `I\hbox'). Otherwise just continue,
-and I'll forget about whatever was undefined.
+? 
 
-[3] (./simpleJournal.aux) ) 
+Underfull \hbox (badness 10000) in paragraph at lines 43--45
+
+ []
+
+[3] (./tmp//simpleJournal.aux) ) 
 Here is how much of TeX's memory you used:
- 11047 strings out of 492615
- 211637 string characters out of 6131390
- 502486 words of memory out of 5000000
- 14947 multiletter control sequences out of 15000+600000
+ 11057 strings out of 492615
+ 211848 string characters out of 6131390
+ 501520 words of memory out of 5000000
+ 14953 multiletter control sequences out of 15000+600000
  535451 words of font info for 34 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,4n,63p,280b,317s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texmf/fonts/type1/public/lm/lmss17.pfb></usr/share/texmf/fonts/type1/public/lm/lmss8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb>
-Output written on simpleJournal.pdf (3 pages, 105282 bytes).
+</usr/share/texlive/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+r10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr
+/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share
+/texmf/fonts/type1/public/lm/lmss17.pfb></usr/share/texmf/fonts/type1/public/lm
+/lmss8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf
+/fonts/type1/public/lm/lmsy8.pfb>
+Output written on ./tmp//simpleJournal.pdf (3 pages, 112500 bytes).
 PDF statistics:
- 64 PDF objects out of 1000 (max. 8388607)
- 47 compressed objects within 1 object stream
+ 68 PDF objects out of 1000 (max. 8388607)
+ 50 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
