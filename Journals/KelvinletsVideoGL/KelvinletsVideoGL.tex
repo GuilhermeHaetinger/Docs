@@ -2,7 +2,7 @@
 \usepackage{graphicx}
 
 \newenvironment{loggentry}[2]% date, heading
-{\noindent\textbf{#2}\marginnote{#1}\\}{\vspace{1.0cm}}
+{\noindent\textbf{#2}\newline\{\marginnote{#1}\}\newline\\}{\vspace{1.0cm}}
 
 \begin{document}
 \begin{titlepage}
@@ -39,6 +39,10 @@
 
 \begin{loggentry}{30-05-2019}{Elaborating Implementation for 2 step Interpolation}
 		Having in mind the Professor's advice to use a \textit{bin sort} alike algorithm, the main goal is to set which lines collide with each of the frames. We do that by assigning each vertex from the frame having 2 points: one in each deformed frame. Based on that, we can establish the color and position of the vertices. Now, considering the order that the vertices must be processed, we should run them by the time axis, i.e. Interpolate the same pixel position for each frame before moving to another position.    
+\end{loggentry}
+
+\begin{loggentry}{01-06-2019}{Project Structure}
+	bla bla bla bla
 \end{loggentry}
 
 \end{document}
