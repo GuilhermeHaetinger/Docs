@@ -1,5 +1,7 @@
 \documentclass[12pt, a4paper]{report}
 \usepackage{graphicx}
+\usepackage[export]{adjustbox}
+\usepackage{listings}
 
 \newenvironment{loggentry}[2]% date, heading
 {\noindent\textbf{#2}\newline\{\marginnote{#1}\}\newline\\}{\vspace{1.0cm}}
@@ -26,8 +28,8 @@
 \end{titlepage}
 
 \begin{figure}
-	\includegraphics[width=0.5\textwidth]{./res/interpolationExample.png}
-	\caption{3D Interpolation with Prism projection}
+	\includegraphics[scale=0.5, center]{./res/interpolationExample.png}
+	\caption{3D Interpolation with Prism projection. (A) is the first grid involving the frame (B), and (C) is the second one.}
 	\label{fig:newInterp}
 \end{figure}
 
@@ -43,15 +45,51 @@
 
 \begin{loggentry}{(01 - 03)-06-2019}{Project Structure}
 	Creating the projects structure is a challenge. Separating a OpenGL application in modules is somewhat difficult because of the fact that many functions depend on predeclared variables, which means I need many arguments for a specific function. Therefore, I will, firstly, separate the needed functionalities in main components. These components are:
-				\begin{itemize}
-								\item Main
-												
-											This module will only serve to process the user arguments set in \textit{argv} and to call the other methods with these arguments.
-								\item VideoDeformator
+	\begin{itemize}
+		\item Main
+											
+			This module will only serve to process the user arguments set in \textit{argv} and to call the other methods with these arguments.
+		
+		\item VideoDeformator
 									
-												This module will be in charge of processing the arguments given by the \textit{Main} modules in order to execute the Kelvinlets \textit{grab} function in each vertex. It will produce a new set of vertex arrays for the ones in the video input (regularized vertices). This module will include the \textbf{glm} and the \textbf{glfw3} library, since it will depend on the data structures involving linear algebra as well as the ones defined for OpenGL visualization. 	
-								\item VideoVisualizer
-				\end{itemize}
+			This module will be in charge of processing the arguments given by the \textit{Main} modules in order to execute the Kelvinlets \textit{grab} function in each vertex. It will produce a new set of vertex arrays for the ones in the video input (regularized vertices). This module will include the \textbf{glm} and the \textbf{glfw3} library, since it will depend on the data structures involving linear algebra as well as the ones defined for OpenGL visualization.
+
+			\begin{itemize}
+				\item[$\ast$] InterpolationFrame
+
+					This data structure should hold every line in charge of interpolating each vertex of the frame.
+				
+				\item[$\ast$] Line
+
+					This data structure should hold the information to interpolate a line in a given point in the time axis.
+
+				\item[$\ast$] Deformation
+
+					Abstraction of a deformation vector(initial position, final position and brush size).
+
+				\item[$\ast$] KelvinletsTransformer
+
+					Class that provides the execution of the Kelvinlets equation.
+			
+			\end{itemize}
+		
+		\item VideoVisualizer
+
+			This module will be responsible for the video rendering, i.e. the communication of the program with the deformed  video data and the graphic card. To do this, we must use the OpenGL library, for which we will need the vertices positions and colors, as well as the order in which they will be accounted for the triangle mesh rendering in the \textbf{TRIANGLE\_STRIP} method. We are supposed to import, for these reasons, \textbf{glfw3} and \textbf{glew} for the data structures and graphic card communication functions.
+
+	\end{itemize}
+
+	For the sake of the project and organization, I also developed a \textbf{logger} for the application. This will make debugging much cleaner and easier. All I have to do to get specific output (errors, fatal errors, warnings and general debugging logs) is call the program in the following way:
+
+\lstset{
+  language=bash,
+  basicstyle=\ttfamily
+}
+
+\begin{lstlisting}
+  env KELVIN=FATAL|ERROR|WARNING|CORRECT|DEBUG ./kelvin
+\end{lstlisting}
+
 \end{loggentry}
 
 \end{document}
