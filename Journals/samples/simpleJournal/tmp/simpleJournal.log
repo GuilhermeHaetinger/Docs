@@ -1,14 +1,14 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2019/dev/Debian) (preloaded format=pdflatex 2019.5.21)  2 JUN 2019 15:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.19 (TeX Live 2019/dev/Debian) (preloaded format=pdflatex 2019.5.21)  3 JUN 2019 00:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **simpleJournal.tex
 (./simpleJournal.tex
 LaTeX2e <2018-12-01>
-(/usr/share/texlive/texmf-dist/tex/latex/base/book.cls
-Document Class: book 2018/09/03 v1.4i Standard LaTeX document class
-(/usr/share/texlive/texmf-dist/tex/latex/base/bk10.clo
-File: bk10.clo 2018/09/03 v1.4i Standard LaTeX file (size option)
+(/usr/share/texlive/texmf-dist/tex/latex/base/report.cls
+Document Class: report 2018/09/03 v1.4i Standard LaTeX document class
+(/usr/share/texlive/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2018/09/03 v1.4i Standard LaTeX file (size option)
 )
 \c@part=\count80
 \c@chapter=\count81
@@ -302,92 +302,57 @@ e
 File: example-image-1x1.pdf Graphic file (type pdf)
 <use example-image-1x1.pdf>
 Package pdftex.def Info: example-image-1x1.pdf  used on input line 11.
-(pdftex.def)             Requested size: 51.7479pt x 51.74654pt.
+(pdftex.def)             Requested size: 58.49762pt x 58.49782pt.
 
 [1
 
-
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} </usr/share/texlive/texmf-d
 ist/tex/latex/mwe/example-image-1x1.pdf>]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 31.
-
-(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
-File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 31.
-
 ! Undefined control sequence.
-\loggentry ... \textbf {#2}\newline \{\marginnote 
-                                                  {#1}\}\newline \\
+<recently read> \marginnote 
+                            
 l.31 \begin{loggentry}{2009-Oct-31}{Snow}
                                          
 ? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 31--34
-
- []
-
 ! Undefined control sequence.
-\loggentry ... \textbf {#2}\newline \{\marginnote 
-                                                  {#1}\}\newline \\
+<recently read> \marginnote 
+                            
 l.35 \begin{loggentry}{2010-Dez-31}{Water of Life}
                                                   
 ? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 35--38
-
- []
-
 ! Undefined control sequence.
-\loggentry ... \textbf {#2}\newline \{\marginnote 
-                                                  {#1}\}\newline \\
+<recently read> \marginnote 
+                            
 l.39 \begin{loggentry}{2011-Nov-15}{Cold}
                                          
 ? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 39--41
-
- []
-
-
-Underfull \vbox (badness 1590) has occurred while \output is active []
-
- [2]
+[1]
 ! Undefined control sequence.
-\loggentry ... \textbf {#2}\newline \{\marginnote 
-                                                  {#1}\}\newline \\
+<recently read> \marginnote 
+                            
 l.43 \begin{loggentry}{2012-Aug-24}{Sunrise}
                                             
 ? 
-
-Underfull \hbox (badness 10000) in paragraph at lines 43--45
-
- []
-
-[3] (./tmp//simpleJournal.aux) ) 
+[2] (./tmp//simpleJournal.aux) ) 
 Here is how much of TeX's memory you used:
- 11057 strings out of 492615
- 211848 string characters out of 6131390
- 501520 words of memory out of 5000000
- 14953 multiletter control sequences out of 15000+600000
- 535451 words of font info for 34 fonts, out of 8000000 for 9000
+ 11034 strings out of 492615
+ 211503 string characters out of 6131390
+ 501374 words of memory out of 5000000
+ 14935 multiletter control sequences out of 15000+600000
+ 535396 words of font info for 34 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,4n,63p,280b,317s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,5n,63p,280b,317s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-r10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb
-></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr
-/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/share
-/texmf/fonts/type1/public/lm/lmss17.pfb></usr/share/texmf/fonts/type1/public/lm
-/lmss8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pfb></usr/share/texmf
-/fonts/type1/public/lm/lmsy8.pfb>
-Output written on ./tmp//simpleJournal.pdf (3 pages, 112500 bytes).
+ic/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmcsc10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmt
+i12.pfb></usr/share/texmf/fonts/type1/public/lm/lmss17.pfb></usr/share/texmf/fo
+nts/type1/public/lm/lmss8.pfb></usr/share/texmf/fonts/type1/public/lm/lmsy10.pf
+b></usr/share/texmf/fonts/type1/public/lm/lmsy8.pfb>
+Output written on ./tmp//simpleJournal.pdf (3 pages, 84207 bytes).
 PDF statistics:
- 68 PDF objects out of 1000 (max. 8388607)
- 50 compressed objects within 1 object stream
+ 56 PDF objects out of 1000 (max. 8388607)
+ 41 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 
