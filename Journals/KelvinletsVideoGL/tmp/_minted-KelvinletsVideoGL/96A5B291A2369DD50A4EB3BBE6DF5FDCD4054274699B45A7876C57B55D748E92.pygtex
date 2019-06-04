@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+env \PYG{n+nv}{KELVIN}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}FATAL\PYGZdq{}}\PYG{p}{|}\PYG{l+s+s2}{\PYGZdq{}ERROR\PYGZdq{}}\PYG{p}{|}\PYG{l+s+s2}{\PYGZdq{}WARNING\PYGZdq{}}\PYG{p}{|}\PYG{l+s+s2}{\PYGZdq{}CORRECT\PYGZdq{}}\PYG{p}{|}\PYG{l+s+s2}{\PYGZdq{}DEBUG\PYGZdq{}} ./kelvin
+	
+\end{Verbatim}
