@@ -93,8 +93,38 @@ env KELVIN="FATAL"|"ERROR"|"WARNING"|"CORRECT"|"DEBUG" ./kelvin
 		Started with the simpler structures(Deformation, Point and Line). These classes should be working properly, so I will probably test them in the main function before implementing the others, which require more work.
 		\begin{itemize}
 				\item Deformation
+
+					Simple getters and setters.
+				
 				\item Point
+
+					Simple getters.			
+				
 				\item Line
+
+					This one took a little more time than it should. The main functionality for this class was the interpolation of values (color and position). What confused me was the approach that should bee used for this purpose. Firstly, I thought I should use the line between the two points to elaborate its equation and use it to find the \textit{xy} coordinates for the point that had the Z-axis correspondent to the frame index. That approach was mode complicated, since the 3D line equation is a little bit harder to find and to understand. The best approach ended up being the simple use of a linear interpolation value, as the following equation shows:
+
+					$$Z = t * Za + (1 - t) * Zb$$
+					$$X = t * Xa + (1 - t) * Xb$$
+					$$Y = t * Ya + (1 - t) * Yb$$
+					
+					Considering that we already know the value of Z, we can replace its value and find out the following: $t =  (Z - Za)/(Zb - Za)$, which is the reason between the distances.
+		\end{itemize}
+	
+		I ended up having to add more modules for the sake of organization and clean code. These are:
+
+		\begin{itemize}
+				\item VideoGL
+
+					This module is in charge of receiving the input video, setting up its frame's vertex array, color array and index array, initializing the rendering process and calling the RenderableFrames draw method to display the video. It will probably turn the VideoVisualizer obsolete (incorporated more than it was supposed to).
+
+				\item VideoWindow
+
+					The idea behind this component is to initialize and instantiate every variable RenderableFrames and VideoGL will need to render into the created window.
+
+				\item Proportions
+
+					This is not a module but a header. It was just a way I thought of keeping the \textit{width, height} and \textit{length} (the number of frames) altogether.
 		\end{itemize}
 
 	\end{loggentry}
