@@ -1,0 +1,23 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k+kt}{int} \PYG{n}{size} \PYG{o}{=} \PYG{n}{getNumberOfIndices}\PYG{p}{(}\PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{getWidth}\PYG{p}{(),} \PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{getHeight}\PYG{p}{());}
+\PYG{n}{GLuint} \PYG{o}{*} \PYG{n}{templateArray} \PYG{o}{=} \PYG{p}{(}\PYG{n}{GLuint} \PYG{o}{*}\PYG{p}{)} \PYG{n}{malloc}\PYG{p}{(}\PYG{n}{size} \PYG{o}{*} \PYG{k}{sizeof}\PYG{p}{(}\PYG{n}{GLuint}\PYG{p}{));}
+\PYG{k+kt}{int} \PYG{n}{counter} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
+
+\PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{y} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{y} \PYG{o}{\PYGZlt{}} \PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{getHeight}\PYG{p}{();} \PYG{n}{y}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
+	\PYG{c+c1}{//adds redundancy for 1st element on row}
+	\PYG{n}{templateArray}\PYG{p}{[}\PYG{n}{counter}\PYG{p}{]} \PYG{o}{=} \PYG{n}{y} \PYG{o}{*} \PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{getWidth}\PYG{p}{();}
+	\PYG{n}{counter}\PYG{o}{++}\PYG{p}{;}
+	\PYG{k}{for}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{x} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;} \PYG{n}{x} \PYG{o}{\PYGZlt{}} \PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{getWidth}\PYG{p}{();} \PYG{n}{x}\PYG{o}{++}\PYG{p}{)\PYGZob{}}
+		\PYG{c+c1}{//joins the vertex with its correspondent}
+		\PYG{c+c1}{//column\PYGZhy{}wise on the row below}
+		\PYG{k+kt}{int} \PYG{n}{columnOutset} \PYG{o}{=} \PYG{n}{y} \PYG{o}{*} \PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{getWidth}\PYG{p}{();}
+		\PYG{k+kt}{int} \PYG{n}{position} \PYG{o}{=} \PYG{n}{columnOutset} \PYG{o}{+} \PYG{n}{x}\PYG{p}{;}
+		\PYG{n}{templateArray}\PYG{p}{[}\PYG{n}{counter}\PYG{p}{]} \PYG{o}{=} \PYG{n}{position}\PYG{p}{;}
+		\PYG{n}{templateArray}\PYG{p}{[}\PYG{n}{counter}\PYG{o}{+}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{=} \PYG{n}{position} \PYG{o}{+} \PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{getWidth}\PYG{p}{();}
+		\PYG{n}{counter} \PYG{o}{+=} \PYG{l+m+mi}{2}\PYG{p}{;}
+	\PYG{p}{\PYGZcb{}}
+	\PYG{c+c1}{//adds redundancy for the last element in the row below}
+	\PYG{c+c1}{//(before heading to the beginning of the same row)}
+	\PYG{n}{templateArray}\PYG{p}{[}\PYG{n}{counter}\PYG{p}{]} \PYG{o}{=} \PYG{p}{(}\PYG{n}{y}\PYG{o}{+}\PYG{l+m+mi}{2}\PYG{p}{)} \PYG{o}{*} \PYG{k}{this}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n}{getWidth}\PYG{p}{()} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}
