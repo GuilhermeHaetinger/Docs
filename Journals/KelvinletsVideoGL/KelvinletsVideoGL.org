@@ -1,9 +1,6 @@
 #+attr_latex: :width 100px
-#+ATTR_HTML: width="%"
-#+caption: 
+#+ATTR_HTML: width="%" 
 [[file:res/inf.png]]
-
-
 #+TITLE: Kelvinlets Video Deformation
 #+AUTHOR: Guilherme Gomes Haetinger & Eduardo S. L. Gastal
 #+OPTIONS: num:nil
@@ -13,6 +10,7 @@
   
   #+ATTR_HTML: width="%"
   #+ATTR_LATEX: :width 200px
+  #+ATTR_ORG: :width 200/250/300/400/500/600 
   #+caption: Figure 1: 3D Interpolation with Prism projection. (A) is the first grid involving the frame (B), and (C) is the second one.
   [[file:res/interpolationExample.png]]
 
