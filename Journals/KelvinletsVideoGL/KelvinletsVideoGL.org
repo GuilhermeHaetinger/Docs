@@ -182,3 +182,11 @@ This is not a module but a header. It was just a way I thought of keeping the wi
      }
    #+END_SRC
  
+* Results for 2 step Interpolation and new Ideas <2019-07-19 sex>
+
+  Unfortunately, the 2 step Interpolation idea had a strong weakness. Considering that we would project a triangle mesh, some information could be lost by disconsidering some vertices effect on the projection (we considered lines as conductors of the interpolation). For this reason, we had to come up with new and efficient ideas for our problem: displaying each frame with changes in the time axis. Our most promising prospect ideas are drawing each point as a pixel and then use Delunay Triangulation to create rasterizeable triangles, and using any method found for Tetrahedron Slicing.
+
+  For the first one, I have to list all pixels for a single frame. To do that, I must create differently sized Buffers for each frame (there can be a great number of pixels in a frame and none in others). Considering that there we are using, for testing, a *640x368x160* sized video, we can estimate that, having $6 * size(GLFloats) + size(GLuint)$ for each one, we will end up using about *1GB* of RAM. We could maybe store only the pixels that have changed frames, which would save a lot of memory, but will be more complex, considering that we would have to search for pixels that have changed to a specific frame every frame drawing iteration, which, in the worst case scenario, would result in a complexity of /O(n²)/. We could use a hash table, but this is no time for optimization (I think).
+
+For the second one, seen as it is a more abstract method, we will have to search for available implementations or even geometrical equations for Tetrahedron Slicing. This would allow us to get, probably, the same result we had once we implemented the Video Deformation method in Julia, which had a great product but a terrible efficiency. We will be looking into the /CGAL/ library and every other material we can find.   
+  

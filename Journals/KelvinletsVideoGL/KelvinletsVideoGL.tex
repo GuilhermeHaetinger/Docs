@@ -1,4 +1,4 @@
-% Created 2019-07-17 qua 20:53
+% Created 2019-07-19 sex 17:41
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -32,7 +32,7 @@
 \end{center}
 
 \section*{New Idea for 3D Interpolation \textit{<2019-05-28 ter>}}
-\label{sec:org537f9bb}
+\label{sec:org7fef221}
 
 \begin{figure}[htbp]
 \centering
@@ -46,47 +46,47 @@ Based on the idea of interpolating 3D Cuboids on video frames, I wonder: are the
 interpolate, and scan convert the remaining pixels of the frame with the produced ones, as we would do in the KelvinletsImageGL code. I like to call this new method 2 step interpolation.
 
 \section*{Elaborating the Implementation for the 2 step Interpolation \textit{<2019-05-30 qui>}}
-\label{sec:orgada253a}
+\label{sec:org7a406bf}
 
 Having in mind the Professor’s advice to use a bin sort alike algorithm, the main goal is to set which lines collide with each of the frames. We do that by assigning each vertex from the frame having 2 points: one in each deformed frame. Based on that, we can establish the color and position of the vertices. Now, considering the order that the vertices must be processed, we should run them by the time axis, i.e. Interpolate the same pixel position for each frame before moving to another position.
 
 \section*{Project Structure \textit{<2019-06-01 sáb>}}
-\label{sec:org2d00353}
+\label{sec:org684b363}
 
 Creating the projects structure is a challenge. Separating a OpenGL application in modules is somewhat difficult because of the fact that many functions depend on predeclared variables, which means I need many arguments for a specific function. Therefore, I will, firstly, separate the needed functionalities in main components. These components are:
 
 \subsection*{Main}
-\label{sec:org2561a00}
+\label{sec:org86dc1f1}
 
 This module will only serve to process the user arguments set in argv and to call the other methods with these arguments.
 
 \subsection*{VideoDeformer}
-\label{sec:orgc57afe6}
+\label{sec:orgdacb84a}
 
 This module will be in charge of processing the arguments given by the Main modules in order to execute the Kelvinlets grab function in each vertex. It will produce a new set of vertex arrays for the ones in the video input (regularized vertices). This module will include the glm and the glfw3 library, since it will depend on the data structures involving linear algebra as well as the ones defined for OpenGL visualization.
 
 \subsubsection*{InterpolationFrame}
-\label{sec:orgbb92b15}
+\label{sec:org7daab31}
 
 This data structure should hold every line in charge of interpolating each vertex of the frame.
 
 \subsubsection*{Line}
-\label{sec:orgd313949}
+\label{sec:orga447dd6}
 
 This data structure should hold the information to interpolate a line in a given point in the time axis.
 
 \subsubsection*{Deformation}
-\label{sec:org4857a08}
+\label{sec:org3c9dc13}
 
 Abstraction of a deformation vector(initial position, final position and brush size).
 
 \subsubsection*{KelvinletsTransformer}
-\label{sec:org4127a96}
+\label{sec:org98ee25f}
 
 Class that provides the execution of the Kelvinlets equation.
 
 \subsection*{VideoVisualizer}
-\label{sec:orge520528}
+\label{sec:orgf832f9e}
 
 This module will be responsible for the video rendering, i.e. the communication of the program with the deformed video data and the graphic card. To do this, we must use the OpenGL library, for which we will need the vertices positions and colors, as well as the order in which they will be accounted for the triangle mesh rendering in the \textbf{TRIANGLE STRIP} method. We are supposed to import, for these reasons, \textbf{glfw3} and \textbf{glew} for the data structures and graphic card communication functions.
 
@@ -98,22 +98,22 @@ env KELVIN="FATAL" ./kelvin
 \end{verbatim}
 
 \section*{Implementing The Project \textit{<2019-06-04 ter>}}
-\label{sec:orgf9fc4fd}
+\label{sec:org6fbf67a}
 
 Started with the simpler structures(Deformation, Point and Line). These classes should be working properly, so I will probably test them in the main function before implementing the others, which require more work.
 
 \subsection*{Deformation}
-\label{sec:org40331d0}
+\label{sec:org0abbd57}
 
 Simple getters and setters.
 
 \subsection*{Point}
-\label{sec:org7b85c8d}
+\label{sec:orga2854bd}
 
 Simple getters.
 
 \subsection*{Line}
-\label{sec:orgeb6a943}
+\label{sec:org03d9984}
 
 This one took a little more time than it should. The main functionality for this class was the interpolation of values (color and position). What confused me was the approach that should bee used for this purpose. Firstly, I thought I should use the line between the two points to elaborate its equation and use it to find the xy coordinates for the point that had the Z-axis correspondent to the frame index. That approach was mode complicated, since the 3D line equation is a little bit harder to find and to understand. The best approach ended up being the simple use of a linear interpolation value, as the following equation shows:
 
@@ -127,30 +127,30 @@ I ended up having to add more modules for the sake of organization and
 clean code. These are:
 
 \subsection*{VideoGL}
-\label{sec:org2b57116}
+\label{sec:org50c0756}
 
 This module is in charge of receiving the input video, setting up its frame’s vertex array, color array and index array, initializing the rendering process and calling the RenderableFrames draw method to display the video. It will probably turn the VideoVisualizer obsolete (incorporated more than it was supposed to).
 
 \subsection*{VideoWindow}
-\label{sec:orgcc54c5c}
+\label{sec:org8e95088}
 
 The idea behind this component is to initialize and instantiate every variable RenderableFrames and VideoGL will need to render into the created window.
 
 \subsection*{Proportions}
-\label{sec:orgf386a90}
+\label{sec:org11d75ea}
 
 This is not a module but a header. It was just a way I thought of keeping the width, height and length (the number of frames) altogether.
 
 \section*{Implementing the Renderable Video Logic \textit{<2019-07-06 sáb>}}
-\label{sec:org90b5b0e}
+\label{sec:org4024322}
 
 Firstly, I decided to create 2 constructors for VideoGL: One that receives a video path and, thus, will create its own arrays from the video source; and one that will receive a RenderableFrame array and Proportions, which will, than initialize every component needed. This will be needed when 1.reading a video source and 2.turning the InterpolationFrames into renderable.
 
 \subsection*{Initializing the Arrays}
-\label{sec:org380ce99}
+\label{sec:orgf0d1d30}
 
 \subsubsection*{Vertex Array}
-\label{sec:org40908f0}
+\label{sec:org82f4b11}
 
 Initializing the vertex array is quite simple: We will need a 2-dimensional for, a variable to keep track of the axis (xy) and another to keep track of the array index. The result of this for will be used as a template for each RenderableFrame. Each one of these will have, now, the value of its z axis built in the class. The needed changes in the project will be necessary to view the video. The code goes like this:
 
@@ -171,7 +171,7 @@ for(int frame = 0; frame < this->getLength(); frame++)
 Where normalize takes a coordinate normal to the frame size domain and takes it into the OpenGL screen domain [-1; 1];
 
 \subsubsection*{Color Array}
-\label{sec:org575b032}
+\label{sec:org2a9f309}
 
 The basic differences between the creation of the vertex array and the color array is that we will need the video to take the color of its pixels, that there will be no template, since every array will be, probably, different and that the size of the array will be multiplied by 3 (RGB ) instead of 2 (xy). To implement the first difference, we will need the Video function to get each color channel, solely. The second difference will be a bit harder, since we will, now, have to create a 3-dimensional for and run through the video frames as we process the new arrays. We can do the second one by something like this:
 
@@ -194,7 +194,7 @@ GLfloat B = ((GLfloat) buff[index])/256;
 In this case, index is both the array’s and frame’s counter. They are both processed the same way.
 
 \subsubsection*{Index Array}
-\label{sec:org11b9f52}
+\label{sec:org4a07686}
 
 \begin{figure}[htbp]
 \centering
@@ -226,4 +226,13 @@ for(int y = 0; y < this->getHeight(); y++){
   templateArray[counter] = (y+2) * this->getWidth() - 1;
 }
 \end{verbatim}
+
+\section*{Results for 2 step Interpolation and new Ideas \textit{<2019-07-19 sex>}}
+\label{sec:org0758676}
+
+Unfortunately, the 2 step Interpolation idea had a strong weakness. Considering that we would project a triangle mesh, some information could be lost by disconsidering some vertices effect on the projection (we considered lines as conductors of the interpolation). For this reason, we had to come up with new and efficient ideas for our problem: displaying each frame with changes in the time axis. Our most promising prospect ideas are drawing each point as a pixel and then use Delunay Triangulation to create rasterizeable triangles, and using any method found for Tetrahedron Slicing.
+
+For the first one, I have to list all pixels for a single frame. To do that, I must create differently sized Buffers for each frame (there can be a great number of pixels in a frame and none in others). Considering that there we are using, for testing, a \textbf{640x368x160} sized video, we can estimate that, having \(6 * size(GLFloats) + size(GLuint)\) for each one, we will end up using about \textbf{1GB} of RAM. We could maybe store only the pixels that have changed frames, which would save a lot of memory, but will be more complex, considering that we would have to search for pixels that have changed to a specific frame every frame drawing iteration, which, in the worst case scenario, would result in a complexity of \emph{O(n²)}. We could use a hash table, but this is no time for optimization (I think).
+
+For the second one, seen as it is a more abstract method, we will have to search for available implementations or even geometrical equations for Tetrahedron Slicing. This would allow us to get, probably, the same result we had once we implemented the Video Deformation method in Julia, which had a great product but a terrible efficiency. We will be looking into the \emph{CGAL} library and every other material we can find.   
 \end{document}
