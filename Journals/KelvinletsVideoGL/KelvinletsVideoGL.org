@@ -189,4 +189,7 @@ This is not a module but a header. It was just a way I thought of keeping the wi
   For the first one, I have to list all pixels for a single frame. To do that, I must create differently sized Buffers for each frame (there can be a great number of pixels in a frame and none in others). Considering that there we are using, for testing, a *640x368x160* sized video, we can estimate that, having $6 * size(GLFloats) + size(GLuint)$ for each one, we will end up using about *1GB* of RAM. We could maybe store only the pixels that have changed frames, which would save a lot of memory, but will be more complex, considering that we would have to search for pixels that have changed to a specific frame every frame drawing iteration, which, in the worst case scenario, would result in a complexity of /O(n²)/. We could use a hash table, but this is no time for optimization (I think).
 
 For the second one, seen as it is a more abstract method, we will have to search for available implementations or even geometrical equations for Tetrahedron Slicing. This would allow us to get, probably, the same result we had once we implemented the Video Deformation method in Julia, which had a great product but a terrible efficiency. We will be looking into the /CGAL/ library and every other material we can find.   
-  
+ 
+* CGAL Support for mesh clipping 
+
+  Referring to this link: [[https://doc.cgal.org/latest/Polygon_mesh_processing/index.html]], we can start testing the function located in the section *3.5*: =CGAL::Polygon_mesh_processing::clip()=. Other options would be the Slicer and the Mesh Intersection. Should start testing the pixel approach and then start a new project to understand these CGAL functions behavior.
