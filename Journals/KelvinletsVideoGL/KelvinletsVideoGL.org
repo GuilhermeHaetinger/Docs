@@ -190,6 +190,19 @@ This is not a module but a header. It was just a way I thought of keeping the wi
 
 For the second one, seen as it is a more abstract method, we will have to search for available implementations or even geometrical equations for Tetrahedron Slicing. This would allow us to get, probably, the same result we had once we implemented the Video Deformation method in Julia, which had a great product but a terrible efficiency. We will be looking into the /CGAL/ library and every other material we can find.   
  
-* CGAL Support for mesh clipping 
+* CGAL Support for mesh clipping <2019-07-30 ter> 
 
   Referring to this link: [[https://doc.cgal.org/latest/Polygon_mesh_processing/index.html]], we can start testing the function located in the section *3.5*: =CGAL::Polygon_mesh_processing::clip()=. Other options would be the Slicer and the Mesh Intersection. Should start testing the pixel approach and then start a new project to understand these CGAL functions behavior.
+
+* Getting this thing to work <2019-08-02 sex>
+
+  Implementing the idea of rounding each deformed pixel to a frame in the time axis turned out to be a bad solution, for it throws away information. This is shown in the following image:
+
+  #+ATTR_HTML: width="%"
+  #+ATTR_LATEX: :width 300px
+  #+caption: Figure for the rounded method without corner retardation. 
+  [[file:res/roundResult.png]]
+
+  As you can see, there are, clearly, rough edges where there should be a smooth deformation. The triangulation would suffice if we only wanted to fill the black gaps in the video, but that is not our goal (we want to have a smooth image).
+
+  To actually do this properly, we will try to use the CGAL library Slicer to clip the tetrahedrons.
