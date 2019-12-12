@@ -1,0 +1,138 @@
+% Created 2019-11-15 Fri 15:02
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage[margin=0.5in]{geometry}
+\author{MATH 115 \\ UC Berkeley \\ Guilherme Gomes Haetinger}
+\date{\today}
+\title{Homework 10}
+\hypersetup{
+ pdfauthor={MATH 115 \\ UC Berkeley \\ Guilherme Gomes Haetinger},
+ pdftitle={Homework 10},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.0.50 (Org mode 9.2.6)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\begin{center}
+\line(1,0){250}
+\end{center}
+
+Please consider that I had 2 midterms subsequent to each other this week. Wasn't able to do all exercises to the greatest extent.
+
+\begin{center}
+\line(1,0){250}
+\end{center}
+
+\section*{5.2}
+\label{sec:orgd9e28ef}
+
+\subsection*{3) Suppose that the system of congruences (5.14) has a solution. Show that if q is prime then the number of solutions is a power of q.}
+\label{sec:orgad135fa}
+
+Once we reduce the system, we have \emph{n} basis for \emph{q}. This happens because \emph{q} is prime and the one-to-one correspondence between the diagonalized form and the system makes the number of solutions equivalent in both forms. So \# of solutions is \(q^n\).
+
+\subsection*{4) Let a and b be positive integers, and put g = g.c.d. (a, b), h = l.c.m.(a, b). Show that \(\begin{bmatrix}a & 0 \\ 0 & b\end{bmatrix} = \begin{bmatrix}g & 0 \\ 0 & h\end{bmatrix}\)}
+\label{sec:org041a5f9}
+
+We wish to find \emph{M} s.t. \(M^t\begin{bmatrix}a & 0 \\ 0 & b\end{bmatrix} = \begin{bmatrix}g & 0 \\ 0 & h \end{bmatrix}\). We know that \(\exists x,y, ax + by = g \to \frac{ax}{g} + \frac{by}{g} = 1\). Considering that \emph{M} has to be modular, we can have it equal \(\begin{bmatrix}x & y \\ \frac{-b}{g} & \frac{a}{g}\end{bmatrix}\). This way, not only our statement is true, but \(det(M) = 1\).
+
+\begin{center}
+\line(1,0){250}
+\end{center}
+
+\section*{5.3}
+\label{sec:orgd0f3f00}
+
+\subsection*{2) Prove that if x, y, z is a Pythagorean triple then at least one of x, y is divisible by 3, and that at least one of x, y, z is divisible by 5.}
+\label{sec:org7a1c672}
+
+If \(3\not|rs\), then \(r \equiv 1\) or \(2 \mod 3\) and \(s \equiv 1\) or \(2 \mod 3\). Now, either value makes \(x = r² - s² \equiv 0 \mod 3\). If \(3|rs\) (divides either one), \(3|2y\).
+Following the same idea, we have that, if \(5\not|rs\), then \(r, s \equiv 1, 2, 3, 4 \mod 5\). If they are equal to the same number, then, trivially, \(5|x\). If not, they create a combination of 4s and 1s that always end up proving either \(5|x\) (4 - 4, 1 - 1) or \(5|z\) (4 + 1).
+
+\subsection*{3) Find all Pythagorean triples whose terms form (a) an arithmetic progression, (b) a geometric progression.}
+\label{sec:org73937b2}
+For an Arithmetic Progression we have the following cases:
+\begin{itemize}
+\item x < y:
+
+\(x = r² - s², y = 2rs = r² + s² + w, z = r² + s² = 2rs + w = r² - s² + 2w\). This proves that \(w = s²\). Following that, we have \(y = r² = 2rs \to s = \frac{\sqrt{y}}{2}\). By the end, we have:
+\end{itemize}
+
+\begin{eqnarray}
+x = y - \frac{y}{4} \\
+y = y \\
+z = \frac{5y}{4}
+\end{eqnarrayy}
+
+\begin{itemize}
+\item x > y
+
+Doing the same process as before, we have \(w = 2s²\). \(r² - s² - 2rs = r² + s² - (r² - s²) = 2s²\). This leaves us with \(r² = 2s² + 2rs + s² = s(2s + 2r + s) = 3s² + 2rs \to y = r² - 3s² \to r² = 3s² + 2rs\). The solutions mus meet these conditions.
+\end{itemize}
+
+For the Geometric progression, we have that, for either order \emph{x, y} we have the following sequence \(a, ar, ar²\). This way, we know \(a²r⁴ = a² + a²r² \to r⁴ = r - 1\). This is the condition that we seek to meet.
+
+\subsection*{7) For which integers n are there solutions to the equation \(x²- y² = n\)?}
+\label{sec:org13b6105}
+
+Wasn't able to do.
+
+\subsection*{8) If \emph{n} is any integer \(\ge 3\), show that there is a Pythagorean triple with n as one of its members.}
+\label{sec:org340bc63}
+
+Assume \emph{a} is even and that \(r = \frac{a}{2}, s = 1, y = a\). If \(a = 2\), we have \(r = s\), which is not possible, so \(a \ne 2\). For \emph{a} is odd, we have \(r = \frac{a+1}{2}, s = \frac{a-1}{2}, x = (r+s)(r-s) = a\), so \(a \ne 1\) because if it was, \(s = 0\).
+
+\subsection*{13) Show that all solutions of \(x² + 2y² = z²\) in positive integers with \((x, y, z) = 1\) are given by \(x = |r² - 2s²|\), y = 2rs, z = r² + 2s² where r and s are arbitrary positive integers such that r is odd and \((r, s) = 1\).}
+\label{sec:org51609ca}
+
+Assume x and z are even and that \(2y² = (z-x)(z+x)\). Considering that \emph{y} must be odd, otherwise (x, y, z) \(\ne 1\). If x and z are odd, \(z²,x² \equiv 1 \mod 4\), letting y be even.
+Now, \((x,z) \ne 1 \to (x², z²) = g \ne 1 \to g|2y² \to g|y²\), which contradicts with thee fact that (x,y,z) = 1.
+Let's say y is even. \(y = 2a, 2y² = z² - x² \to 8a² = z² - x²\). We now know that either \(a² = \frac{z-x}{4}\frac{z+x}{2}\) or \(\frac{z+x}{4}\frac{z-x}{2}\). Considering that \(4|z-x \to 4|(\frac{z-x}{2},\frac{z+x}{4})\).
+\(\frac{z-x}{2}=a², \frac{z+x}{4} = b² \to z = a²+2b², x = 2b² - a², y = 2ab\).
+\(\frac{z-x}{4}=a², \frac{z+x}{2} = b² \to x = a² - 2b²\) (the rest is the same). If the 1st set of equations happens, \emph{a} is even and we have \(4|z-x,z+x\), which isn't possible with x and z odd. If the second set happens, \emph{a} is odd and the gcd of the fractions is and (a,b) is 1.
+
+The only possible solutions are given by \(z = a² + 2b², y = 2ab, x = |a² - 2b²|\).
+
+\subsection*{15) Prove that no Pythagorean triple of integers belongs to an isosceles right triangle, but that there are infinitely many primitive Pythagorean triples for which the acute angles of the corresponding triangles are, for any given positive \(\epsilon\), within e of \(\pi/4\).}
+\label{sec:org6cec1e3}
+
+Having the angle \(~\pi/4\), we have that the tangent \(\frac{r² - s²}{2rs} ~ 1 \to = \frac{1}{2}\frac{r}{s} - \frac{1}{2}\frac{s}{r} = 1\). So \(t = \frac{r}{s} \to \frac{r}{2} - \frac{1}{2}\frac{1}{t} = 1 \to t² - 2t - 1 = 0 \to t = \frac{2 \pm \sqrt8}{2} = 1 + \sqrt2\), because \emph{t} can't be negative. Now, we say \(s = n, r = \[n(1+\sqrt2)\] \to \frac{r}{s}~1 + \sqrt2 + \frac{1}{n}\). Now, if \(n \to \infty, \frac{r}{s} \to \infty\), angle \(\to \pi/4\).
+
+\begin{center}
+\line(1,0){250}
+\end{center}
+
+\section*{5.4}
+\label{sec:orgeee8005}
+
+\subsection*{1) Show that the equation \(x² + y² = 9z + 3\) has no integral solution.}
+\label{sec:orgf8043da}
+
+We know that \(x² + y² \equiv 3 \mod 9\). Now, for the possible values of \emph{x} or \emph{y}, we have \(x², y² \equiv 0, 1, 4, 9 \equiv 0, 16 \equiv 7, 25 \equiv 7, 36 \equiv 0, 49 \equiv 4, 64 \equiv 1 \mod 9\). No possible sum equals to 3. Therefore there is no solution.
+
+\subsection*{2) Show that the equation \(x² + 2y² = 8z + 5\) has no integral solution.}
+\label{sec:org0b9cb61}
+
+We know that \(x² + 2y² \equiv 5 \mod 8\). The possible values for \emph{x} are \(x² \equiv 0, 1, 4, 9 \equiv 1, 16 \equiv 0, 25 \equiv 1, 36 \equiv 4, 49 \equiv 1 \mod 8\) and, for \emph{y}, \(2y² \equiv 0, 2 \mod 8\). Therefore, there are no possible sum equal 5 and no solutions.
+
+\subsection*{4) Show that if x, y, z are integers such that \(x² + y² + z² = 2xyz\), then \(x = y = z = 0\).}
+\label{sec:org9d707d0}
+
+We can say: \(x², y², z² \equiv 0,1 \mod 4\) and \(2xyz \equiv 0, 2 \mod 4\). If \(x² + y² + z² \equiv 2 \mod 4\) (one of them is even and the other aren't), then \(2xyz \equiv 0 \mod 4 \to x² + y² + z² \equiv 0 \mod4\). Then all must be even. Let's assume that none are 0 and that there is one that is odd. Let's also assume that \(2^k\) is the largest power of 2 that divides x, y, and z. Thus \(x = 2^ka, y = 2^kb, z=2^kc \to 2^{2k}a² + 2^{2k}b² + 2^{2k} = 2*2^{3k}abc \to a² + b² + c² = 2^{k+1}abc\). Since \(k\ge1\), we have \(2^{k+1}\equiv 0 \equiv a² + b² + c² \mod 4\), meaning none are odd, which contradicts to the assumption and makes the only possible solution \(x = y = z = 0\).
+\end{document}

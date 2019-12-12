@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{data} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{read.csv}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}titanic3.csv\PYGZdq{}}\PYG{p}{)}
+\PYG{n}{data}
+\end{Verbatim}

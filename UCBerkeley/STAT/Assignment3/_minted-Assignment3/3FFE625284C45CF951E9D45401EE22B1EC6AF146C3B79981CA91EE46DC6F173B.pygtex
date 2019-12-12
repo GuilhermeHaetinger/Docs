@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{library}\PYG{p}{(}\PYG{n}{VennDiagram}\PYG{p}{)}
+\PYG{n+nf}{draw.triple.venn}\PYG{p}{(}\PYG{n}{area1} \PYG{o}{=} \PYG{l+m}{35}\PYG{p}{,} \PYG{n}{area2} \PYG{o}{=} \PYG{l+m}{23}\PYG{p}{,} \PYG{n}{n12} \PYG{o}{=} \PYG{l+m}{11}\PYG{p}{)}
+\end{Verbatim}

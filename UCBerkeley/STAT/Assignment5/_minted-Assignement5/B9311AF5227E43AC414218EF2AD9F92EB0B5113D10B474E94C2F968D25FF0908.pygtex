@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{survivorsData} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n}{data} \PYG{o}{\PYGZpc{}\PYGZgt{}\PYGZpc{}}
+      \PYG{n+nf}{group\PYGZus{}by}\PYG{p}{(}\PYG{n}{sex}\PYG{p}{)} \PYG{o}{\PYGZpc{}\PYGZgt{}\PYGZpc{}}
+      \PYG{n+nf}{summarize}\PYG{p}{(}\PYG{n}{meanSurvivors} \PYG{o}{=} \PYG{n+nf}{mean}\PYG{p}{(}\PYG{n}{survived}\PYG{p}{))}
+
+\PYG{n}{survivorsData} \PYG{o}{\PYGZpc{}\PYGZgt{}\PYGZpc{}}
+      \PYG{n+nf}{ggplot}\PYG{p}{(}\PYG{n+nf}{aes}\PYG{p}{(}\PYG{n}{sex}\PYG{p}{,} \PYG{n}{meanSurvivors}\PYG{p}{,} \PYG{n}{fill} \PYG{o}{=} \PYG{l+s}{\PYGZdq{}orange\PYGZdq{}}\PYG{p}{))} \PYG{o}{+}
+      \PYG{n+nf}{geom\PYGZus{}bar}\PYG{p}{(}\PYG{n}{stat}\PYG{o}{=}\PYG{l+s}{\PYGZdq{}identity\PYGZdq{}}\PYG{p}{)} \PYG{o}{+}
+      \PYG{n+nf}{guides}\PYG{p}{(}\PYG{n}{fill}\PYG{o}{=}\PYG{k+kc}{FALSE}\PYG{p}{)}
+\end{Verbatim}

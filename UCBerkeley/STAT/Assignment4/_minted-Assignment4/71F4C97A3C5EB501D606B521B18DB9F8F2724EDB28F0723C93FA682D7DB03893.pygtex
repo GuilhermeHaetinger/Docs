@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{normal\PYGZus{}4} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{data.frame}\PYG{p}{(}\PYG{n}{value} \PYG{o}{=} \PYG{n}{normal}\PYG{p}{)}
+\PYG{n}{normal\PYGZus{}4}\PYG{o}{\PYGZdl{}}\PYG{n}{mod2} \PYG{o}{=} \PYG{n}{value} \PYG{o}{\PYGZlt{}} \PYG{l+m}{\PYGZhy{}2} \PYG{o}{|} \PYG{n}{value} \PYG{o}{\PYGZgt{}} \PYG{l+m}{2}
+\PYG{n+nf}{ggplot}\PYG{p}{(}\PYG{n}{normal\PYGZus{}4}\PYG{p}{,} \PYG{n+nf}{aes}\PYG{p}{(}\PYG{n}{value}\PYG{p}{,} \PYG{n}{fill} \PYG{o}{=} \PYG{n}{mod2}\PYG{p}{))} \PYG{o}{+} \PYG{n+nf}{geom\PYGZus{}histogram}\PYG{p}{()}
+\end{Verbatim}

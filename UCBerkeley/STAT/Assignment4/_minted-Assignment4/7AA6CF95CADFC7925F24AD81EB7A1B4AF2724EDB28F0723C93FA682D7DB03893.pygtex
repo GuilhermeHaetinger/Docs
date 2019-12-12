@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{dbinom}\PYG{p}{(}\PYG{l+m}{97}\PYG{p}{,} \PYG{l+m}{100}\PYG{p}{,} \PYG{l+m}{.9}\PYG{p}{)}
+\end{Verbatim}

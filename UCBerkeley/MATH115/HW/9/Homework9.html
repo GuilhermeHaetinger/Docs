@@ -1,0 +1,1132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2019-11-06 Wed 18:43 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Homework 9</title>
+<meta name="generator" content="Org mode" />
+<meta name="author" content="Guilherme Gomes Haetinger" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { width: 90%; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2019 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        displayAlign: "center",
+        displayIndent: "0em",
+
+        "HTML-CSS": { scale: 100,
+                        linebreaks: { automatic: "false" },
+                        webFont: "TeX"
+                       },
+        SVG: {scale: 100,
+              linebreaks: { automatic: "false" },
+              font: "TeX"},
+        NativeMML: {scale: 100},
+        TeX: { equationNumbers: {autoNumber: "AMS"},
+               MultLineWidth: "85%",
+               TagSide: "right",
+               TagIndent: ".8em"
+             }
+});
+</script>
+<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_HTML"></script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">Homework 9</h1>
+
+<div id="outline-container-org2492f72" class="outline-2">
+<h2 id="org2492f72">4.5</h2>
+<div class="outline-text-2" id="text-org2492f72">
+</div>
+<div id="outline-container-orge239f63" class="outline-4">
+<h4 id="orge239f63">1) Given any <i>m</i> integers none of which is a multiple of <i>m</i>, prove that two can be selected whose difference is a multiple of <i>m</i>.</h4>
+<div class="outline-text-4" id="text-orge239f63">
+<p>
+Considering that, out of the <i>m</i> integers that aren't multiple to <i>m</i>, two of them must be of the same \(\mod m\), we say that 
+</p>
+
+\begin{eqnarray}
+ x \equiv n \mod m \\
+ y \equiv n \mod m 
+\end{eqnarray}
+
+<p>
+This happens because of the <i>pigeonhole</i> principle, since there are only \(m-1\) residue possibilities different than 0 and <i>m</i> integers that should fit in them. This way, we know that one residue must repeat and, concluding, from (1) and (2), \(x - y = mk + n - (mw + n) = mk - mw = m(k - w)\), which is a multiple of <i>m</i>.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org677e4cb" class="outline-4">
+<h4 id="org677e4cb">2) If <i>S</i> is any set of \(n + 1\) integers selected from \(1, 2, 3, · · ·, 2n + 1\), prove that <i>S</i> contains two relatively prime integers. Prove that the result does not hold if <i>S</i> contains only <i>n</i> integers.</h4>
+<div class="outline-text-4" id="text-org677e4cb">
+<p>
+Considering that two subsequent numbers are always relatively prime to each other, we know that, if you take \(n-1\) numbers out of a set of \(2n + 1\) numbers, we know that there will be at least 2 numbers in sequence, i.e. co-prime. This happens due to the pigeonhole principle, which, in this case, for it to not have any subsequent numbers, we have \(\frac{2n+1}{2}\) holes and \(n+1\) entries. Since \(n+1 > \frac{2n+1}{2}\), one of the numbers must be placed in a subsequent position.
+</p>
+
+<p>
+The same thing explains why this doesn't happen when we pick <i>n</i> numbers, because \(n < \frac{2n+1}{2}\). 
+</p>
+</div>
+</div>
+
+<div id="outline-container-org738f1b3" class="outline-4">
+<h4 id="org738f1b3">5) Given any integers <i>a</i>, <i>b</i>, <i>c</i> and any prime <i>p</i> not a divisor of <i>ab</i>, prove that \(ax² + by² \equiv c \mod p\) is solvable.</h4>
+<div class="outline-text-4" id="text-org738f1b3">
+<p>
+If <i>p</i> is even, \(p = 2\). This way, we will always have solutions for \(x² + y² \equiv c \mod 2\), <i>c</i> being either <i>0</i> or <i>1</i>.
+</p>
+
+<p>
+If <i>p</i> is odd, we know that there are \(\frac{p-1}{2}\) quadratic residues <i>modulus p</i>. Considering that \((a, p) = 1\), we know that \(ax²\) ranges from \(\frac{p-1}{2} + 1 = \frac{p+1}{2}\) residues <i>modulus p</i>. Similarly, we have the same for \(by²\) and to \(c - by²\). Therefore, we need \(\exists x_0, y_0 \to ax_0² \equiv c - by_0² \mod p\), otherwise we would have \(2*\frac{p+1}{2} = p+1 > p\), which contradicts the fact that <i>p</i> has \(p-1\) possible residues.
+</p>
+</div>
+</div>
+
+<div id="outline-container-org35e8c73" class="outline-4">
+<h4 id="org35e8c73">15) Let <i>n</i> be a positive integer having exactly three distinct prime factors <i>p</i>, <i>q</i> and <i>r</i>. Find a formula for the number of positive integers \(\le\) <i>n</i> that are divisible by none of <i>pq</i>, <i>pr</i>, or <i>qr</i>.</h4>
+<div class="outline-text-4" id="text-org35e8c73">
+<p>
+This is a set problem. We have the sets of numbers that are divisible by <i>p</i>, <i>q</i> and <i>r</i>, we have the set of numbers that are less or equal to <i>n</i> and we want to find the the sets of numbers that aren't divisible by any permutation of these. For that, we have
+</p>
+
+\begin{eqnarray}
+  &S = \{x, x \le n\} \\
+  &P = \{x, x \in S, p|x\} \\
+  &Q = \{x, x \in S, q|x\} \\
+  &R = \{x, x \in S, r|x\} \\
+  &x = S - (P \cap Q) - (P \cap R) - (Q \cap R) + 2 * (P \cap Q \cap R)
+\end{eqnarray}
+
+<p>
+We have to subtract from the greater set the intersection between the multiples of each prime and then add 2 times the intersection of all the three primes, since it's being subtracted 3 times and we only want it to be once.
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-org90086ff" class="outline-2">
+<h2 id="org90086ff">5.1</h2>
+<div class="outline-text-2" id="text-org90086ff">
+</div>
+<div id="outline-container-org1b0c5d7" class="outline-4">
+<h4 id="org1b0c5d7">4 Find the solutions in positive integers for</h4>
+<div class="outline-text-4" id="text-org1b0c5d7">
+</div>
+<ul class="org-ul">
+<li><a id="org94961c6"></a>\(5x + 3y = 52\)<br />
+<div class="outline-text-5" id="text-org94961c6">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-right">5</td>
+<td class="org-right">3</td>
+<td class="org-right">52</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">2</td>
+<td class="org-right">3</td>
+<td class="org-right">52</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">2</td>
+<td class="org-right">1</td>
+<td class="org-right">52</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">0</td>
+<td class="org-right">1</td>
+<td class="org-right">52</td>
+</tr>
+
+<tr>
+<td class="org-right">1</td>
+<td class="org-right">0</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">→</td>
+<td class="org-right">1</td>
+<td class="org-right">0</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">→</td>
+<td class="org-right">1</td>
+<td class="org-right">-1</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">→</td>
+<td class="org-right">3</td>
+<td class="org-right">-1</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">0</td>
+<td class="org-right">1</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">-1</td>
+<td class="org-right">1</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">-1</td>
+<td class="org-right">2</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">-5</td>
+<td class="org-right">2</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+
+<p>
+\setcounter{equation}{0}
+</p>
+\begin{eqnarray}
+  &v = 52 \\ 
+  &x = 3u - v = 3u - 52 \\
+  &y = -5u + 2v = -5u + 104 \\
+  &u = t + 17 \\ 
+  &x = 3t - 1 \\
+  &y = -5t + 19
+\end{eqnarray}
+</div>
+</li>
+
+<li><a id="org040226b"></a>\(15x + 7y = 111\)<br />
+<div class="outline-text-5" id="text-org040226b">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-right">15</td>
+<td class="org-right">7</td>
+<td class="org-right">111</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">1</td>
+<td class="org-right">7</td>
+<td class="org-right">111</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">1</td>
+<td class="org-right">0</td>
+<td class="org-right">111</td>
+</tr>
+
+<tr>
+<td class="org-right">1</td>
+<td class="org-right">0</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">→</td>
+<td class="org-right">1</td>
+<td class="org-right">0</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">→</td>
+<td class="org-right">1</td>
+<td class="org-right">-7</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">0</td>
+<td class="org-right">1</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">-2</td>
+<td class="org-right">1</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">-2</td>
+<td class="org-right">15</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>
+\setcounter{equation}{0}
+</p>
+\begin{eqnarray}
+  &u = 111 \\ 
+  &x = u - 7v = 111 - 7v \\
+  &y = -2u + 15v = -222 + 15v \\
+  &v = t + 14 \\ 
+  &x = 13 - 7t \\
+  &y = 15t - 12
+\end{eqnarray}
+</div>
+</li>
+
+<li><a id="orgc39ed7e"></a>\(12x + 50y = 1\)<br />
+<div class="outline-text-5" id="text-orgc39ed7e">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-right">12</td>
+<td class="org-right">50</td>
+<td class="org-right">1</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">12</td>
+<td class="org-right">2</td>
+<td class="org-right">1</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">0</td>
+<td class="org-right">2</td>
+<td class="org-right">1</td>
+</tr>
+
+<tr>
+<td class="org-right">1</td>
+<td class="org-right">0</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">→</td>
+<td class="org-right">1</td>
+<td class="org-right">-4</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">→</td>
+<td class="org-right">25</td>
+<td class="org-right">-4</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">0</td>
+<td class="org-right">1</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">0</td>
+<td class="org-right">1</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">-6</td>
+<td class="org-right">1</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>
+\setcounter{equation}{0}
+</p>
+\begin{eqnarray}
+  &v = 0.5 \\ 
+  &x = 25u - 4v = 25u - 2 \\
+  &y = -6u + v = -6u + 0.5 
+\end{eqnarray}
+</div>
+</li>
+
+<li><a id="org9c58021"></a>\(97x + 98y = 1000\)<br />
+<div class="outline-text-5" id="text-org9c58021">
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-right">97</td>
+<td class="org-right">98</td>
+<td class="org-right">1000</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">97</td>
+<td class="org-right">1</td>
+<td class="org-right">1000</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">0</td>
+<td class="org-right">1</td>
+<td class="org-right">1000</td>
+</tr>
+
+<tr>
+<td class="org-right">1</td>
+<td class="org-right">0</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">→</td>
+<td class="org-right">1</td>
+<td class="org-right">-1</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">→</td>
+<td class="org-right">98</td>
+<td class="org-right">-1</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">0</td>
+<td class="org-right">1</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">0</td>
+<td class="org-right">1</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">-97</td>
+<td class="org-right">1</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>
+\setcounter{equation}{0}
+</p>
+\begin{eqnarray}
+  &v = 1000 \\ 
+  &x = 98u - v = 98u - 1000 \\
+  &y = -97u + v = -97u + 1000 \\
+  &u = t + 10 \\ 
+  &x = 98t - 20 \\
+  &y = -97t + 30
+\end{eqnarray}
+</div>
+</li>
+</ul>
+</div>
+
+<div id="outline-container-org0796c0a" class="outline-4">
+<h4 id="org0796c0a">8) If \(ax + by = c\) is solvable, prove that it has a solution \(x_0\), \(y_0\) with \(0 \le x_0 < |b|\).</h4>
+<div class="outline-text-4" id="text-org0796c0a">
+<p>
+We know, by <i>Theorem 5.1</i>, that all solutions are of the form \(\{x_0 + k\frac{b}{g}, y_0 - k\frac{a}{g}\}\). Thus we can say that, because \(|\frac{b}{g}| \le |b|\), there is such a \(x_0\).
+</p>
+</div>
+</div>
+
+<div id="outline-container-org3409ab1" class="outline-4">
+<h4 id="org3409ab1">16) Let <i>a</i> and <i>b</i> be positive integers with <i>g.c.d.(a, b)</i> = 1. Let <i>S</i> denote the set of all integers that may be expressed in the form \(ax + by\) where <i>x</i> and <i>y</i> are non-negative integers. Show that \(c = ab - a - b\) is not a member of <i>S</i>, but that every integer larger than <i>c</i> is a member of <i>S</i>.</h4>
+<div class="outline-text-4" id="text-org3409ab1">
+<p>
+Knowing that \(ax + by = c = ab - a - c\), we can express \(x_0 = -1, y_0 = a-1\), making, in this case, all solutions represented by \(\{kb - 1, a - 1 - ka\}\). Thus, <i>c</i> will never have positive coefficients, whichever side <i>k</i> grows to.
+</p>
+
+<p>
+Let \(d > c = ab - a - b \to d \ge ab - a - b + 1\). By question #8, we know that there is a solution to \(ax + by = d\) with \(0 \le x_0 < b \to 0 \le x_0 \le b - 1\). We want to show that there is a \(y_0 \ge 0\).
+</p>
+
+<p>
+\setcounter{equation}{0}
+</p>
+
+\begin{eqnarray}
+ &0 \le x_0 \le b-1 \\
+ &0 \le ax_0 \le ab - a \\
+ &\frac{d-(ab-a)}{b} \le \frac{d-ax_0}{b} \le \frac{d}{b} \\
+ &\frac{d-(ab-a)}{b} \ge \frac{(ab - a - b + 1)-(ab-a)}{b} = \frac{-b+1}{b} = -1 + \frac{1}{b} > -1
+\end{eqnarray}
+
+<p>
+We can see that the second element of the inequality (3) is equal to \(y_0\). Thus we know that \(y_0 > -1\) and, since \(y_0 \in \mathbb{Z}\), we know that \(y_0 \ge 0\) and, hence, that <i>d</i> is a part of <i>S</i>.
+</p>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-orgceb4732" class="outline-2">
+<h2 id="orgceb4732">5.2</h2>
+<div class="outline-text-2" id="text-orgceb4732">
+</div>
+<div id="outline-container-org0fc5f6c" class="outline-3">
+<h3 id="org0fc5f6c">1) Find all solutions in integers of the system of equations</h3>
+<div class="outline-text-3" id="text-org0fc5f6c">
+\begin{align*}
+ x_1 + x_2 + 4x_3 + 2x_4 &= 5 \\
+ -3x_1 -x_2 -6x_4 &=3 \\
+ -x_1 - x_2 +2x_3 - 2x_4 &=1
+\end{align*}
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-right">1</td>
+<td class="org-right">1</td>
+<td class="org-right">4</td>
+<td class="org-right">2</td>
+<td class="org-right">5</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">1</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">5</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">1</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">5</td>
+</tr>
+
+<tr>
+<td class="org-right">-3</td>
+<td class="org-right">-1</td>
+<td class="org-right">0</td>
+<td class="org-right">-6</td>
+<td class="org-right">3</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">-3</td>
+<td class="org-right">2</td>
+<td class="org-right">12</td>
+<td class="org-right">0</td>
+<td class="org-right">3</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">-3</td>
+<td class="org-right">2</td>
+<td class="org-right">12</td>
+<td class="org-right">0</td>
+<td class="org-right">3</td>
+</tr>
+
+<tr>
+<td class="org-right">-1</td>
+<td class="org-right">-1</td>
+<td class="org-right">2</td>
+<td class="org-right">-2</td>
+<td class="org-right">1</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">-1</td>
+<td class="org-right">0</td>
+<td class="org-right">6</td>
+<td class="org-right">0</td>
+<td class="org-right">1</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">6</td>
+<td class="org-right">0</td>
+<td class="org-right">6</td>
+</tr>
+
+<tr>
+<td class="org-right">1</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">→</td>
+<td class="org-right">1</td>
+<td class="org-right">-1</td>
+<td class="org-right">-4</td>
+<td class="org-right">-2</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">→</td>
+<td class="org-right">1</td>
+<td class="org-right">-1</td>
+<td class="org-right">-4</td>
+<td class="org-right">-2</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">0</td>
+<td class="org-right">1</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">0</td>
+<td class="org-right">1</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">0</td>
+<td class="org-right">1</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">1</td>
+<td class="org-right">0</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">1</td>
+<td class="org-right">0</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">1</td>
+<td class="org-right">0</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">1</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">1</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">1</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-left" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<tbody>
+<tr>
+<td class="org-right">1</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">5</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">1</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">5</td>
+</tr>
+
+<tr>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">6</td>
+<td class="org-right">0</td>
+<td class="org-right">6</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">0</td>
+<td class="org-right">2</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">8</td>
+</tr>
+
+<tr>
+<td class="org-right">-2</td>
+<td class="org-right">2</td>
+<td class="org-right">12</td>
+<td class="org-right">0</td>
+<td class="org-right">8</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">6</td>
+<td class="org-right">0</td>
+<td class="org-right">6</td>
+</tr>
+
+<tr>
+<td class="org-right">1</td>
+<td class="org-right">-1</td>
+<td class="org-right">-4</td>
+<td class="org-right">-2</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">→</td>
+<td class="org-right">0</td>
+<td class="org-right">-1</td>
+<td class="org-right">2</td>
+<td class="org-right">-2</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">0</td>
+<td class="org-right">1</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">1</td>
+<td class="org-right">1</td>
+<td class="org-right">-6</td>
+<td class="org-right">0</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">1</td>
+<td class="org-right">0</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">1</td>
+<td class="org-right">0</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+
+<tr>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">1</td>
+<td class="org-right">&#xa0;</td>
+<td class="org-left">&#xa0;</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">0</td>
+<td class="org-right">1</td>
+<td class="org-right">&#xa0;</td>
+</tr>
+</tbody>
+</table>
+
+
+<p>
+Now we have:
+</p>
+
+<p>
+\setcounter{equation}{0}
+</p>
+\begin{eqnarray}
+ u =& 5 \\
+ 2v = 8 \to v =& 4\\
+ 6w = 6 \to w =& 1\\
+ x_1 =& -v + 2w - 2t = -2 -2t \\
+ x_2 =& u + v - 6w = 3\\
+ x_3 =& w = 1 \\
+ x_4 =& t
+\end{eqnarray}
+
+<div class="org-src-container">
+<pre class="src src-R">u = <span style="color: #ff5555; font-weight: bold;">5</span>
+v = <span style="color: #ff5555; font-weight: bold;">4</span>
+w = <span style="color: #ff5555; font-weight: bold;">1</span>
+t = <span style="color: #ff5555; font-weight: bold;">1</span>
+x = -v + <span style="color: #ff5555; font-weight: bold;">2</span>*w - <span style="color: #ff5555; font-weight: bold;">2</span>*t
+y = u + v - <span style="color: #ff5555; font-weight: bold;">6</span>*w
+z = w
+k = t
+
+print<span style="color: #61bfff;">(</span>x + y + <span style="color: #ff5555; font-weight: bold;">4</span>*z + <span style="color: #ff5555; font-weight: bold;">2</span>*k<span style="color: #61bfff;">)</span>
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: Guilherme Gomes Haetinger</p>
+<p class="date">Created: 2019-11-06 Wed 18:43</p>
+</div>
+</body>
+</html>

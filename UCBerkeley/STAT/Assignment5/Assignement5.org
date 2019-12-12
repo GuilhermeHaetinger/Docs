@@ -1,0 +1,121 @@
+#+TITLE: Assignment 5
+#+AUTHOR: Guilherme Gomes Haetinger
+#+OPTIONS: toc:nil
+#+LATEX_HEADER: \usepackage[margin=0.75in]{geometry}
+#+LATEX_HEADER: \renewcommand{\familydefault}{\sfdefault}
+#+LATEX_HEADER: \usepackage{xcolor}
+#+LATEX_HEADER: \usepackage{fancyhdr}
+#+LATEX_HEADER: \pagestyle{fancyplain}
+#+LATEX_HEADER: \chead{Assignment 4 - Practical Statistics with R}
+#+LATEX_HEADER: \lhead{Guilherme G. Haetinger}
+#+LATEX_HEADER: \rhead{Fall 2019}
+#+LATEX_HEADER: \usemintedstyle{friendly}
+
+#+BEGIN_SRC R :session :exports none
+library(ggplot2)
+library(tidyverse)
+library(infer)
+#+END_SRC
+
+
+\thispagestyle{empty}
+
+
+* _Data Observations_ 
+
+  Let's, firstly, load the dataset and check its structure:
+
+  #+attr_latex: :options bgcolor=lightgray
+  #+BEGIN_SRC R :exports both :results output :session
+    data <- read.csv("titanic3.csv")
+    str(data)
+  #+END_SRC
+
+  #+RESULTS:
+  #+begin_example
+
+  'data.frame':	1309 obs. of  14 variables:
+   $ pclass   : int  1 1 1 1 1 1 1 1 1 1 ...
+   $ survived : int  1 1 0 0 0 1 1 0 1 0 ...
+   $ name     : Factor w/ 1307 levels "Abbing, Mr. Anthony",..: 22 24 25 26 27 31 46 47 51 55 ...
+   $ sex      : Factor w/ 2 levels "female","male": 1 2 1 2 1 2 1 2 1 2 ...
+   $ age      : num  29 0.92 2 30 25 48 63 39 53 71 ...
+   $ sibsp    : int  0 1 1 1 1 0 1 0 2 0 ...
+   $ parch    : int  0 2 2 2 2 0 0 0 0 0 ...
+   $ ticket   : Factor w/ 929 levels "110152","110413",..: 188 50 50 50 50 125 93 16 77 826 ...
+   $ fare     : num  211 152 152 152 152 ...
+   $ cabin    : Factor w/ 187 levels "","A10","A11",..: 45 81 81 81 81 151 147 17 63 1 ...
+   $ embarked : Factor w/ 4 levels "","C","Q","S": 4 4 4 4 4 4 4 4 4 2 ...
+   $ boat     : Factor w/ 28 levels "","1","10","11",..: 13 4 1 1 1 14 3 1 28 1 ...
+   $ body     : int  NA NA NA 135 NA NA NA NA NA 22 ...
+   $ home.dest: Factor w/ 370 levels "","?Havana, Cuba",..: 310 232 232 232 232 238 163 25 23 230 ...
+  #+end_example
+
+  We see the factor of sex and whether it survived or not. Let's check the correlation of those variables as they are displayed in the dataset. We can create a graph as follows:
+
+  #+attr_latex: :options bgcolor=lightgray
+  #+BEGIN_SRC R :exports both :results graphics :file simpleCorrelation.png :session
+    survivorsData <- data %>%
+          group_by(sex) %>%
+          summarize(meanSurvivors = mean(survived))
+
+    survivorsData %>%
+          ggplot(aes(sex, meanSurvivors, fill = "orange")) +
+          geom_bar(stat="identity") +
+          guides(fill=FALSE)
+  #+END_SRC
+
+  #+RESULTS:
+  [[file:simpleCorrelation.png]]
+
+  #+attr_latex: :options bgcolor=lightgray
+  #+BEGIN_SRC R :exports both :results value :session
+    obs_diff <- abs(diff(survivorsData$meanSurvivors))
+    obs_diff
+  #+END_SRC
+
+  #+RESULTS:
+  : 0.536483232273864
+  
+  Taking this into consideration, it would seem that *sex* is a variable that influences whether someone will survive or not. To check if this represents the truth, we use randomization to create replicates.  
+
+* _Inference Structure_
+  
+  For this scenario, we have to consider the following:
+
+  * \colorbox{yellow}{Null Hypothesis} $\to$ The sex has no influence whatsoever in whether the person survives or not. 
+
+  * \colorbox{yellow}{Alternative Hypothesis} $\to$ The probability of not surviving while being a woman is higher than the probability of the same event while being a man.
+
+  By looking at the graph plotted in the previous section, we have that $diff_{null} = 0.536$. In the following section, let's try creating random replicates to check our alternative hypothesis.
+
+* _Randomization_
+
+  The replicate creation goes as follows:
+
+  #+attr_latex: :options bgcolor=lightgray
+  #+BEGIN_SRC R :exports both :session
+    new_data <- data %>%
+          mutate(stringSurv = case_when(survived == 1 ~ "survived",
+                                        survived == 0 ~ "died"))
+
+    replicates <- new_data %>%
+      specify(stringSurv ~ sex, success = "survived") %>%
+      hypothesize(null = "independence") %>%
+      generate(1000, type = "permute") %>%
+      calculate(stat = "diff in props", order = c("male", "female"))
+  #+END_SRC
+  
+  #+attr_latex: :options bgcolor=lightgray
+  #+BEGIN_SRC R :exports both :results graphics :file replicates_comparison.png :session
+    replicates %>%
+      ggplot(aes(stat)) +
+      geom_histogram(binwidth = 0.001) +
+      geom_vline(aes(xintercept = obs_diff), color = "red")
+  #+END_SRC
+
+  #+RESULTS:
+  [[file:replicates_comparison.png]]
+
+  
+  As we can see, the difference calculated between the replicates never gets to the original difference. This means that the original distribution is unusual and it's highly unlikely that the value of *sex* has anything to do with the outcome of *survived*.

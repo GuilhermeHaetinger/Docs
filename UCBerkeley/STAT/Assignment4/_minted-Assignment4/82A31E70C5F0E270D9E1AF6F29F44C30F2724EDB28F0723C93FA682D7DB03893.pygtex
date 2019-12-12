@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{negative} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{pnorm}\PYG{p}{(}\PYG{l+m}{\PYGZhy{}2}\PYG{p}{,} \PYG{l+m}{0}\PYG{p}{,} \PYG{l+m}{1}\PYG{p}{,} \PYG{n}{lower.tail} \PYG{o}{=} \PYG{k+kc}{FALSE}\PYG{p}{)}
+\PYG{n}{positive} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{pnorm}\PYG{p}{(}\PYG{l+m}{2}\PYG{p}{,} \PYG{l+m}{0}\PYG{p}{,} \PYG{l+m}{1}\PYG{p}{,} \PYG{n}{lower.tail} \PYG{o}{=} \PYG{k+kc}{TRUE}\PYG{p}{)}
+\PYG{n}{negative} \PYG{o}{*} \PYG{n}{positive}
+\end{Verbatim}

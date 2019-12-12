@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{pbinom}\PYG{p}{(}\PYG{l+m}{105}\PYG{p}{,} \PYG{l+m}{120}\PYG{p}{,} \PYG{l+m}{.9}\PYG{p}{)}
+\end{Verbatim}

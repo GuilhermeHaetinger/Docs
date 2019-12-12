@@ -1,0 +1,10 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{new\PYGZus{}data} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n}{data} \PYG{o}{\PYGZpc{}\PYGZgt{}\PYGZpc{}}
+      \PYG{n+nf}{mutate}\PYG{p}{(}\PYG{n}{stringSurv} \PYG{o}{=} \PYG{n+nf}{case\PYGZus{}when}\PYG{p}{(}\PYG{n}{survived} \PYG{o}{==} \PYG{l+m}{1} \PYG{o}{\PYGZti{}} \PYG{l+s}{\PYGZdq{}survived\PYGZdq{}}\PYG{p}{,} \PYG{n}{survived} \PYG{o}{==} \PYG{l+m}{0} \PYG{o}{\PYGZti{}} \PYG{l+s}{\PYGZdq{}died\PYGZdq{}}\PYG{p}{))}
+
+\PYG{n}{replicates} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n}{new\PYGZus{}data} \PYG{o}{\PYGZpc{}\PYGZgt{}\PYGZpc{}}
+  \PYG{n+nf}{specify}\PYG{p}{(}\PYG{n}{stringSurv} \PYG{o}{\PYGZti{}} \PYG{n}{sex}\PYG{p}{,} \PYG{n}{success} \PYG{o}{=} \PYG{l+s}{\PYGZdq{}survived\PYGZdq{}}\PYG{p}{)} \PYG{o}{\PYGZpc{}\PYGZgt{}\PYGZpc{}}
+  \PYG{n+nf}{hypothesize}\PYG{p}{(}\PYG{n}{null} \PYG{o}{=} \PYG{l+s}{\PYGZdq{}independence\PYGZdq{}}\PYG{p}{)} \PYG{o}{\PYGZpc{}\PYGZgt{}\PYGZpc{}}
+  \PYG{n+nf}{generate}\PYG{p}{(}\PYG{l+m}{1000}\PYG{p}{,} \PYG{n}{type} \PYG{o}{=} \PYG{l+s}{\PYGZdq{}permute\PYGZdq{}}\PYG{p}{)} \PYG{o}{\PYGZpc{}\PYGZgt{}\PYGZpc{}}
+  \PYG{n+nf}{calculate}\PYG{p}{(}\PYG{n}{stat} \PYG{o}{=} \PYG{l+s}{\PYGZdq{}diff in props\PYGZdq{}}\PYG{p}{,} \PYG{n}{order} \PYG{o}{=} \PYG{n+nf}{c}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}male\PYGZdq{}}\PYG{p}{,} \PYG{l+s}{\PYGZdq{}female\PYGZdq{}}\PYG{p}{))}
+\end{Verbatim}

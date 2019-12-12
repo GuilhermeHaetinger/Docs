@@ -1,0 +1,321 @@
+% Created 2019-11-10 Sun 22:08
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage[margin=0.5in]{geometry}
+\usepackage{fontspec}
+\author{MATH 115 \\ UC Berkeley \\ Guilherme Gomes Haetinger}
+\date{\today}
+\title{Homework 9}
+\hypersetup{
+ pdfauthor={MATH 115 \\ UC Berkeley \\ Guilherme Gomes Haetinger},
+ pdftitle={Homework 9},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.0.50 (Org mode 9.2.6)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\begin{center}
+\line(1,0){250}
+\end{center}
+
+
+\section*{4.5}
+\label{sec:orga5835b8}
+\subsubsection*{1) Given any \emph{m} integers none of which is a multiple of \emph{m}, prove that two can be selected whose difference is a multiple of \emph{m}.}
+\label{sec:org3331f5d}
+
+Considering that, out of the \emph{m} integers that aren't multiple to \emph{m}, two of them must be of the same \(\mod m\), we say that 
+
+\begin{eqnarray}
+ x \equiv n \mod m \\
+ y \equiv n \mod m 
+\end{eqnarray}
+
+This happens because of the \emph{pigeonhole} principle, since there are only \(m-1\) residue possibilities different than 0 and \emph{m} integers that should fit in them. This way, we know that one residue must repeat and, concluding, from (1) and (2), \(x - y = mk + n - (mw + n) = mk - mw = m(k - w)\), which is a multiple of \emph{m}.
+
+\subsubsection*{2) If \emph{S} is any set of \(n + 1\) integers selected from \(1, 2, 3, · · ·, 2n + 1\), prove that \emph{S} contains two relatively prime integers. Prove that the result does not hold if \emph{S} contains only \emph{n} integers.}
+\label{sec:orgbc7a6af}
+
+Considering that two subsequent numbers are always relatively prime to each other, we know that, if you take \(n-1\) numbers out of a set of \(2n + 1\) numbers, we know that there will be at least 2 numbers in sequence, i.e. co-prime. This happens due to the pigeonhole principle, which, in this case, for it to not have any subsequent numbers, we have \(\frac{2n+1}{2}\) holes and \(n+1\) entries. Since \(n+1 > \frac{2n+1}{2}\), one of the numbers must be placed in a subsequent position.
+
+The same thing explains why this doesn't happen when we pick \emph{n} numbers, because \(n < \frac{2n+1}{2}\). 
+
+\subsubsection*{5) Given any integers \emph{a}, \emph{b}, \emph{c} and any prime \emph{p} not a divisor of \emph{ab}, prove that \(ax² + by² \equiv c \mod p\) is solvable.}
+\label{sec:org2b15a6c}
+
+If \emph{p} is even, \(p = 2\). This way, we will always have solutions for \(x² + y² \equiv c \mod 2\), \emph{c} being either \emph{0} or \emph{1}.
+
+If \emph{p} is odd, we know that there are \(\frac{p-1}{2}\) quadratic residues \emph{modulus p}. Considering that \((a, p) = 1\), we know that \(ax²\) ranges from \(\frac{p-1}{2} + 1 = \frac{p+1}{2}\) residues \emph{modulus p}. Similarly, we have the same for \(by²\) and to \(c - by²\). Therefore, we need \(\exists x_0, y_0 \to ax_0² \equiv c - by_0² \mod p\), otherwise we would have \(2*\frac{p+1}{2} = p+1 > p\), which contradicts the fact that \emph{p} has \(p-1\) possible residues.
+
+\subsubsection*{15) Let \emph{n} be a positive integer having exactly three distinct prime factors \emph{p}, \emph{q} and \emph{r}. Find a formula for the number of positive integers \(\le\) \emph{n} that are divisible by none of \emph{pq}, \emph{pr}, or \emph{qr}.}
+\label{sec:org1f4e45d}
+
+This is a set problem. We have the sets of numbers that are divisible by \emph{p}, \emph{q} and \emph{r}, we have the set of numbers that are less or equal to \emph{n} and we want to find the the sets of numbers that aren't divisible by any permutation of these. For that, we have
+
+\begin{eqnarray}
+  &S = \{x, x \le n\} \\
+  &P = \{x, x \in S, p|x\} \\
+  &Q = \{x, x \in S, q|x\} \\
+  &R = \{x, x \in S, r|x\} \\
+  &x = S - (P \cap Q) - (P \cap R) - (Q \cap R) + 2 * (P \cap Q \cap R)
+\end{eqnarray}
+
+We have to subtract from the greater set the intersection between the multiples of each prime and then add 2 times the intersection of all the three primes, since it's being subtracted 3 times and we only want it to be once.
+
+
+\begin{center}
+\line(1,0){250}
+\end{center}
+
+\section*{5.1}
+\label{sec:org00cdb1d}
+\subsubsection*{4 Find the solutions in positive integers for}
+\label{sec:org8493662}
+\begin{itemize}
+\item \(5x + 3y = 52\)
+\label{sec:org3b8ffe6}
+
+\begin{center}
+\begin{tabular}{rrrlrrrlrrrlrrr}
+5 & 3 & 52 &  & 2 & 3 & 52 &  & 2 & 1 & 52 &  & 0 & 1 & 52\\
+\hline
+1 & 0 &  & → & 1 & 0 &  & → & 1 & -1 &  & → & 3 & -1 & \\
+0 & 1 &  &  & -1 & 1 &  &  & -1 & 2 &  &  & -5 & 2 & \\
+\end{tabular}
+\end{center}
+
+\setcounter{equation}{0}
+\begin{eqnarray}
+  &v = 52 \\ 
+  &x = 3u - v = 3u - 52 \\
+  &y = -5u + 2v = -5u + 104 \\
+  &u = t + 17 \\ 
+  &x = 3t - 1 \\
+  &y = -5t + 19
+\end{eqnarray}
+
+\item \(15x + 7y = 111\)
+\label{sec:orgc1605ac}
+
+\begin{center}
+\begin{tabular}{rrrlrrrlrrr}
+15 & 7 & 111 &  & 1 & 7 & 111 &  & 1 & 0 & 111\\
+\hline
+1 & 0 &  & → & 1 & 0 &  & → & 1 & -7 & \\
+0 & 1 &  &  & -2 & 1 &  &  & -2 & 15 & \\
+\end{tabular}
+\end{center}
+
+\setcounter{equation}{0}
+\begin{eqnarray}
+  &u = 111 \\ 
+  &x = u - 7v = 111 - 7v \\
+  &y = -2u + 15v = -222 + 15v \\
+  &v = t + 14 \\ 
+  &x = 13 - 7t \\
+  &y = 15t - 12
+\end{eqnarray}
+
+\item \(12x + 50y = 1\)
+\label{sec:org000a390}
+
+\begin{center}
+\begin{tabular}{rrrlrrrlrrr}
+12 & 50 & 1 &  & 12 & 2 & 1 &  & 0 & 2 & 1\\
+\hline
+1 & 0 &  & → & 1 & -4 &  & → & 25 & -4 & \\
+0 & 1 &  &  & 0 & 1 &  &  & -6 & 1 & \\
+\end{tabular}
+\end{center}
+
+
+\setcounter{equation}{0}
+\begin{eqnarray}
+  &v = 0.5 \\ 
+  &x = 25u - 4v = 25u - 2 \\
+  &y = -6u + v = -6u + 0.5 
+\end{eqnarray}
+
+\item \(97x + 98y = 1000\)
+\label{sec:org5d1d7d0}
+
+\begin{center}
+\begin{tabular}{rrrlrrrlrrr}
+97 & 98 & 1000 &  & 97 & 1 & 1000 &  & 0 & 1 & 1000\\
+\hline
+1 & 0 &  & → & 1 & -1 &  & → & 98 & -1 & \\
+0 & 1 &  &  & 0 & 1 &  &  & -97 & 1 & \\
+\end{tabular}
+\end{center}
+
+
+\setcounter{equation}{0}
+\begin{eqnarray}
+  &v = 1000 \\ 
+  &x = 98u - v = 98u - 1000 \\
+  &y = -97u + v = -97u + 1000 \\
+  &u = t + 10 \\ 
+  &x = 98t - 20 \\
+  &y = -97t + 30
+\end{eqnarray}
+\end{itemize}
+
+\subsubsection*{8) If \(ax + by = c\) is solvable, prove that it has a solution \(x_0\), \(y_0\) with \(0 \le x_0 < |b|\).}
+\label{sec:org31bfb71}
+
+We know, by \emph{Theorem 5.1}, that all solutions are of the form \(\{x_0 + k\frac{b}{g}, y_0 - k\frac{a}{g}\}\). Thus we can say that, because \(|\frac{b}{g}| \le |b|\), there is such a \(x_0\).
+
+\subsubsection*{16) Let \emph{a} and \emph{b} be positive integers with \emph{g.c.d.(a, b)} = 1. Let \emph{S} denote the set of all integers that may be expressed in the form \(ax + by\) where \emph{x} and \emph{y} are non-negative integers. Show that \(c = ab - a - b\) is not a member of \emph{S}, but that every integer larger than \emph{c} is a member of \emph{S}.}
+\label{sec:org17d1b32}
+
+Knowing that \(ax + by = c = ab - a - c\), we can express \(x_0 = -1, y_0 = a-1\), making, in this case, all solutions represented by \(\{kb - 1, a - 1 - ka\}\). Thus, \emph{c} will never have positive coefficients, whichever side \emph{k} grows to.
+
+Let \(d > c = ab - a - b \to d \ge ab - a - b + 1\). By question \#8, we know that there is a solution to \(ax + by = d\) with \(0 \le x_0 < b \to 0 \le x_0 \le b - 1\). We want to show that there is a \(y_0 \ge 0\).
+
+\setcounter{equation}{0}
+
+\begin{eqnarray}
+ &0 \le x_0 \le b-1 \\
+ &0 \le ax_0 \le ab - a \\
+ &\frac{d-(ab-a)}{b} \le \frac{d-ax_0}{b} \le \frac{d}{b} \\
+ &\frac{d-(ab-a)}{b} \ge \frac{(ab - a - b + 1)-(ab-a)}{b} = \frac{-b+1}{b} = -1 + \frac{1}{b} > -1
+\end{eqnarray}
+
+We can see that the second element of the inequality (3) is equal to \(y_0\). Thus we know that \(y_0 > -1\) and, since \(y_0 \in \mathbb{Z}\), we know that \(y_0 \ge 0\) and, hence, that \emph{d} is a part of \emph{S}.
+
+
+\begin{center}
+\line(1,0){250}
+\end{center}
+
+\section*{5.2}
+\label{sec:orgdeaae19}
+\subsection*{1) Find all solutions in integers of the system of equations}
+\label{sec:org150a93b}
+
+\begin{align*}
+ x_1 + x_2 + 4x_3 + 2x_4 &= 5 \\
+ -3x_1 -x_2 -6x_4 &=3 \\
+ -x_1 - x_2 +2x_3 - 2x_4 &=1
+\end{align*}
+
+\begin{center}
+\begin{tabular}{rrrrrlrrrrrlrrrrr}
+1 & 1 & 4 & 2 & 5 &  & 1 & 0 & 0 & 0 & 5 &  & 1 & 0 & 0 & 0 & 5\\
+-3 & -1 & 0 & -6 & 3 &  & -3 & 2 & 12 & 0 & 3 &  & -3 & 2 & 12 & 0 & 3\\
+-1 & -1 & 2 & -2 & 1 &  & -1 & 0 & 6 & 0 & 1 &  & 0 & 0 & 6 & 0 & 6\\
+\hline
+1 & 0 & 0 & 0 &  & → & 1 & -1 & -4 & -2 &  & → & 1 & -1 & -4 & -2 & \\
+0 & 1 & 0 & 0 &  &  & 0 & 1 & 0 & 0 &  &  & 0 & 1 & 0 & 0 & \\
+0 & 0 & 1 & 0 &  &  & 0 & 0 & 1 & 0 &  &  & 0 & 0 & 1 & 0 & \\
+0 & 0 & 0 & 1 &  &  & 0 & 0 & 0 & 1 &  &  & 0 & 0 & 0 & 1 & \\
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{rrrrrlrrrrr}
+1 & 0 & 0 & 0 & 5 &  & 1 & 0 & 0 & 0 & 5\\
+0 & 0 & 6 & 0 & 6 &  & 0 & 2 & 0 & 0 & 8\\
+-2 & 2 & 12 & 0 & 8 &  & 0 & 0 & 6 & 0 & 6\\
+\hline
+1 & -1 & -4 & -2 &  & → & 0 & -1 & 2 & -2 & \\
+0 & 1 & 0 & 0 &  &  & 1 & 1 & -6 & 0 & \\
+0 & 0 & 1 & 0 &  &  & 0 & 0 & 1 & 0 & \\
+0 & 0 & 0 & 1 &  &  & 0 & 0 & 0 & 1 & \\
+\end{tabular}
+\end{center}
+
+
+Now we have:
+
+\setcounter{equation}{0}
+\begin{eqnarray*}
+ u =& 5 \\
+ 2v = 8 \to v =& 4\\
+ 6w = 6 \to w =& 1\\
+ x_1 =& -v + 2w - 2t = -2 -2t \\
+ x_2 =& u + v - 6w = 3\\
+ x_3 =& w = 1 \\
+ x_4 =& t
+\end{eqnarray*}
+\subsection*{2) For what integers \emph{a}, \emph{b} and \emph{c} does the system of equations}
+\label{sec:orga9f4f10}
+
+\begin{align*}
+ x_1 + 2x_2 + 3x_3 + 4x_4 =& a\\
+ x_1 + 4x_2 + 9x_3 + 16x_4 =& b\\
+ x_1 + 8x_2 + 27x_3 + 64x_4 =& c
+\end{align*}
+
+\begin{center}
+\begin{tabular}{rrrrllrrrrllrrrrl}
+1 & 2 & 3 & 4 & a &  & 1 & 0 & 0 & 0 & a &  & 1 & 0 & 0 & 0 & a\\
+1 & 4 & 9 & 16 & b &  & 1 & 2 & 6 & 12 & b &  & 0 & 2 & 6 & 12 & b-a\\
+1 & 8 & 27 & 64 & c &  & 1 & 6 & 24 & 60 & c &  & 0 & 6 & 24 & 60 & c-a\\
+\hline
+1 & 0 & 0 & 0 &  & → & 1 & -2 & -3 & -4 &  & → & 1 & -2 & -3 & -4 & \\
+0 & 1 & 0 & 0 &  &  & 0 & 1 & 0 & 0 &  &  & 0 & 1 & 0 & 0 & \\
+0 & 0 & 1 & 0 &  &  & 0 & 0 & 1 & 0 &  &  & 0 & 0 & 1 & 0 & \\
+0 & 0 & 0 & 1 &  &  & 0 & 0 & 0 & 1 &  &  & 0 & 0 & 0 & 1 & \\
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{rrrllrrrllrrrl}
+2 & 6 & 12 & b-a &  & 2 & 0 & 0 & b-a &  & 2 & 0 & 0 & b-a\\
+6 & 24 & 60 & c-a &  & 6 & 6 & 24 & c-a &  & 0 & 6 & 24 & c+2a-b\\
+\hline
+-2 & -3 & -4 &  & → & -2 & 3 & 8 &  & → & -2 & 3 & 8 & \\
+1 & 0 & 0 &  &  & 1 & -3 & -6 &  &  & 1 & -3 & -6 & \\
+0 & 1 & 0 &  &  & 0 & 1 & 0 &  &  & 0 & 1 & 0 & \\
+0 & 0 & 1 &  &  & 0 & 0 & 1 &  &  & 0 & 0 & 1 & \\
+\end{tabular}
+\end{center}
+
+\begin{center}
+\begin{tabular}{rrllrrl}
+6 & 24 & c+2a-b &  & 6 & 0 & c+2a-b\\
+\hline
+3 & 8 &  & → & 3 & -4 & \\
+-3 & -6 &  &  & -3 & 6 & \\
+1 & 0 &  &  & 1 & -4 & \\
+0 & 1 &  &  & 0 & 1 & \\
+\end{tabular}
+\end{center}
+
+Which leaves us with the following:
+
+\begin{align*}
+ u =& a \\
+ v =& \frac{b-a}{2} \\
+ w =& \frac{c+2a-b}{6} \\
+ x_1 =& u -2v +3w -4t \\
+ x_2 =& v -3w + 6t \\
+ x_3 =& w -4t \\
+ x_4 =& t
+\end{align*}
+
+When \(a=b=c=1\), we have the following values:
+
+\begin{align*}
+ x_1 =& 1 -4t \\
+ x_2 =& 6t \\
+ x_3 =& -4t \\
+ x_4 =& t
+\end{align*}
+\end{document}

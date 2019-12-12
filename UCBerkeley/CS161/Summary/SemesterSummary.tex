@@ -1,0 +1,54 @@
+% Created 2019-12-09 Mon 14:13
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage[margin_.5in]{geometry}
+\renewcommand{\familydefault}{\sfdefault}
+\author{Guilherme Gomes Haetinger}
+\date{- \emph{For thy worry will be our gather and Nick Weaver's defeat will be our glory} -}
+\title{Computer Security Semester Review}
+\hypersetup{
+ pdfauthor={Guilherme Gomes Haetinger},
+ pdftitle={Computer Security Semester Review},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.0.50 (Org mode 9.2.6)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\tableofcontents
+
+
+\section{Security Principles}
+\label{sec:orgf18fc7c}
+We have a number of security principles that must be considered once we are developing software. Some of them can be enumerated as the most important. These are:
+\begin{itemize}
+\item \textbf{Security is Economics}: Only spend as much money as what you are trying protect is worth. \uline{Don't buy a \$10000 lock for a \$10 bike}.
+\item \textbf{Least Privilege}: Only give a program the actual amount of privilege it needs to do its purpose. \uline{We should not give ROOT access to a program that plays the nyan cat video}.
+\item \textbf{Fail-safe Defaults}: Safe defaults in the sense of "\emph{if something fails, what should be the current state?}". It's recommended that we use \emph{default-deny} policies. \uline{The light goes down on a server's building. Should the electronic lock on the server access door be unlocked or stay locked?} \(\to\) If we want \emph{default-deny} policies, the door will stay shut, keeping the server's hardware safe from whomever wants to access it, which will keep it secure from someone who jammed the building's circuits just to get to the computers.
+\item \textbf{Separation of Responsibility}
+Separate privilege: "Nobody has full privilege by itself". \uline{Nuke triggers need multiple people turning a key to work (at least in movies)}.
+\item \textbf{Defense in Depth}
+Create redundant layers of protection. \uline{In the medieval times, castles were protected by an outer wall and an inner wall, so that enemies would have to go through 2 different walls to truly invade it. This made the process much harder}.
+\item \textbf{Psychological Acceptability}
+\item \textbf{Human Factors}
+\item \textbf{Complete Mediation}
+\item \textbf{Don't rely on Security through Obscurity}
+\item \textbf{Design Security from the start}
+\item \textbf{Kerkchoff's Principle}
+\end{itemize}
+\end{document}

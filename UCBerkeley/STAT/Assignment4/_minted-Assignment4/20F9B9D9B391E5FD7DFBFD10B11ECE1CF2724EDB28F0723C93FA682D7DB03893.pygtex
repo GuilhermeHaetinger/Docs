@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{still\PYGZus{}working} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{l+m}{1} \PYG{o}{\PYGZhy{}} \PYG{n+nf}{pgeom}\PYG{p}{(}\PYG{l+m}{0}\PYG{o}{:}\PYG{l+m}{99}\PYG{p}{,} \PYG{l+m}{.05}\PYG{p}{)}
+\PYG{n+nf}{qplot}\PYG{p}{(}\PYG{l+m}{1}\PYG{o}{:}\PYG{l+m}{100}\PYG{p}{,} \PYG{n}{still\PYGZus{}working}\PYG{p}{)}
+\end{Verbatim}

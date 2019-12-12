@@ -1,0 +1,5 @@
+
+#+NAME: name
+#+BEGIN_SRC R
+  a <- 2
+#+END_SRC

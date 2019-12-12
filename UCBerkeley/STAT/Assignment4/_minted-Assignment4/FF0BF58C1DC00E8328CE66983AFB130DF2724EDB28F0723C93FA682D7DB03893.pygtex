@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{normal} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{rnorm}\PYG{p}{(}\PYG{l+m}{100000}\PYG{p}{,} \PYG{l+m}{0}\PYG{p}{,} \PYG{l+m}{1}\PYG{p}{)}
+\PYG{n+nf}{ggplot}\PYG{p}{(}\PYG{n}{normal}\PYG{p}{)} \PYG{o}{+} \PYG{n+nf}{geom\PYGZus{}histogram}\PYG{p}{()}
+\end{Verbatim}

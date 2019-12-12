@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{abs}\PYG{p}{(}\PYG{n+nf}{diff}\PYG{p}{(}\PYG{n}{survivorsData}\PYG{o}{\PYGZdl{}}\PYG{n}{meanSurvivors}\PYG{p}{))}
+\end{Verbatim}

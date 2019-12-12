@@ -1,0 +1,5 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{A} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{rbinom}\PYG{p}{(}\PYG{l+m}{100000}\PYG{p}{,} \PYG{l+m}{1}\PYG{p}{,} \PYG{l+m}{.4}\PYG{p}{)}
+\PYG{n}{B} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{rbinom}\PYG{p}{(}\PYG{l+m}{100000}\PYG{p}{,} \PYG{l+m}{1}\PYG{p}{,} \PYG{l+m}{.2}\PYG{p}{)}
+\PYG{n+nf}{mean}\PYG{p}{(}\PYG{n}{A} \PYG{o}{\PYGZam{}} \PYG{n}{B}\PYG{p}{)}
+\end{Verbatim}

@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{draw.triple.venn}\PYG{p}{(}\PYG{n}{ind} \PYG{o}{=} \PYG{l+m}{35}\PYG{p}{,} \PYG{n}{swing} \PYG{o}{=} \PYG{l+m}{23}\PYG{p}{,} \PYG{n}{both} \PYG{o}{=} \PYG{l+m}{11}\PYG{p}{)}
+\end{Verbatim}

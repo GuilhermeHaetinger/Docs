@@ -1,0 +1,42 @@
+% Created 2019-11-06 Wed 19:44
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\author{DESKTOP-TS0M25G}
+\date{\today}
+\title{}
+\hypersetup{
+ pdfauthor={DESKTOP-TS0M25G},
+ pdftitle={},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.0.50 (Org mode 9.2.6)}, 
+ pdflang={English}}
+\begin{document}
+
+\tableofcontents
+
+\begin{verbatim}
+library(dplyr)
+library(tidyverse)
+library(ggplot2)
+\end{verbatim}
+
+
+\begin{verbatim}
+x <- data.frame("SN" = 1:2, "Age" = c(21,15), "Name" = c("John","Dora"))
+ggplot(x) + geom_point(aes(SN, Age, color = Name))
+\end{verbatim}
+\end{document}

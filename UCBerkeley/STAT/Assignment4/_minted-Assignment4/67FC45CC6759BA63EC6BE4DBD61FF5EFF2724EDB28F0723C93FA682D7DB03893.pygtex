@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+c1}{\PYGZsh{} Replicate this 100,000 times using replicate()}
+\PYG{n}{replications} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{replicate}\PYG{p}{(}\PYG{l+m}{100000}\PYG{p}{,} \PYG{n+nf}{which}\PYG{p}{(}\PYG{n+nf}{rbinom}\PYG{p}{(}\PYG{l+m}{100}\PYG{p}{,} \PYG{l+m}{1}\PYG{p}{,} \PYG{l+m}{0.02}\PYG{p}{)} \PYG{o}{==} \PYG{l+m}{1}\PYG{p}{)}\PYG{n}{[1]}\PYG{p}{)}
+
+\PYG{c+c1}{\PYGZsh{} Histogram the replications with qplot}
+\PYG{n+nf}{mean}\PYG{p}{(}\PYG{n}{replications}\PYG{p}{,} \PYG{n}{na.rm} \PYG{o}{=} \PYG{k+kc}{TRUE}\PYG{p}{)}
+\end{Verbatim}

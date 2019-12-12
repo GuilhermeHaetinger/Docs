@@ -1,0 +1,31 @@
+#+TITLE: \huge Project 3 Writeup
+#+AUTHOR: Guilherme Gomes Haetinger, John Markham @@latex:\\@@ COMPSCI 161 - Computer Security @@latex:\\@@ UC Berkeley
+#+LATEX_HEADER: \usepackage[margin=0.5in]{geometry}
+#+OPTIONS: toc:nil
+#+LATEX_HEADER: \renewcommand{\familydefault}{\sfdefault}
+#+LATEX_HEADER: \usepackage{fancyhdr}
+#+LATEX_HEADER: \pagestyle{fancyplain}
+#+LATEX_HEADER: \chead{Assignment 4 - Practical Statistics with R}
+#+LATEX_HEADER: \lhead{Guilherme G. Haetinger}
+#+LATEX_HEADER: \rhead{Fall 2019}
+
+\thispagestyle{empty}
+
+* Weaponize Vulnerability
+  Test 5's vulnerability can be easily weaponized. By modifying the *Session ID* cookie, we can manipulate the following *SQL Query*:
+
+ #+NAME: SQL Session ID Query
+ #+BEGIN_SRC SQL
+  SELECT username FROM sessions WHERE id='{}'
+ #+END_SRC
+ 
+
+* Vulnerability Writeup
+
+** Test 1
+
+** Test 5
+
+** Test 6
+
+* Other Issues

@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{normal}\PYG{o}{\PYGZdl{}}\PYG{n}{mod2} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{as.factor}\PYG{p}{(}\PYG{n}{normal} \PYG{o}{\PYGZlt{}} \PYG{l+m}{\PYGZhy{}2} \PYG{o}{|} \PYG{n}{normal} \PYG{o}{\PYGZgt{}} \PYG{l+m}{2}\PYG{p}{)}
+\PYG{n+nf}{ggplot}\PYG{p}{(}\PYG{n}{normal}\PYG{p}{)} \PYG{o}{+} \PYG{n+nf}{geom\PYGZus{}histogram}\PYG{p}{(}\PYG{n+nf}{aes}\PYG{p}{(}\PYG{n}{fill} \PYG{o}{=} \PYG{n}{mod2}\PYG{p}{))}
+\end{Verbatim}

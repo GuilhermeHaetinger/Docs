@@ -1,0 +1,133 @@
+% Created 2019-11-25 Mon 10:39
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage[margin=0.5in]{geometry}
+\author{MATH 115 \\ UC Berkeley \\ Guilherme Gomes Haetinger}
+\date{\today}
+\title{\huge Homework 11}
+\hypersetup{
+ pdfauthor={MATH 115 \\ UC Berkeley \\ Guilherme Gomes Haetinger},
+ pdftitle={\huge Homework 11},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.0.50 (Org mode 9.2.6)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\begin{center}
+\line(1,0){250}
+\end{center}
+
+\section*{\underline{7.1}}
+\label{sec:orgc186b6d}
+
+\subsection*{1) Expand the rational fractions}
+\label{sec:org6fb4a82}
+\subsubsection*{\(\frac{17}{3}\)}
+\label{sec:org3f412bc}
+\begin{eqnarray*}
+  17 =& 3*5 + 2 \\
+  3 =& 2*1 + 1 \\
+  2 =& 1*2
+\end{eqnarray*}
+\begin{eqnarray*}
+  \frac{17}{3} = 5 + \frac{1}{1 + \frac{1}{2}}
+\end{eqnarray*}
+\subsubsection*{\(\frac{3}{17}\)}
+\label{sec:org00b65bd}
+\begin{eqnarray*}
+  3 =& 17*0 + 3 \\
+  17 =& 3 ...
+\end{eqnarray*}
+\begin{eqnarray*}
+  \frac{3}{17} = 0 + \frac{1}{\frac{17}{3}} = \frac{1}{5 + \frac{1}{1 + \frac{1}{2}}}
+\end{eqnarray*}
+\subsubsection*{\(\frac{8}{1}\)}
+\label{sec:org3ca186d}
+\begin{eqnarray*}
+  8 =& 1*8 + 0
+\end{eqnarray*}
+\begin{eqnarray*}
+  \frac{8}{1} = 8
+\end{eqnarray*}
+
+\subsection*{2) Prove that the set (7.1) consists of exactly one equation if and only if \(u_1 = 1\). Under what circumstances is \(a_0 = 0\)?}
+\label{sec:org145beb6}
+The Euclidean Algorithm set of equation ends when we get to the GCD of the two numbers involved, because then the residue is null. Considering that, for 7.1, we have the GCD equal 1, the set of equations will have exactly one equation when \(u_1 = 1\) as well as \(u_1 = 1\) when we have a set of equations with only one equation or else the GCD \(\not= 1\).
+\(a_0 = 0\) when \(u_0 < u_1\).
+
+\subsection*{Convert into rational numbers}
+\label{sec:org3fa806b}
+\subsubsection*{<2, 1, 4>}
+\label{sec:orgac5e491}
+\(<2, 1, 4> = 2 + \frac{1}{1 + \frac{1}{4}} = 2 + \frac{1}{\frac{5}{4}} = 2 + \frac{4}{5} = \frac{14}{5}\)
+
+\subsubsection*{<-3, 2, 12>}
+\label{sec:org4ed64b2}
+\(<-3, 2, 12> = -3 + \frac{1}{2 + \frac{1}{12}} = -3 + \frac{1}{\frac{25}{12}} = -3 + \frac{12}{25} = \frac{-63}{25}\)
+
+\subsubsection*{<0, 1, 1, 100>}
+\label{sec:orgd598c7f}
+\(<0, 1, 1, 100> = 0 + \frac{1}{1 + \frac{1}{1 + \frac{1}{100}}} = \frac{1}{1 + \frac{1}{\frac{101}{100}}} = \frac{1}{1 + \frac{100}{101}} = \frac{1}{\frac{201}{101}} = \frac{101}{201}\)
+\subsection*{3) Given positive integers \emph{b, c, d} with \emph{c > d}, prove that \emph{<a, c> < <a, d>} but \emph{<a, b, c> > > <a, b, d>} for any integer \emph{a}.}
+\label{sec:orgedaacc7}
+Considering that \(c > d\), when \emph{c} is on the second position of the rational number representation, we have that it divides the number by a greater magnitude, i.e. \(c > d \to \frac{1}{c} < \frac{1}{d} \to a + \frac{1}{c} < a + \frac{1}{d}\).
+We know that the number in the third position's magnitude will contribute to the magnitude of the rational number being represented, in contrast with thee second position's magnitude. This way, \(c > d \to \frac{1}{\frac{1}{c}} = c > \frac{1}{\frac{1}{d}} = d\), meaning the representation inequality holds. 
+\subsection*{4) Let \(a_1, a_2 ,...,a_n\) and \(c\) be positive real numbers. Prove that \(<a_0, a_1, ..., a_n> > <a_0, a_1, ..., a_n + c>\) holds if \emph{n} is odd, but is false if \emph{n} is even.}
+\label{sec:orgd0ad5dc}
+We can use the same principle as before. When the position of a number is even, we have that its magnitude lowers the overall magnitude of the number because it divides it properly, while if its odd, it actually increases the magnitude because it multiplies it. This way the statement holds, considering that \(a_n < a_n + c\).
+
+\begin{center}
+\line(1,0){250}
+\end{center}
+
+\section*{\underline{7.2}}
+\label{sec:org91bfe2b}
+\subsection*{1) Let \(a_1, a_2 ,...,a_n\) and \(b_1, b_2, ..., b_{n+1}\) be positive integers. State the conditions for \(<a_0, a_1, ..., a_n> < <b_0, b_1, ..., b_{n+1}>\).}
+\label{sec:org6437436}
+Consider an integer \emph{x} that denotes the smallest \emph{i} so that \(a_i \not= b_i\).
+
+First, consider \(x \le n-1\). Then if \(x = 0\), we must have that \(a_0 < b_0\). If \(x = 1\), we must have that \(a_1 > b_1\). It all goes on by the proof in question 7.1\#5: if \emph{x} is even, we need the \(a_x < b_x\) so its representation will be of lower magnitude; while if \emph{x} is odd, we need \(a_x > b_x\) for the same reason as before.
+
+Now let's consider \(x = n\). We need to take into consideration the parity of \emph{n}. If it's odd, we need \(a_n > b_n + \frac{1}{b_{n+1}}\) and, if it's even, we need \(a_n < b_n + \frac{1}{b_{n+1}}\).
+
+\begin{center}
+\line(1,0){250}
+\end{center}
+
+\section*{\underline{7.3}}
+\label{sec:org443db0b}
+\subsection*{1) Evaluate the infinite continued fraction <1, 1, 1, 1, \ldots{} >.}
+\label{sec:org9f2bacb}
+We know that \(x = 1 + \frac{1}{x} \to x² - x - 1 = 0\). This way we calculate the roots for this equation to get the value of \emph{x} by \(x = \frac{1 \pm \sqrt{5}}{2} = \frac{1 + \sqrt{5}}{2}\), which is the only positive one. Now we know the value of the fraction.
+\subsection*{Evaluate the infinite continued fractions <2, 1, 1, 1, 1, \ldots{} > and <2, 3, 1, 1, 1, 1, \ldots{} >.}
+\label{sec:org78cd41b}
+Considering the previous result, we have that, for the first representation, \(x_0 = 2 + \frac{2}{1 + \sqrt5}\) and, for the second one, \(x_0 = 2 + \frac{1}{x_1}, x_1 = 3 + \frac{2}{1 + \sqrt5}\)
+\subsection*{Evaluate the infinite continued fractions}
+\label{sec:org4f692ba}
+\subsubsection*{<2, 1, 2, 1, \ldots{}>}
+\label{sec:orgc61dd05}
+We follow the same proposal as the last ones. \(x_0 = 2 + \frac{1}{x_1}, x_1 = 1 + \frac{1}{x_0} \to x_0 = 2 + \frac{x_0}{x_0 + 1} \to x_0² + x_0 = 3x_0 + 2 \to x_0² - 2x_0 - 2 = 0\). Now we can get the roots: \(\frac{2 \pm \sqrt{4 + 8}}{2} = 1 \pm \sqrt3 \to x_0 = 1 + \sqrt3\), which is the only positive root. Then, we can calculate \(x_1\) based on that, by doing \(x_1 = 1 + \frac{1}{1+\sqrt3} = \frac{2}{1 + \sqrt3}\).
+\subsubsection*{<1, 3, 1, 2, 1, 2, 1, \ldots{}>}
+\label{sec:org5f1dec5}
+We can use the previous results to calculate the value from the third position. This way we can say that \(x_0 = 1 + \frac{1}{x_1}, x_1 = 3 + \frac{1}{x_3}, x_3 = \frac{2}{1 + \sqrt3}\). Now we can calculate \(x_1 = 3 + \frac{1 + \sqrt3}{2} = \frac{7 + \sqrt3}{2} \to x_0 = 1 + \frac{2}{7 + \sqrt3} = \frac{9 + \sqrt3}{7 + \sqrt3}\).
+\subsection*{For \(n \ge 1\), prove that \(k_n/k_{n-1} = <a_n,a_{n_1},...,a_2,a_1>\). Find and prove a similar continued fraction expansion for \(h_n/h_{n-1}\) assuming \(a_0 > 0\).}
+\label{sec:org0755a5f}
+We have the following cases: \(n = 1 \to <a_1> = a_1 = \frac{k_1}{k_0}, <a_2, a_1> = a_2 + \frac{1}{a_1}\). Let \(<a_{n-1}, a_{n-2}, ..., a_2, a_1> = \frac{k_{n-1}}{k_{n-2}}\). Now \(<a_n, ..., a_1> = a_n + \frac{k_{n-2}}{k_{n-1}}, k_n = a_nk_{n-1} + k_{n-2} \to <a_n, ..., a_1> = \frac{k_n}{k_{n-1}}\)
+We have \(\frac{h_0}{h_1} = a_0, <a_1, a_0> = a_1 + \frac{1}{a_0}, \frac{h_1}{h_0} = a_1 + \frac{1}{a_0}\). Let \(<a_{n-1}, ..., a_1> = \frac{h_{n-1}}{h_{n-2}}\). Then, for \(a>0\), by induction, \(<a_n, ..., a_1> = \frac{h_n}{h_{n-1}}\).
+\end{document}

@@ -1,0 +1,63 @@
+% Created 2019-11-25 Mon 12:01
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage[margin=0.5in]{geometry}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{fancyhdr}
+\pagestyle{fancyplain}
+\chead{Assignment 4 - Practical Statistics with R}
+\lhead{Guilherme G. Haetinger}
+\rhead{Fall 2019}
+\author{Guilherme Gomes Haetinger, John Markham \\ COMPSCI 161 - Computer Security \\ UC Berkeley}
+\date{\today}
+\title{\huge Project 3 Writeup}
+\hypersetup{
+ pdfauthor={Guilherme Gomes Haetinger, John Markham \\ COMPSCI 161 - Computer Security \\ UC Berkeley},
+ pdftitle={\huge Project 3 Writeup},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 27.0.50 (Org mode 9.2.6)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+\section{Weaponize Vulnerability}
+\label{sec:orgaf8e26a}
+Test 5's vulnerability can be easily weaponized. By modifying the \textbf{Session ID} cookie, we can manipulate the following \textbf{SQL Query}:
+
+\begin{minted}[]{sql}
+SELECT username FROM sessions WHERE id='{}'
+\end{minted}
+
+
+\section{Vulnerability Writeup}
+\label{sec:org23daa6a}
+
+\subsection{Test 1}
+\label{sec:orge3ae055}
+
+\subsection{Test 5}
+\label{sec:orge9fade6}
+
+\subsection{Test 6}
+\label{sec:org510c560}
+
+\section{Other Issues}
+\label{sec:org7f57546}
+\end{document}

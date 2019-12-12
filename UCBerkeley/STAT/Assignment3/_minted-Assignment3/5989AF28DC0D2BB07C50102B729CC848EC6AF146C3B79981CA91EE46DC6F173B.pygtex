@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n+nf}{library}\PYG{p}{(}\PYG{n}{VennDiagram}\PYG{p}{)}
+\PYG{n+nf}{draw.triple.venn}\PYG{p}{(}\PYG{n}{area1} \PYG{o}{=} \PYG{l+m}{35}\PYG{p}{,} \PYG{n}{area2} \PYG{o}{=} \PYG{l+m}{23}\PYG{p}{,} \PYG{n}{area3} \PYG{o}{=} \PYG{l+m}{100}\PYG{p}{,}
+                 \PYG{n}{n12} \PYG{o}{=} \PYG{l+m}{11}\PYG{p}{,} \PYG{n}{n13} \PYG{o}{=} \PYG{l+m}{35}\PYG{p}{,} \PYG{n}{n23} \PYG{o}{=} \PYG{l+m}{23}\PYG{p}{,} \PYG{n}{category} \PYG{o}{=} \PYG{n+nf}{c}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}Independent\PYGZdq{}}\PYG{p}{,} \PYG{l+s}{\PYGZdq{}Swing\PYGZdq{}}\PYG{p}{,} \PYG{l+s}{\PYGZdq{}All\PYGZdq{}}\PYG{p}{),}
+                 \PYG{n}{fill} \PYG{o}{=} \PYG{n+nf}{c}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}blue\PYGZdq{}}\PYG{p}{,} \PYG{l+s}{\PYGZdq{}orange\PYGZdq{}}\PYG{p}{,} \PYG{l+s}{\PYGZdq{}green\PYGZdq{}}\PYG{p}{)}
+                 \PYG{p}{)}
+\end{Verbatim}

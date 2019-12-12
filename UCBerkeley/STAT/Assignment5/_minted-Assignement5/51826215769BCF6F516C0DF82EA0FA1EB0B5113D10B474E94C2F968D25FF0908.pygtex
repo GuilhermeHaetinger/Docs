@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{obs\PYGZus{}diff} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{abs}\PYG{p}{(}\PYG{n+nf}{diff}\PYG{p}{(}\PYG{n}{survivorsData}\PYG{o}{\PYGZdl{}}\PYG{n}{meanSurvivors}\PYG{p}{))}
+\PYG{n}{obs\PYGZus{}diff}
+\end{Verbatim}

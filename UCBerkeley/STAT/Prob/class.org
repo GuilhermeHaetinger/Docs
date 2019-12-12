@@ -1,0 +1,45 @@
+#+TITLE: Class Computations
+#+AUTHOR: Guilherme Gomes Haetinger
+#+LATEX_HEADER: \usepackage[margin=.5in]{geometry}
+
+#+BEGIN_SRC R :session  
+  library(ggplot2)
+#+END_SRC
+
+
+* What's the expected value of a binomial distribution where 25 coins are flipped, each having 30% chance of heads?
+#+BEGIN_SRC R :session :exports both
+  mean(rbinom(10000, 25, 0.3))
+#+END_SRC
+
+* Simulate 100,000 flips of a coin with a 40%/20% chance of heads
+#+BEGIN_SRC R :session :exports both
+  A <- rbinom(100000, 1, .4)
+  B <- rbinom(100000, 1, .2)
+  mean(A & B)
+#+END_SRC
+
+** $P(A|B) = P(A) + P(B) - P(A \cap B)$
+#+BEGIN_SRC R :session :exports code
+  mean(A) + mean(B) - mean(A & B)
+#+END_SRC
+
+* Simulating from the binomial and the normal
+#+BEGIN_SRC R :exports both :file test.png :results graphics :session
+  binom_sample <- data.frame(value = rbinom(100000, 1000, .2))
+  normal_sample <- data.frame(value = rnorm(100000, 200, sqrt(160)))
+
+  binom_sample$type = "binom"
+  normal_sample$type = "normal"
+
+  joint <- rbind(binom_sample, normal_sample)
+
+  ggplot(joint, aes(value, fill = type)) + geom_histogram()
+#+END_SRC
+
+
+
+#+NAME: name
+#+BEGIN_SRC python :exports code
+x = 2  
+#+END_SRC

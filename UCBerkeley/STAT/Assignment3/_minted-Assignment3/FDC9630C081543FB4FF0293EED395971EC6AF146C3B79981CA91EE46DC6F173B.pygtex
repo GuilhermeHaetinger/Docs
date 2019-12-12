@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{heads} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{dbinom}\PYG{p}{(}\PYG{l+m}{10}\PYG{p}{,} \PYG{l+m}{10}\PYG{p}{,} \PYG{l+m}{.5}\PYG{p}{)}
+\PYG{n}{heads}
+\end{Verbatim}

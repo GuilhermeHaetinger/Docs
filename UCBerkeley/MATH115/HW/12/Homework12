@@ -1,0 +1,10 @@
+#+TITLE: \huge Homework 12
+#+AUTHOR: MATH 115 @@latex:\\@@ UC Berkeley @@latex:\\@@ Guilherme Gomes Haetinger
+
+#+OPTIONS: toc:nil
+#+OPTIONS: num:nil
+#+LATEX_HEADER: \usepackage[margin=0.5in]{geometry}
+
+\begin{center}
+\line(1,0){250}
+\end{center}

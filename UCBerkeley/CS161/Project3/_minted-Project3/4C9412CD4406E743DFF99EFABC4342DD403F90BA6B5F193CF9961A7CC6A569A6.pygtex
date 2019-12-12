@@ -1,0 +1,3 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{SELECT} \PYG{n}{username} \PYG{k}{FROM} \PYG{n}{sessions} \PYG{k}{WHERE} \PYG{n}{id}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}\PYGZob{}\PYGZcb{}\PYGZsq{}}
+\end{Verbatim}

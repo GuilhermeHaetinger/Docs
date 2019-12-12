@@ -1,0 +1,7 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{size} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{l+m}{1}\PYG{o}{:}\PYG{l+m}{6}
+\PYG{n}{first} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{sample}\PYG{p}{(}\PYG{n}{size}\PYG{p}{,} \PYG{l+m}{10000}\PYG{p}{,} \PYG{n}{replace}\PYG{o}{=}\PYG{k+kc}{TRUE}\PYG{p}{)}
+\PYG{n}{second} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{sample}\PYG{p}{(}\PYG{n}{size}\PYG{p}{,} \PYG{l+m}{10000}\PYG{p}{,} \PYG{n}{replace}\PYG{o}{=}\PYG{k+kc}{TRUE}\PYG{p}{)}
+
+\PYG{n}{sumation} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n}{first} \PYG{o}{+} \PYG{n}{second}
+\end{Verbatim}

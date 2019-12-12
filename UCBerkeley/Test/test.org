@@ -1,0 +1,32 @@
+#+BEGIN_SRC R :session
+  library(dplyr)
+  library(tidyverse)
+  library(ggplot2)
+#+END_SRC
+
+#+RESULTS:
+| forcats   |
+| stringr   |
+| purrr     |
+| readr     |
+| tidyr     |
+| tibble    |
+| ggplot2   |
+| tidyverse |
+| dplyr     |
+| stats     |
+| graphics  |
+| grDevices |
+| utils     |
+| datasets  |
+| methods   |
+| base      |
+
+
+#+BEGIN_SRC R :file 4.png :session :results graphics
+  x <- data.frame("SN" = 1:2, "Age" = c(21,15), "Name" = c("John","Dora"))
+  ggplot(x) + geom_point(aes(SN, Age, color = Name))
+#+END_SRC
+
+#+RESULTS:
+[[file:4.png]]

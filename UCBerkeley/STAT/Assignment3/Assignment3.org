@@ -1,0 +1,175 @@
+#+TITLE: \huge Assignment 3
+#+AUTHOR: Guilherme Gomes Haetinger
+#+OPTIONS: toc:nil
+#+LATEX_HEADER: \usepackage[margin=0.75in]{geometry}
+#+LATEX_HEADER: \renewcommand{\familydefault}{\sfdefault}
+#+LATEX_HEADER: \usepackage{xcolor}
+#+LATEX_HEADER: \usepackage{fancyhdr}
+#+LATEX_HEADER: \pagestyle{fancyplain}
+#+LATEX_HEADER: \chead{Assignment 3 - Practical Statistics with R}
+#+LATEX_HEADER: \lhead{Guilherme G. Haetinger}
+#+LATEX_HEADER: \rhead{Fall 2019}
+#+LATEX_HEADER: \usemintedstyle{friendly}
+
+
+\thispagestyle{empty}
+
+-----
+
+* _True or False_
+
+** If a fair coin is tossed many times and the last eight tosses are all heads, then the chance that the next toss will be heads is somewhat less than 50%.
+   \colorbox{yellow}{False} $\to$ The tosses are independent, meaning the outcome of previous events don't have any effect on the result of the following events.
+** Drawing a face card (jack, queen, or king) and drawing a red card from a full deck of playing cards are mutually exclusive events.
+   \colorbox{yellow}{False} $\to$ They can both happen, because a card can be both a face card and a red card.
+** Drawing a face card and drawing an ace from a full deck of playing cards are mutually exclusive events.
+   \colorbox{yellow}{True} $\to$ A card can't be both an ace card and a face card.
+
+-----
+
+* _Roulette Wheel_
+  The game of roulette involves spinning a wheel with 38 slots: 18 red, 18 black, and 2 green. A ball is spun onto the wheel and will eventually land in a slot, where each slot has an equal chance of capturing the ball.
+** You watch a roulette wheel spin 3 consecutive times and the ball lands on a red slot each time. What is the probability that the ball will land on a red slot on the next spin?
+   The probability is the same as before the spins. This means the probability will be $\frac{18}{38}$.
+** You watch a roulette wheel spin 300 consecutive times and the ball lands on a red slot each time. What is the probability that the ball will land on a red slot on the next spin?
+   Considering that the wheel is trustworthy, the probability is still the same.
+** Are you equally confident of your answers to parts (a) and (b)? Why or why not?
+   Answer (b) doesn't express much confidence since the chances that the ball lands 300 times consecutively is pretty low ($\frac{18}{38}^{300}$). The same thing can't be said for answer (a), since it's way more probable.
+
+-----
+
+* _Coin flips_
+  If you flip a fair coin 10 times, what is the probability of
+** Getting all tails?
+   We need 10 times the same outcome of independent events: $P(A)*P(B)*P(C)*... = 0.5^{10}$
+
+   #+attr_latex: :options bgcolor=lightgray
+   #+BEGIN_SRC R :exports both :results value :session
+     dbinom(0, 10, .5)
+   #+END_SRC
+
+** Getting all heads?
+   The probability of heads is the same as tails, so it's the same answer.
+
+   #+attr_latex: :options bgcolor=lightgray
+   #+BEGIN_SRC R :exports both :results value :session
+     dbinom(10, 10, .5)
+   #+END_SRC
+
+** Get at least one tails?
+   The probability will be $1 - P(10 heads)$.
+
+   #+attr_latex: :options bgcolor=lightgray
+   #+BEGIN_SRC R :exports both :results value :session
+     1 - pbinom(0, 10, .5)
+   #+END_SRC
+
+-----
+* _Dice rolls_
+  If you roll a pair of fair dice, what is the probability of
+
+  #+attr_latex: :options bgcolor=lightgray
+  #+BEGIN_SRC R :exports both :results value :session
+    size <- 1:6
+    first <- sample(size, 10000, replace=TRUE)
+    second <- sample(size, 10000, replace=TRUE)
+
+    summation <- first + second
+  #+END_SRC
+ 
+** getting a sum of 1?
+   0. There is no 0s on a regular dice.
+   
+  #+attr_latex: :options bgcolor=lightgray
+  #+BEGIN_SRC R :exports both :results value :session
+    length(summation[summation == 1])/10000
+  #+END_SRC
+ 
+** getting a sum of 5?
+   We have 36 possibilities of sums. From these, only $4+1, 1+4, 3+2, 2+3$ fill this condition. So $\frac{4}{36}$.
+
+  #+attr_latex: :options bgcolor=lightgray
+  #+BEGIN_SRC R :exports both :results value :session
+    length(summation[summation == 5])/10000
+  #+END_SRC
+ 
+** getting a sum of 12?
+   1 out of the 36.
+
+  #+attr_latex: :options bgcolor=lightgray
+  #+BEGIN_SRC R :exports both :results value :session
+    length(summation[summation == 12])/10000
+  #+END_SRC
+-----
+* _Swing voters_
+  A Pew Research survey asked 2,373 randomly sampled registered voters their political affiliation (Republican, Democrat, or Independent) and whether or not they identify as swing voters. 35% of respondents identified as Independent, 23% identified as swing voters, and 11% identified as both.
+** Are being Independent and being a swing voter disjoint, i.e. mutually exclusive?
+   No, since we have /11%/ of identification to both classes.
+** Draw a Venn diagram summarizing the variables and their associated probabilities.  
+  #+attr_latex: :options bgcolor=lightgray
+  #+BEGIN_SRC R :exports both :results graphics :file venn.png :session
+    library(VennDiagram)
+    draw.triple.venn(area1 = 35, area2 = 23, area3 = 100,
+                     n12 = 11, n13 = 35, n23 = 23, n123 = 11,
+                     category = c("Independent", "Swing", "All"),
+                     fill = c("green", "blue", "orange")
+                     )
+  #+END_SRC
+** What percent of voters are Independent but not swing voters?
+   The sample contains a total of /35% + 23% - 11% = 47%/ people who answered the specific sets. This way, we know that $I + S - (I \cap S) - S =$ /47% - 23% = 24%/. 
+** What percent of voters are Independent or swing voters?
+   The same way we did the previous, we know /47% - 35% = 12%/.
+** What percent of voters are neither Independent nor swing voters?
+   We have /47%/ containing the answers we accounted. Therefore, there are /53%/ that didn't answer to be Independent or swing voters.
+** Is the event that someone is a swing voter independent of the event that someone is a political Independent?
+   I don't see how it would be. Considering that less than half of the independent set is also a swing voter, knowing that someone is a political independent can make us guess that they aren't swing voters.
+* _Disjoint vs. Independent_
+  In parts (a) and (b), identify whether the events are disjoint, independent, or neither (events cannot be both disjoint and independent).
+** You and a randomly selected student from your class both earn A's in this course.
+   \colorbox{yellow}{Independent} $\to$ The outcome of my exam doesn't have any influence in another random student's.
+** You and your class study partner both earn A's in this course.
+   \colorbox{yellow}{Neither} $\to$ The outcome is influenced, considering we prepared together and are expected to have the same amount of knowledge for the exam. They can happen at the same time.
+** If two events can occur at the same time, must they be dependent?
+   No. But they can't be disjoint.
+* _Guessing on an exam_
+  In a multiple choice exam, there are 5 questions and 4 choices for each question (a, b, c, d). Nancy has not studied for the exam at all and decides to randomly guess the answers. What is the probability that:
+** the first question she gets right is the 5th question?
+   We can establish an order for it, then we have $P(Wrong) * P(Wrong) * P(Wrong) * P(Wrong) * P(Right) = (\frac{3}{4})^4 * \frac{1}{4} = \frac{81}{1024}$.
+** she gets all of the questions right?
+   The order goes the same as before, but with all "right" probabilities $\to (\frac{1}{4}^5) = \frac{1}{1024}$.
+** she gets at least one question right?
+   We calculate that by subtracting 100% to the probability of all being wrong. This way we have $1 - \frac{243}{1024} = \frac{781}{1024}$.
+ 
+  #+attr_latex: :options bgcolor=lightgray
+  #+BEGIN_SRC R :exports both :results value :session
+    1 - pbinom(0, 5, 1/4)
+  #+END_SRC
+
+* _Educational attainment of couples_
+  The table below shows the distribution of education level attained by US residents by gender based on data collected in the 2010 American Community Survey.
+#+attr_latex: width=\textwidth
+#+ATTR_HTML: width="%"
+[[file:table.png]]
+
+** What is the probability that a randomly chosen man has at least a Bachelor's degree?
+   It's $0.16 + 0.09 = 0.25$.
+** What is the probability that a randomly chosen woman has at least a Bachelor's degree?
+   It's $0.17 + 0.09 = 0.26$.
+** What is the probability that a man and a woman getting married both have at least a Bachelor's degree? Note any assumptions you must make to answer this question.
+   Assuming that both events are independent, if both of them should have at least a Bachelor's degree, we can just find the product of their individual probability: $0.25 * 0.26 = 0.065$. 
+** If you made an assumption in part (c), do you think it was reasonable? If you didn't make an assumption, double check your earlier answer and then return to this part.
+   I don't think it's reasonable. We have to consider that many people get married with people they met while living similar experiences (high school/college dating, work environment, ...), therefore we should not expect that the events are independent, because they probably have the same education to begin with.
+* _School absences_
+Data collected at elementary schools in DeKalb County, GA suggest that each year roughly 25% of students miss exactly one day of school, 15% miss 2 days, and 28% miss 3 or more days due to sickness.
+** What is the probability that a student chosen at random doesn't miss any days of school due to sickness this year?
+   The random student can't be in any of the sets described, so we have /100% - 25% - 15% - 28% = 32%/.
+** What is the probability that a student chosen at random misses no more than one day?
+   The random student, now, can fall into the 1st set presented, giving us /100% - 15% - 28% = 57%/.
+** What is the probability that a student chosen at random misses at least one day?
+   We can just take away the probability found in the 1st question, giving us /100% - 32% = 68%/.
+** If a parent has two kids at a DeKalb County elementary school, what is the probability that neither kid will miss any school? Note any assumption you must make to answer this question.
+   We must assume that the events are independent. This way, we can just simply find the product of the probabilities: $0.32 * 0.32 = 0.1024$.
+** If a parent has two kids at a DeKalb County elementary school, what is the probability that both kids will miss some school, i.e. at least one day? Note any assumption you make.
+   We take the same assumption as before. Now we find $0.68 * 0.68 = 0.4624$.
+** If you made an assumption in part (d) or (e), do you think it was reasonable? If you didn't make any \assumptions, double check your earlier answers.
+   We have the same case as the previous question, in which people will frequent the same places. It's even clearer, in this example, that the events are not independent. Suppose one of the kids is sick, the other one might get sick because of it. Suppose that the parents are super neurotic and never get sick, both kids will frequent an establishment where getting diseases is hard. This way, we can conclude that the assumption isn't reasonable.

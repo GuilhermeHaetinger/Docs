@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{n}{replications} \PYG{o}{\PYGZlt{}\PYGZhy{}} \PYG{n+nf}{replicate}\PYG{p}{(}\PYG{l+m}{100000}\PYG{p}{,} \PYG{n+nf}{which}\PYG{p}{(}\PYG{n+nf}{rbinom}\PYG{p}{(}\PYG{l+m}{100}\PYG{p}{,} \PYG{l+m}{1}\PYG{p}{,} \PYG{l+m}{0.02}\PYG{p}{)} \PYG{o}{==} \PYG{l+m}{1}\PYG{p}{)}\PYG{n}{[1]}\PYG{p}{)}
+\PYG{n+nf}{qplot}\PYG{p}{(}\PYG{n}{replications}\PYG{p}{)}
+\end{Verbatim}

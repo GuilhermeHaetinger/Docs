@@ -1,0 +1,41 @@
+#+TITLE: \huge *Guilherme Gomes Haetinger*
+#+AUTHOR: E: \href{mailto:ghaetinger@gmail.com}{ghaetinger@gmail.com}, W: \href{inf.ufrgs.br/~gghaetinger}{inf.ufrgs.br/~gghaetinger} 
+#+DATE: 
+#+OPTIONS: toc:nil
+#+OPTIONS: num:nil
+#+latex_header: \usepackage{setspace}
+#+latex_header: \onehalfspacing
+#+LATEX_HEADER: \usepackage[margin=0.5in]{geometry}
+#+LATEX_HEADER: \renewcommand{\baselinestretch}{0.75} 
+
+
+* Education
+\hrule
+\vspace{10pt}
+
+*** _University of California, Berkeley_ \hfill =2019 - ongoing=
+    /Bachelors in Computer Science Exchange Program/ \hfill
+
+*** _Universidade Federal do Rio Grande do Sul_ \hfill =2016 - ongoing=
+    /Bachelors in Computer Science/ \hfill =GPA - 3.68=
+
+*** _Colégio Anchieta_ \hfill =2013 - 2015=
+    /High School/ \hfill =CGPA - 9.5=
+
+\vspace{20pt}
+* Professional Experience
+\hrule
+\vspace{10pt}
+
+*** Computer Graphics Academic Research Intern \hfill =Nov 2018 - on pause= 
+**** INF - UFRGS \hfill /Porto Alegre, Brazil/
+
+*** Software Engineering Intern \hfill =Feb 2018 - Nov 2018=
+**** SAP \hfill /São Leopoldo, Brazil/
+
+*** High Processing Computing Academic Research Intern \hfill =Jun 2017 - Dec 2017=
+**** INF - UFRGS \hfill /Porto Alegre, Brazil/
+
+*** Android Developer \hfill =Jan 2017 - May 2017=
+**** Data Processing Center - UFRGS \hfill /Porto Alegre, Brazil/
+
