@@ -173,6 +173,7 @@
     
     \begin{align}
     A &\to_{M1,M2} O \\
+<<<<<<< HEAD
     O &: C1 = M2 \oplus K \\
     O &\to_{C1}_{}_{} A \\
     A &\to_{M2,M3} O \\
@@ -182,6 +183,17 @@
     \end{align}
     
     Note that (2) and (5) are random, meaning that the oracle could have chose $M1$ on (2) or $M3$ on (5). However, this is irrelevant since the Attacker can just repeat the operation to get the only two possible outputs (it's exactly two because the "\oplus" operation is deterministic) and then compare which output repeats on both cases. Note that once it knows the encrypted message, it can simple derive the key /K/ from $K = C1 \oplus M2$.
+=======
+    O &: C1 = E_K(M2) \\
+    O &\to_{C1}_{}_{} A \\
+    A &\to_{M2,M3} O \\
+    O &: C2 = E_K(M2) \\
+    O &\to_{}_{C2} A \\
+    A &: C1 = C2 \to C1 = C2 = E_K(M2)
+    \end{align}
+    
+    Note that (2) and (5) are random, meaning that the oracle could have chose $M1$ on (2) or $M3$ on (5). However, this is irrelevant since the Attacker can just repeat the operation to get the only two possible outputs (it's exactly two because the "\oplus" operation is deterministic) and then compare which output repeats on both cases.
+>>>>>>> origin/master
 *** Block Ciphers
    Block Ciphers divide the message $M$ into blocks and encrypt each one with /K/. The encryption algorithm itself is deterministic.
 **** *Electronic Code Book*
