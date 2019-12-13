@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-% Created 2019-12-13 Fri 13:19
-=======
-% Created 2019-12-13 Fri 13:14
->>>>>>> origin/master
+% Created 2019-12-13 Fri 13:24
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -38,17 +34,10 @@
 
 
 \section{Security Design}
-<<<<<<< HEAD
-\label{sec:org189b1fc}
+\label{sec:org2649a8c}
 Let's discuss on how to make a system theoretically secure, as in the decisions that should be made and what are the main points we should leverage when designing a system from scratch. 
 \subsection{Security Principles}
-\label{sec:org2980c0d}
-=======
-\label{sec:orgff31437}
-Let's discuss on how to make a system theoretically secure, as in the decisions that should be made and what are the main points we should leverage when designing a system from scratch. 
-\subsection{Security Principles}
-\label{sec:orgfb2b01f}
->>>>>>> origin/master
+\label{sec:org945e3d2}
 We have a number of security principles that must be considered once we are developing software \cite{secPrinc}. Some of them can be enumerated as the most important. These are:
 \begin{itemize}
 \item \textbf{Security is Economics}: Only spend as much money as what you are trying protect is worth. \uline{Don't buy a \$10000 lock for a \$10 bike}.
@@ -65,37 +54,20 @@ We have a number of security principles that must be considered once we are deve
 \item \textbf{Kerkchoff's Principle}: Similar to the \emph{Don't rely on Security through Obscurity} principle, this one asks you to "Design your system as if the attacker could read your code". We can consider the same example as the referred principle.
 \end{itemize}
 \subsection{Security Design Patterns \& What you should think about when designing your system}
-<<<<<<< HEAD
-\label{sec:org07a6e9b}
+\label{sec:orgecd4f26}
 How should we go at \emph{Developing your own secure system}?
 \subsubsection{Trusted Computing Base - the \textbf{TCB}}
-\label{sec:org9ad0f30}
+\label{sec:orgbb9fae2}
 The simpler definition for this abstraction would be \emph{the part of the system in which we rely so that it works properly}, meaning that no problem outside of this part can obliterate your service. Now, the point of this design is to minimize it so that it is easier for us to place our trust in it. \uline{It's easier to place your trust in a 10 line code than in a 100.000 line code}. We want the \textbf{TCB} to be \emph{unbypassable}, \emph{tamper-resistant}, \emph{verifiable}. It is called a \emph{primitive yet effective kind of modularity}.
 \subsubsection{Modularity and Isolation}
-\label{sec:orga44d681}
+\label{sec:orga0b70bc}
 The whole idea of modularity can impact on different levels of the system. Sometimes it can bring efficiency by assuming that each module already has it's own required data to run correctly. It can also provide legibility since we can understand how the code is divided into multiple responsibilities, which can impact on refactoring (can eventually help quick security patches). Now, most importantly, modularity can provide us with \emph{isolation}, meaning that each module is independent and can keep its problems to itself \(\to\) minimizes assumptions made by other components that it interacts with, enabling them to treat errors in the system without crashing it (understand what happened to the other component and act accordingly).
 
 \section{System Implementation Vulnerabilities}
-\label{sec:org021805c}
+\label{sec:orgeb04c72}
 What are the main system threats regarding its code implementation? Let's see how we can generally exploit and fix these vulnerabilities.
 \subsection{Time-of-Check To Time-of-Use (TOCTTOU)}
-\label{sec:orga1a8ec9}
-=======
-\label{sec:org3b569e0}
-How should we go at \emph{Developing your own secure system}?
-\subsubsection{Trusted Computing Base - the \textbf{TCB}}
-\label{sec:org46c32e9}
-The simpler definition for this abstraction would be \emph{the part of the system in which we rely so that it works properly}, meaning that no problem outside of this part can obliterate your service. Now, the point of this design is to minimize it so that it is easier for us to place our trust in it. \uline{It's easier to place your trust in a 10 line code than in a 100.000 line code}. We want the \textbf{TCB} to be \emph{unbypassable}, \emph{tamper-resistant}, \emph{verifiable}. It is called a \emph{primitive yet effective kind of modularity}.
-\subsubsection{Modularity and Isolation}
-\label{sec:org5619b78}
-The whole idea of modularity can impact on different levels of the system. Sometimes it can bring efficiency by assuming that each module already has it's own required data to run correctly. It can also provide legibility since we can understand how the code is divided into multiple responsibilities, which can impact on refactoring (can eventually help quick security patches). Now, most importantly, modularity can provide us with \emph{isolation}, meaning that each module is independent and can keep its problems to itself \(\to\) minimizes assumptions made by other components that it interacts with, enabling them to treat errors in the system without crashing it (understand what happened to the other component and act accordingly).
-
-\section{System Implementation Vulnerabilities}
-\label{sec:org452e455}
-What are the main system threats regarding its code implementation? Let's see how we can generally exploit and fix these vulnerabilities.
-\subsection{Time-of-Check To Time-of-Use (TOCTTOU)}
-\label{sec:orgdb6e980}
->>>>>>> origin/master
+\label{sec:org1b3c006}
 This is a general vulnerability (when I write general I mean it can happen in any logical programming environment (when I say environment I mostly mean language (when I say language it's just because Weaver specifically tells us not to use C))). As the title already says, this vulnerability takes into account the time of check for a variable and the time you assign its value. Take a look at the following code:
 
 \begin{minted}[,bgcolor=yellow]{ruby}
@@ -113,17 +85,10 @@ end
 This code has a flaw. As you can see, its purpose is to only read files that have the size less or equal to 200. The code reads the file metadata and checks it size. If it's bigger than the purposed value, it exits. \uline{What if I changed the file size while the program sleeps? \(\to\) The file with the larger size is read in the end, because the time of check, which is when the if-statement is run, for being far away from the time of use, enables us to bypass the check}.
 
 \subsection{The Stack \& How C breaks it (Memory Safety)}
-<<<<<<< HEAD
-\label{sec:org1a3fa47}
+\label{sec:org7ef4a4b}
 Before you read anything from this section, take a look at the Appendix section on \hyperref[sec:Assemble]{Assembly code}! There is a lot of review on it needed for this part of the content. Now that that's out of the way, let's smash the stack.
 \subsubsection{Format String Vulnerability}
-\label{sec:orgfb9e460}
-=======
-\label{sec:org0aeb71e}
-Before you read anything from this section, take a look at the Appendix section on \hyperref[sec:Assemble]{Assembly code}! There is a lot of review on it needed for this part of the content. Now that that's out of the way, let's smash the stack.
-\subsubsection{Format String Vulnerability}
-\label{sec:org96a0649}
->>>>>>> origin/master
+\label{sec:org046a647}
   For this exploit, it \textbf{very} important to understand the layout of variables inside the stack. For this, see the \hyperref[sec:VarLayoutStack]{appendix notes} on it.
 We're all very familiar with \texttt{printf}. It can take \emph{1 to n} arguments, being the first a string with \textbf{hotkeys} such as \texttt{\%d, \%c, \%f, \%s, ...}. These keys represent the format of representation of a given argument. If someone just prints out user input with \texttt{printf}, the formatting string (the one with hotkeys) will be determined by the user, meaning that it can use whatever formatting string. \uline{What can a user do with its arbitrary formatting string, when the number of arguments given to printf is smaller than the number of hotkeys?}. Considering the structure of the stack when \texttt{printf} is called, the hotkeys will make the function look for a specific argument that doesn't exist, which will make it interpret whatever is in the Stack in argument's position as the one itself. The following example might clear up what I'm passing on:
 
@@ -142,20 +107,12 @@ There is another way to approach this exploit by using a specific hotkey that en
 
 This vulnerability is easily fixed by calling \texttt{printf("\%s", buf)} instead of \texttt{printf(buf)}.
 \subsubsection{Integer Conversion \& Overflow Vulnerabilities}
-<<<<<<< HEAD
-\label{sec:org6222502}
-=======
-\label{sec:org0f0a2e7}
->>>>>>> origin/master
+\label{sec:org1ebb62f}
 This is a simple vulnerability. Always check the type of your input as you use it in other functions. Be careful because negative \texttt{int} values can be less than whatever size check you have in your code but be extremely big when converted to \texttt{unsigned} types that are used in standard writing functions such as \texttt{memcpy}.
 
 Also, be careful when using arithmetic operations when trying to allocate the correct amount of space for a variable. Values can overflow and allocate a much smaller memory chunk for that variable, allowing a sizable input to overflow your small sized buffer.
 \subsubsection{General Protection Against Memory Attacks}
-<<<<<<< HEAD
-\label{sec:org64a5739}
-=======
-\label{sec:orgbe9cce9}
->>>>>>> origin/master
+\label{sec:orgbb1ca48}
 \begin{itemize}
 \item Secure code Practices
 \begin{itemize}
@@ -176,11 +133,7 @@ Also, be careful when using arithmetic operations when trying to allocate the co
 \end{itemize}
 
 \subsubsection{Buffer Overflow}
-<<<<<<< HEAD
-\label{sec:orgdbbca5b}
-=======
-\label{sec:org88a93fc}
->>>>>>> origin/master
+\label{sec:org3134794}
 This is the easiest vulnerability we were able to exploit in this class. As a trade-off of being easy to exploit, it is also easy to fix.
 
 Given a program in a language that doesn't implement memory safety (C), we can have programs that for a given input behave maliciously. We can do this via the \emph{Buffer Overflow} vulnerability in some programs. This is, nonetheless, the ability of filling a variable with a value that doesn't fit in it, enabling us to write on the memory that is above it in the Stack. For example:
@@ -229,20 +182,12 @@ HIGHEST Mem Addr. &  & \\
 We can also use this to change variables that are on top of the input variables.
 
 \subsubsection{Stack Smashing Mitigation}
-<<<<<<< HEAD
-\label{sec:org899e217}
-=======
-\label{sec:org5f444ca}
->>>>>>> origin/master
+\label{sec:orgb56d9c8}
 This is a more dense subject. Considering that buffer overflow is one of the most common exploits, the following mitigation options are more complex and are harder to barge through \cite{MemoryDefenseSlide}.
 
 \begin{enumerate}
 \item \textbf{Stack Canaries}
-<<<<<<< HEAD
-\label{sec:orgb7b6927}
-=======
-\label{sec:org148ce99}
->>>>>>> origin/master
+\label{sec:org1f17b47}
 
 Random value generated when program starts that is stored below the \texttt{EBP}. Its value is checked once the function returns and, if it has changed, the program will know it has been hijacked. The idea behind it is to avoid simple Buffer Overflows to change the value of the \texttt{EBP} or the \emph{return address}. \uline{How can we go around this mitigation?} We have to find a way \emph{not to kill the Canary}. For this, we have the following options :
 \begin{itemize}
@@ -251,36 +196,21 @@ Random value generated when program starts that is stored below the \texttt{EBP}
 \end{itemize}
 
 \item \textbf{Non-executable pages}
-<<<<<<< HEAD
-\label{sec:org98f786a}
-=======
-\label{sec:orgfbd974c}
->>>>>>> origin/master
+\label{sec:orgc6fc2ee}
 
 We maintain the permission of writing and executing in a \texttt{XOR} condition, meaning that the program can either write code on stack/heap or execute it. This is insufficient since it is easily breakable by \textbf{Return Oriented Programming}, which is basically changing the return addresses of the code to known portions of standard libraries or even the code itself, i.e. using already written code as modules for writing your own malicious execution.
 
 \item \textbf{Address Space Layout Randomization}
-<<<<<<< HEAD
-\label{sec:orge04b036}
-=======
-\label{sec:org8ba99d7}
->>>>>>> origin/master
+\label{sec:org5a13c15}
 
 Consists on rearranging/relocating the chunks of memory into different addresses. This makes things much harder to exploit considering that we don't have fixed addresses to write code and then redirect the execution to it. Together with \textbf{Non-executable pages}, requires an information leak to be broken. \uline{How can we bypass this?} There are some ways we can do it, but require really specific scenarios \cite{muller_aslr_nodate} and are probably not worth getting into.
 \end{enumerate}
 
 \section{Cryptography}
-<<<<<<< HEAD
-\label{sec:org658d171}
+\label{sec:org2cc90eb}
 Cryptography is the field of studies and implementations regarding algorithms and systems that seek to ensure \textbf{Confidentiality} (Prevent others from reading our data without authorization), \textbf{Integrity} (Prevent others from modifying our data without authorization) and \textbf{Authentication} (Asserting the identity of someone who sent a message, edited a file, etc.) to our private data. Weaver clearly emphasizes the fact that these systems are not meant to be redesigned by us because they are really easy to screw up. We'll keep using message sending as our example for every algorithm.
 \subsection{Independence under Chosen Plain-Text Attack Game (IND-CPA)}
-\label{sec:org17584bf}
-=======
-\label{sec:orgaefcc1b}
-Cryptography is the field of studies and implementations regarding algorithms and systems that seek to ensure \textbf{Confidentiality} (Prevent others from reading our data without authorization), \textbf{Integrity} (Prevent others from modifying our data without authorization) and \textbf{Authentication} (Asserting the identity of someone who sent a message, edited a file, etc.) to our private data. Weaver clearly emphasizes the fact that these systems are not meant to be redesigned by us because they are really easy to screw up. We'll keep using message sending as our example for every algorithm.
-\subsection{Independence under Chosen Plain-Text Attack Game (IND-CPA)}
-\label{sec:orgc5d52eb}
->>>>>>> origin/master
+\label{sec:org4d4ab82}
 The IND-CPA game is designed to check whether the algorithm in question is not deterministic and, thus, is a step closer to safety. It consists of the following steps:
 \begin{itemize}
 \item Attacker sends two messages to an \emph{Oracle} (Entity that encrypts the messages using the encryption algorithm being tested and the \emph{K} key unknown to the Attacker);
@@ -291,17 +221,10 @@ The IND-CPA game is designed to check whether the algorithm in question is not d
 
 If the Attacker wins the game, we can assume that the output of the encryption algorithm can be predicted by its input even without knowing \emph{K}. This makes the algorithm extremely flawed because someone eavesdropping an encrypted conversation might be able to deterministically understand and hijack it. Therefore we seek the algorithms that win it.  
 \subsection{Symmetric Encryption}
-<<<<<<< HEAD
-\label{sec:orgad47327}
+\label{sec:org458bf06}
 Given that two people (A, B) have a secret key \emph{K} known only by them. Consider \(E_K(M)\) as the encryption function and \(D_K(C)\) as the Decryption function (\(M\) is the message and \(C\) is the cypher).\cite{symEnc,SymEncSlide}   
 \subsubsection{One Time Pad}
-\label{sec:orgf7b8525}
-=======
-\label{sec:org9cd5d12}
-Given that two people (A, B) have a secret key \emph{K} known only by them. Consider \(E_K(M)\) as the encryption function and \(D_K(C)\) as the Decryption function (\(M\) is the message and \(C\) is the cypher).\cite{symEnc,SymEncSlide}   
-\subsubsection{One Time Pad}
-\label{sec:org39c8a7c}
->>>>>>> origin/master
+\label{sec:org84f5efc}
 This is the most simple encryption algorithm we saw. The calculations are self-explaining.
 
 \begin{align*}
@@ -313,7 +236,6 @@ It's trivial to understand why this is a IND-CPA loser. This example shows why
 
 \begin{align}
 A &\to_{M1,M2} O \\
-<<<<<<< HEAD
 O &: C1 = M2 \oplus K \\
 O &\to_{C1}_{}_{} A \\
 A &\to_{M2,M3} O \\
@@ -324,52 +246,23 @@ A &: C1 = C2 \to C1 = C2 = M2 \oplus K
 
 Note that (2) and (5) are random, meaning that the oracle could have chose \(M1\) on (2) or \(M3\) on (5). However, this is irrelevant since the Attacker can just repeat the operation to get the only two possible outputs (it's exactly two because the "\(\oplus\)" operation is deterministic) and then compare which output repeats on both cases. Note that once it knows the encrypted message, it can simple derive the key \emph{K} from \(K = C1 \oplus M2\).
 \subsubsection{Block Ciphers}
-\label{sec:orga319f1d}
+\label{sec:org0befc4a}
 Block Ciphers divide the message \(M\) into blocks and encrypt each one with \emph{K}. The encryption algorithm itself is deterministic.
 \begin{enumerate}
 \item \textbf{Electronic Code Book}
-\label{sec:orgad7397e}
+\label{sec:org5cf3648}
 
 The simplest block cipher. Every chunk of code goes through the same encryption process. It can be defined by the following: \(C_i = E_K(M_i), M_i \in M\). The encryption is deterministic and the ECB doesn't do anything to keep the Ciphers from having no entropy whatsoever. This means that chunks with the same value in the message will have the same cipher output, leaking information and, clearly, losing the IND-CPA game.
 \end{enumerate}
 
 \section{Appendix}
-\label{sec:orgaca1d94}
+\label{sec:org45e2c88}
 \subsection{Assembly code for Immediate suffering}
-\label{sec:orgdac2e09}
+\label{sec:orga29302b}
 \label{sec:Assemble}
 Let's review some topics for the Assembly code structure when generated through C code.
 \subsubsection{Registers}
-\label{sec:orgcca8a44}
-=======
-O &: C1 = E_K(M2) \\
-O &\to_{C1}_{}_{} A \\
-A &\to_{M2,M3} O \\
-O &: C2 = E_K(M2) \\
-O &\to_{}_{C2} A \\
-A &: C1 = C2 \to C1 = C2 = E_K(M2)
-\end{align}
-
-Note that (2) and (5) are random, meaning that the oracle could have chose \(M1\) on (2) or \(M3\) on (5). However, this is irrelevant since the Attacker can just repeat the operation to get the only two possible outputs (it's exactly two because the "\(\oplus\)" operation is deterministic) and then compare which output repeats on both cases.
-\subsubsection{Block Ciphers}
-\label{sec:org837de5e}
-Block Ciphers divide the message \(M\) into blocks and encrypt each one with \emph{K}. The encryption algorithm itself is deterministic.
-\begin{enumerate}
-\item \textbf{Electronic Code Book}
-\label{sec:org5a85aef}
-
-The simplest block cipher. Every chunk of code goes through the same encryption process. It can be defined by the following: \(C_i = E_K(M_i), M_i \in M\). The encryption is deterministic and the ECB doesn't do anything to keep the Ciphers from having no entropy whatsoever. This means that chunks with the same value in the message will have the same cipher output, leaking information and, clearly losing the IND-CPA game.
-\end{enumerate}
-
-\section{Appendix}
-\label{sec:org54c189d}
-\subsection{Assembly code for Immediate suffering}
-\label{sec:org9ef3703}
-\label{sec:Assemble}
-Let's review some topics for the Assembly code structure when generated through C code.
-\subsubsection{Registers}
-\label{sec:org55da36a}
->>>>>>> origin/master
+\label{sec:org6b4c12d}
 For the purpose of this class, I'm sure we'll only need to know 32-bit registers (not that there are many differences between 32 to 64, but the names differ).
 \begin{itemize}
 \item Data registers \cite{guideX86}:
@@ -395,11 +288,7 @@ The Stack registers layout}
 \end{figure}
 
 \subsubsection{How do function calls work?}
-<<<<<<< HEAD
-\label{sec:org7f67ebc}
-=======
-\label{sec:org6abfad5}
->>>>>>> origin/master
+\label{sec:orgadda1df}
 This part is really important for us so we actually understand how the stack layouts itself on \emph{return} and exploit the return address. It follows these operations \cite{functionCall}:
 
 \begin{itemize}
@@ -425,11 +314,7 @@ This part is really important for us so we actually understand how the stack lay
 \end{itemize}
 
 \subsection{Variable Layout in the Stack}
-<<<<<<< HEAD
-\label{sec:orgc7237fb}
-=======
-\label{sec:org6a64eb8}
->>>>>>> origin/master
+\label{sec:orgfd734bc}
 \label{sec:VarLayoutStack}
 We have some important fields and their data size. Their data size is the amount of space they occupy in the Stack, Heap, etc. These are:
 
