@@ -1,0 +1,13 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{typedef} \PYG{k}{struct} \PYG{p}{\PYGZob{}}
+  \PYG{k+kt}{int} \PYG{n}{i}\PYG{p}{;}
+  \PYG{k+kt}{char} \PYG{n}{c}\PYG{p}{;}
+  \PYG{k+kt}{float} \PYG{n}{f}\PYG{p}{;}
+  \PYG{k+kt}{double} \PYG{n}{d}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}} \PYG{n}{Sample}\PYG{p}{;}
+
+\PYG{k+kt}{int} \PYG{n+nf}{main}\PYG{p}{()} \PYG{p}{\PYGZob{}}
+  \PYG{n}{Sample} \PYG{n}{sample} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+s+sc}{\PYGZsq{}2\PYGZsq{}}\PYG{p}{,} \PYG{l+m+mf}{3.0}\PYG{p}{,} \PYG{l+m+mf}{4.0}\PYG{p}{\PYGZcb{};}
+  \PYG{k}{return} \PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

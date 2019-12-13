@@ -1,0 +1,11 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{def} \PYG{n+nf}{openFileOfSize200}\PYG{p}{(}\PYG{n}{size}\PYG{p}{,} \PYG{n}{filename}\PYG{p}{)}
+  \PYG{k}{if} \PYG{n}{metadata}\PYG{p}{(}\PYG{n}{filename}\PYG{p}{)}\PYG{o}{.}\PYG{n}{size} \PYG{o}{\PYGZgt{}} \PYG{l+m+mi}{200}
+    \PYG{n+nb}{print} \PYG{l+s+s2}{\PYGZdq{}Haha this is unbypassable\PYGZdq{}}
+    \PYG{n+nb}{exit}
+  \PYG{k}{end}
+  \PYG{c+c1}{\PYGZsh{} Sleep a bit because there is definitely another process that needs CPU more than I}
+  \PYG{n+nb}{sleep}\PYG{p}{(}\PYG{l+m+mi}{1000}\PYG{p}{)}
+  \PYG{n}{read}\PYG{p}{(}\PYG{n}{filename}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}r\PYGZsq{}}\PYG{p}{)}
+\PYG{k}{end}
+\end{Verbatim}

@@ -1,4 +1,4 @@
-% Created 2019-12-09 Mon 14:13
+% Created 2019-12-13 Fri 01:25
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -15,14 +15,14 @@
 \usepackage{capt-of}
 \usepackage{hyperref}
 \usepackage{minted}
-\usepackage[margin_.5in]{geometry}
+\usepackage[margin=.5in]{geometry}
 \renewcommand{\familydefault}{\sfdefault}
 \author{Guilherme Gomes Haetinger}
-\date{- \emph{For thy worry will be our gather and Nick Weaver's defeat will be our glory} -}
-\title{Computer Security Semester Review}
+\date{\emph{University of California, Berkeley} \\ Fall 2019 \\ - \emph{Share this with whomever you want. If you spot a mistake, email me at ghaetinger@gmail.com} -}
+\title{\huge Computer Security - Semester Review}
 \hypersetup{
  pdfauthor={Guilherme Gomes Haetinger},
- pdftitle={Computer Security Semester Review},
+ pdftitle={\huge Computer Security - Semester Review},
  pdfkeywords={},
  pdfsubject={},
  pdfcreator={Emacs 27.0.50 (Org mode 9.2.6)}, 
@@ -33,22 +33,277 @@
 \tableofcontents
 
 
-\section{Security Principles}
-\label{sec:orgf18fc7c}
-We have a number of security principles that must be considered once we are developing software. Some of them can be enumerated as the most important. These are:
+\section{Security Design}
+\label{sec:orgbc06d04}
+Let's discuss on how to make a system theoretically secure, as in the decisions that should be made and what are the main points we should leverage when designing a system from scratch. 
+\subsection{Security Principles}
+\label{sec:org55fd633}
+We have a number of security principles that must be considered once we are developing software \cite{secPrinc}. Some of them can be enumerated as the most important. These are:
 \begin{itemize}
 \item \textbf{Security is Economics}: Only spend as much money as what you are trying protect is worth. \uline{Don't buy a \$10000 lock for a \$10 bike}.
 \item \textbf{Least Privilege}: Only give a program the actual amount of privilege it needs to do its purpose. \uline{We should not give ROOT access to a program that plays the nyan cat video}.
 \item \textbf{Fail-safe Defaults}: Safe defaults in the sense of "\emph{if something fails, what should be the current state?}". It's recommended that we use \emph{default-deny} policies. \uline{The light goes down on a server's building. Should the electronic lock on the server access door be unlocked or stay locked?} \(\to\) If we want \emph{default-deny} policies, the door will stay shut, keeping the server's hardware safe from whomever wants to access it, which will keep it secure from someone who jammed the building's circuits just to get to the computers.
-\item \textbf{Separation of Responsibility}
-Separate privilege: "Nobody has full privilege by itself". \uline{Nuke triggers need multiple people turning a key to work (at least in movies)}.
-\item \textbf{Defense in Depth}
-Create redundant layers of protection. \uline{In the medieval times, castles were protected by an outer wall and an inner wall, so that enemies would have to go through 2 different walls to truly invade it. This made the process much harder}.
-\item \textbf{Psychological Acceptability}
-\item \textbf{Human Factors}
-\item \textbf{Complete Mediation}
-\item \textbf{Don't rely on Security through Obscurity}
-\item \textbf{Design Security from the start}
-\item \textbf{Kerkchoff's Principle}
+\item \textbf{Separation of Responsibility}: Separate privilege. "Nobody has full privilege by itself". \uline{Nuke triggers need multiple people turning a key to work (at least in movies)}.
+\item \textbf{Defense in Depth}: Create redundant layers of protection. \uline{In the medieval times, castles were protected by an outer wall and an inner wall, so that enemies would have to go through 2 different walls to truly invade it. This made the process much harder}.
+\item \textbf{Psychological Acceptability}: "Users must buy into your security model". If you want users to use your safety resources, make it easy to do so. \uline{If to process a company transaction, the user is asked to fill a form of 100 pages, after processing a number of transactions, the user will tire and just leave the form aside, hoping that nobody checks it}.
+\item \textbf{Human Factors}: Always consider human factors. Things must be usable. Don't make it hard for an ordinary user to interact with your system. \uline{Don't make regular users think of a password with 15 different upper case letters, all the letters in the alphabet and at least 5 letters of the ancient Greek alphabet}.
+\item \textbf{Complete Mediation}: Make sure you have control over \textbf{every} point of access. Enforce access control policies. \uline{Bottleneck the airport's immigration procedural check so you know every immigrant is treated the same controlled way}.
+\item \textbf{Know your threat model}: Consider changes in your threat model. Keep track of it and ensure you are safe from it. \uline{Internet was made for researches with no threat model whatsoever. When they opened for the public, they had to consider the malicious use of the internet. It now had a threat model}.
+\item \textbf{Don't rely on Security through Obscurity}: Don't rely on the fact that your design/algorithm is secret. \uline{You design a code that sends the user's password unencrypted back to the server for some weird reason. You provide your system as compiled code, in a way that the user can't interpret it correctly. The user may be able to reverse engineer it and hijack the server connection to get other user's passwords}.
+\item \textbf{Design Security from the start}: Don't leave security out for refactoring. It's usually really difficult to refactor code in order to make it secure because it needs a system redesign. \uline{A webpage has users and their given passwords. They allowed whatever password the user wanted to use on it. They decide to restrain to safer 16-character passwords with all the right shenanigans. What happens to the already created accounts? Do you make them redo their password, which should take a lot of time? Or do you maintain them unsafe?}.
+\item \textbf{Kerkchoff's Principle}: Similar to the \emph{Don't rely on Security through Obscurity} principle, this one asks you to "Design your system as if the attacker could read your code". We can consider the same example as the referred principle.
 \end{itemize}
+\subsection{Security Design Patterns \& What you should think about when designing your system}
+\label{sec:org8f02b78}
+How should we go at \emph{Developing your own secure system}?
+\subsubsection{Trusted Computing Base - the \textbf{TCB}}
+\label{sec:orgf5a67ac}
+The simpler definition for this abstraction would be \emph{the part of the system in which we rely so that it works properly}, meaning that no problem outside of this part can obliterate your service. Now, the point of this design is to minimize it so that it is easier for us to place our trust in it. \uline{It's easier to place your trust in a 10 line code than in a 100.000 line code}. We want the \textbf{TCB} to be \emph{unbypassable}, \emph{tamper-resistant}, \emph{verifiable}. It is called a \emph{primitive yet effective kind of modularity}.
+\subsubsection{Modularity and Isolation}
+\label{sec:org60f8e50}
+The whole idea of modularity can impact on different levels of the system. Sometimes it can bring efficiency by assuming that each module already has it's own required data to run correctly. It can also provide legibility since we can understand how the code is divided into multiple responsibilities, which can impact on refactoring (can eventually help quick security patches). Now, most importantly, modularity can provide us with \emph{isolation}, meaning that each module is independent and can keep its problems to itself \(\to\) minimizes assumptions made by other components that it interacts with, enabling them to treat errors in the system without crashing it (understand what happened to the other component and act accordingly).
+
+\section{System Implementation Vulnerabilities}
+\label{sec:org4d523d8}
+What are the main system threats regarding its code implementation? Let's see how we can generally exploit and fix these vulnerabilities.
+\subsection{Time-of-Check To Time-of-Use (TOCTTOU)}
+\label{sec:orge0a2e92}
+This is a general vulnerability (when I write general I mean it can happen in any logical programming environment (when I say environment I mostly mean language (when I say language it's just because Weaver specifically tells us not to use C))). As the title already says, this vulnerability takes into account the time of check for a variable and the time you assign its value. Take a look at the following code:
+
+\begin{minted}[,bgcolor=yellow]{ruby}
+def openFileOfSize200(size, filename)
+  if metadata(filename).size > 200
+    print "Haha this is unbypassable"
+    exit
+  end
+  # Sleep a bit because there is definitely another process that needs CPU more than I
+  sleep(1000)
+  read(filename, 'r')
+end
+\end{minted}
+
+This code has a flaw. As you can see, its purpose is to only read files that have the size less or equal to 200. The code reads the file metadata and checks it size. If it's bigger than the purposed value, it exits. \uline{What if I changed the file size while the program sleeps? \(\to\) The file with the larger size is read in the end, because the time of check, which is when the if-statement is run, for being far away from the time of use, enables us to bypass the check}.
+
+\subsection{The Stack \& How C breaks it (Memory Safety)}
+\label{sec:org4833078}
+Before you read anything from this section, take a look at the Appendix section on \hyperref[sec:Assemble]{Assembly code}! There is a lot of review on it needed for this part of the content. Now that that's out of the way, let's smash the stack.
+\subsubsection{Format String Vulnerability}
+\label{sec:org3fa0bd2}
+  For this exploit, it \textbf{very} important to understand the layout of variables inside the stack. For this, see the \hyperref[sec:VarLayoutStack]{appendix notes} on it.
+We're all very familiar with \texttt{printf}. It can take \emph{1 to n} arguments, being the first a string with \textbf{hotkeys} such as \texttt{\%d, \%c, \%f, \%s, ...}. These keys represent the format of representation of a given argument. If someone just prints out user input with \texttt{printf}, the formatting string (the one with hotkeys) will be determined by the user, meaning that it can use whatever formatting string. \uline{What can a user do with its arbitrary formatting string, when the number of arguments given to printf is smaller than the number of hotkeys?}. Considering the structure of the stack when \texttt{printf} is called, the hotkeys will make the function look for a specific argument that doesn't exist, which will make it interpret whatever is in the Stack in argument's position as the one itself. The following example might clear up what I'm passing on:
+
+\begin{minted}[]{c}
+int main() {
+  int num = 100;
+  char buf[10];
+  if(fgets(buf, sizeof buf, stdin) == NULL) return 0;
+  printf(buf);
+}
+\end{minted}
+
+If we use the input \texttt{\%s\%d}, we'll get the value of \texttt{buf} followed by the value of \texttt{num}. This happens because the argument that we seek to fill \texttt{\%s} will be the first memory slot above the formatting string argument and, since there are no other arguments, it will fall on the local variables of the \texttt{main} function. Hence, \texttt{\%d} will take the value of \texttt{num}, which was declared right above \texttt{buf}. \uline{Now what would we use this for?} Maybe getting the internal state of the program might be interesting for your exploit (emphasis on \textbf{Stack Canaries}).
+
+There is another way to approach this exploit by using a specific hotkey that enables you to write the value of printed characters (until it's called) in some memory address. This hotkey is \texttt{\%n}. We can do something like this to exploit the same code but with \texttt{buf} declared before \texttt{num}. Given a number \emph{z}, we can store \emph{z} in an arbitrary address \emph{a} by inputting the following string: \texttt{a\%(z-4)x\%n}. The \texttt{printf} function will print the 4-byte address, followed by a (z-4)-byte word format of \texttt{num}, which is the last pushed local variable, and, finally, will read the first 4 bytes of \texttt{buf}, which happen to be \emph{a}, and use it as input for \texttt{\%n}, storing \(z - 4 + 4\) in \emph{a}.  
+
+This vulnerability is easily fixed by calling \texttt{printf("\%s", buf)} instead of \texttt{printf(buf)}.
+\subsubsection{Integer Conversion \& Overflow Vulnerabilities}
+\label{sec:org7199660}
+This is a simple vulnerability. Always check the type of your input as you use it in other functions. Be careful because negative \texttt{int} values can be less than whatever size check you have in your code but be extremely big when converted to \texttt{unsigned} types that are used in standard writing functions such as \texttt{memcpy}.
+
+Also, be careful when using arithmetic operations when trying to allocate the correct amount of space for a variable. Values can overflow and allocate a much smaller memory chunk for that variable, allowing a sizable input to overflow your small sized buffer.
+\subsubsection{General Protection Against Memory Attacks}
+\label{sec:orgfaf9570}
+\begin{itemize}
+\item Secure code Practices
+\begin{itemize}
+\item Check validity of variables (not \texttt{NULL}, within bounds, \ldots{})
+\item Use standard safe functions such as \texttt{strlcpy} instead of \texttt{strcpy} and \texttt{fgets} instead of \texttt{gets}
+\end{itemize}
+\item Using a memory-safe language
+\item Runtime checking
+\item Compiler's static analysis
+\item Testing
+\begin{itemize}
+\item Test generation, Bug detection
+\item Random, mutated and \emph{structure-driven} inputs.
+\end{itemize}
+\end{itemize}
+
+\subsubsection{Buffer Overflow}
+\label{sec:org77d1207}
+This is the easiest vulnerability we were able to exploit in this class. As a trade-off of being easy to exploit, it is also easy to fix.
+
+Given a program in a language that doesn't implement memory safety (C), we can have programs that for a given input behave maliciously. We can do this via the \emph{Buffer Overflow} vulnerability in some programs. This is, nonetheless, the ability of filling a variable with a value that doesn't fit in it, enabling us to write on the memory that is above it in the Stack. For example:
+
+\begin{minted}[,bgcolor=yellow]{c}
+int main() {
+  char input[4];
+  gets(input);
+  return 0;
+}
+\end{minted}
+
+We know that \texttt{gets} reads whatever you input and writes it into a variable with a \texttt{'\textbackslash{}0'} in the end. \uline{What happens if we input the output of the following python code in it?}
+
+\begin{minted}[,bgcolor=yellow]{python}
+print("a"*4 + "b"*4 + address_for_malicious_code)
+\end{minted}
+
+What happens is (considering no callee registers):
+\begin{itemize}
+\item The variable \texttt{input} will have been filled up by \texttt{"a"s};
+\item The \texttt{EBP} value will have been filled up by \texttt{"b"s};
+\item The \emph{return address} will have the value of the address pointing to a malicious code (We probably should input the malicious code as well, but that would involve calculating the actual address of the variable \texttt{input}).
+\end{itemize}
+
+In the end, our stack would have the following layout:
+
+\begin{center}
+\begin{tabular}{l|l|l}
+\hline
+LOWEST Mem Addr. & ESP & 4 bytes\\
+\hline
+"input" & 4 bytes & \\
+\hline
+EBP & 4 bytes & \\
+\hline
+Return Address & 4 bytes & \\
+\hline
+\ldots{} &  & \\
+\hline
+HIGHEST Mem Addr. &  & \\
+\hline
+\end{tabular}
+\end{center}
+
+We can also use this to change variables that are on top of the input variables.
+
+\subsubsection{Stack Smashing Mitigation}
+\label{sec:orgd666b38}
+This is a more dense subject. Considering that buffer overflow is one of the most common exploits, the following mitigation options are more complex and are harder to barge through.
+
+\begin{enumerate}
+\item Stack Canaries
+\label{sec:orgba0ad1c}
+\end{enumerate}
+
+\section{Appendix}
+\label{sec:orgabb8b24}
+\subsection{Assembly code for Immediate suffering}
+\label{sec:orgf3845f0}
+\label{sec:Assemble}
+Let's review some topics for the Assembly code structure when generated through C code.
+\subsubsection{Registers}
+\label{sec:org036a864}
+For the purpose of this class, I'm sure we'll only need to know 32-bit registers (not that there are many differences between 32 to 64, but the names differ).
+\begin{itemize}
+\item Data registers \cite{guideX86}:
+\begin{itemize}
+\item \textbf{EAX} \(\to\) Accumulator: IO and Arithmetic functions, \textbf{Is where the return value is stored};
+\item \textbf{EBX} \(\to\) Base: Indexed addressing;
+\item \textbf{ECX} \(\to\) Count: Loops
+\item \textbf{EDX} \(\to\) Data: Basically the same as \textbf{EAX};
+\end{itemize}
+\item \hyperref[StackReg]{Pointer registers}
+\begin{itemize}
+\item \textbf{EBP} \(\to\) Base: Holds the base address for the stack;
+\item \textbf{ESP} \(\to\) Stack: Holds the top address for the stack;
+\item \textbf{EIP} \(\to\) Index/Instruction: Holds the offset for the next instruction
+\end{itemize}
+\end{itemize}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=3in]{stack-convention.png}
+\caption{\label{StackReg}
+The Stack registers layout}
+\end{figure}
+
+\subsubsection{How do function calls work?}
+\label{sec:orgcc3fc3b}
+This part is really important for us so we actually understand how the stack layouts itself on \emph{return} and exploit the return address. It follows these operations \cite{functionCall}:
+
+\begin{itemize}
+\item Setup \& execution
+\begin{itemize}
+\item Push all the function parameters into the stack (piles up from last to first \(\to\) first one in the lowest memory address);
+\item Call the function by running \texttt{call};
+\item Push the \emph{Return Address} into the stack;
+\item Points \texttt{EIP} to the start of the function;
+\item Save the previous \texttt{EBP} on top of the stack;
+\item Set \texttt{EBP} and \texttt{ESP} to point to the value of the old \texttt{EBP} (top of the stack, which means \texttt{ESP} was already pointing at it);
+\item Stack the \texttt{callee registers};
+\item As the local variables are declared, we decrease the value of \texttt{ESP} to increase the size of the stack frame;
+\end{itemize}
+\item Return 
+\begin{itemize}
+\item Store the return value in \texttt{EAX};
+\item Pop the \texttt{callee registers};
+\item Make \texttt{ESP} equal \texttt{EBP};
+\item Pop the old \texttt{EBP} to \texttt{EBP} (\texttt{pop ebp}, \texttt{ESP} will increase value because the stack size gets smaller);
+\item As \texttt{ESP} now points to the \emph{return address} (which was stored right on top of \texttt{EBP}), \texttt{ret} will make the \texttt{EIP} point to the correct address.
+\end{itemize}
+\end{itemize}
+
+\subsection{Variable Layout in the Stack}
+\label{sec:org7810568}
+\label{sec:VarLayoutStack}
+We have some important fields and their data size. Their data size is the amount of space they occupy in the Stack, Heap, etc. These are:
+
+\begin{center}
+\begin{tabular}{l|l}
+\hline
+int & 4 bytes\\
+\hline
+float & 4 bytes\\
+\hline
+double & 8 bytes\\
+\hline
+char & 1 byte\\
+\hline
+\end{tabular}
+\end{center}
+
+Consider that \texttt{long, short} usually increase and decrease, respectively, around \texttt{4 bytes}.
+
+For structures, however, we have a more complex layout. The first declared variable will be in the lowest memory position and the last one in the highest. The following example shows the Stack layout once we declare a structure variable:
+
+\begin{minted}[]{c}
+typedef struct {
+  int i;
+  char c;
+  float f;
+  double d;
+} Sample;
+
+int main() {
+  Sample sample = {1, '2', 3.0, 4.0};
+  return 0;
+}
+\end{minted}
+
+Given this code, once we execute \texttt{main}, we'll have the following structure in the Stack:
+
+\begin{center}
+\begin{tabular}{l|l|l}
+\hline
+LOWEST Memory Addr. & ESP & 4 bytes\\
+\hline
+ & sample.i & 4 bytes\\
+\hline
+ & sample.c & 1 byte\\
+\hline
+ & sample.f & 4 bytes\\
+\hline
+ & sample.d & 4 bytes\\
+\hline
+ & EBP & 4 bytes\\
+\hline
+HIGHEST Memory Addr. & return address & 4 bytes\\
+\hline
+\end{tabular}
+\end{center}
+
+\bibliographystyle{unsrt}
+\bibliography{CS_161_Summary}
 \end{document}

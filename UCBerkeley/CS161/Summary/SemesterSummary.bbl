@@ -1,0 +1,17 @@
+\begin{thebibliography}{1}
+
+\bibitem{secPrinc}
+David Wagner.
+\newblock Security principles notes, 2019.
+\newblock \url{https://cs161.org/assets/notes/Principles.1.19.pdf}.
+
+\bibitem{guideX86}
+David Evans, 2018.
+\newblock \url{https://www.cs.virginia.edu/~evans/cs216/guides/x86.html}.
+
+\bibitem{functionCall}
+Zeyuan Hu, 2017.
+\newblock
+  \url{https://zhu45.org/posts/2017/Jul/30/understanding-how-function-call-works/}.
+
+\end{thebibliography}
