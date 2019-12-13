@@ -79,6 +79,7 @@
       + Use standard safe functions such as =strlcpy= instead of =strcpy= and =fgets= instead of =gets=
     - Using a memory-safe language
     - Runtime checking
+      + Preconditions and Post-conditions
     - Compiler's static analysis
     - Testing
       + Test generation, Bug detection
@@ -132,9 +133,60 @@
       We can also use this to change variables that are on top of the input variables.
 
 *** Stack Smashing Mitigation
-     This is a more dense subject. Considering that buffer overflow is one of the most common exploits, the following mitigation options are more complex and are harder to barge through.
+     This is a more dense subject. Considering that buffer overflow is one of the most common exploits, the following mitigation options are more complex and are harder to barge through cite:MemoryDefenseSlide.
 
-**** Stack Canaries
+**** *Stack Canaries*
+     
+     Random value generated when program starts that is stored below the =EBP=. Its value is checked once the function returns and, if it has changed, the program will know it has been hijacked. The idea behind it is to avoid simple Buffer Overflows to change the value of the =EBP= or the /return address/. _How can we go around this mitigation?_ We have to find a way /not to kill the Canary/. For this, we have the following options :
+    - Find out the value of the canary and rewrite it in the process of modifying the =ECB= or /return address/. To do that we either have to find a string formatting vulnerability that may print the value or any other information leak that might dump it, e.g. finding a way for the program not to read a ='\0'= character in the end of a string while printing it out will make the program leak every information until the next ='\0'=. The example can be easily prevented by making the first bytes of the canary always be equivalent to the end-string character, making it stop before reading the canary. While this is effective against this attack, we can see that the entropy of the canary is lowered by 25%, which is supposed to make brute-force plausible since we now have 24 bits of entropy.
+    - Use a string formatting vulnerability to write around it with specific addresses.
+
+**** *Non-executable pages*
+
+     We maintain the permission of writing and executing in a =XOR= condition, meaning that the program can either write code on stack/heap or execute it. This is insufficient since it is easily breakable by *Return Oriented Programming*, which is basically changing the return addresses of the code to known portions of standard libraries or even the code itself, i.e. using already written code as modules for writing your own malicious execution.
+
+**** *Address Space Layout Randomization*
+
+     Consists on rearranging/relocating the chunks of memory into different addresses. This makes things much harder to exploit considering that we don't have fixed addresses to write code and then redirect the execution to it. Together with *Non-executable pages*, requires an information leak to be broken. _How can we bypass this?_ There are some ways we can do it, but require really specific scenarios cite:muller_aslr_nodate and are probably not worth getting into.
+
+* Cryptography
+  Cryptography is the field of studies and implementations regarding algorithms and systems that seek to ensure *Confidentiality* (Prevent others from reading our data without authorization), *Integrity* (Prevent others from modifying our data without authorization) and *Authentication* (Asserting the identity of someone who sent a message, edited a file, etc.) to our private data. Weaver clearly emphasizes the fact that these systems are not meant to be redesigned by us because they are really easy to screw up. We'll keep using message sending as our example for every algorithm.
+** Independence under Chosen Plain-Text Attack Game (IND-CPA)
+   The IND-CPA game is designed to check whether the algorithm in question is not deterministic and, thus, is a step closer to safety. It consists of the following steps:
+   + Attacker sends two messages to an /Oracle/ (Entity that encrypts the messages using the encryption algorithm being tested and the /K/ key unknown to the Attacker);
+   + /Oracle/ replies the encryption of one of them;
+   + Attacker can do this for any message it wants as many times as it needs;
+   + If Attacker has, at any point, more than 50% chance of guessing which message was encrypted, it wins the game.
+
+   If the Attacker wins the game, we can assume that the output of the encryption algorithm can be predicted by its input even without knowing /K/. This makes the algorithm extremely flawed because someone eavesdropping an encrypted conversation might be able to deterministically understand and hijack it. Therefore we seek the algorithms that win it.  
+** Symmetric Encryption
+   Given that two people (A, B) have a secret key /K/ known only by them. Consider $E_K(M)$ as the encryption function and $D_K(C)$ as the Decryption function ($M$ is the message and $C$ is the cypher).cite:symEnc,SymEncSlide   
+*** One Time Pad
+    This is the most simple encryption algorithm we saw. The calculations are self-explaining.
+
+    \begin{align*}
+    C &= E_K(M) = M \oplus K \\
+    M &= D_K(C) = C \oplus K
+    \end{align*}
+    
+    It's trivial to understand why this is a IND-CPA loser. This example shows why
+    
+    \begin{align}
+    A &\to_{M1,M2} O \\
+    O &: C1 = M2 \oplus K \\
+    O &\to_{C1}_{}_{} A \\
+    A &\to_{M2,M3} O \\
+    O &: C2 = M2 \oplus K \\
+    O &\to_{}_{C2} A \\
+    A &: C1 = C2 \to C1 = C2 = M2 \oplus K
+    \end{align}
+    
+    Note that (2) and (5) are random, meaning that the oracle could have chose $M1$ on (2) or $M3$ on (5). However, this is irrelevant since the Attacker can just repeat the operation to get the only two possible outputs (it's exactly two because the "\oplus" operation is deterministic) and then compare which output repeats on both cases. Note that once it knows the encrypted message, it can simple derive the key /K/ from $K = C1 \oplus M2$.
+*** Block Ciphers
+   Block Ciphers divide the message $M$ into blocks and encrypt each one with /K/. The encryption algorithm itself is deterministic.
+**** *Electronic Code Book*
+     
+     The simplest block cipher. Every chunk of code goes through the same encryption process. It can be defined by the following: $C_i = E_K(M_i), M_i \in M$. The encryption is deterministic and the ECB doesn't do anything to keep the Ciphers from having no entropy whatsoever. This means that chunks with the same value in the message will have the same cipher output, leaking information and, clearly, losing the IND-CPA game.
 
 * Appendix
 ** Assembly code for Immediate suffering

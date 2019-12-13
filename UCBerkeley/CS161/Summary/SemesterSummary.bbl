@@ -5,6 +5,27 @@ David Wagner.
 \newblock Security principles notes, 2019.
 \newblock \url{https://cs161.org/assets/notes/Principles.1.19.pdf}.
 
+\bibitem{MemoryDefenseSlide}
+Nicholas Weaver.
+\newblock Memory defenses \& crypto slides, 2019.
+\newblock
+  \url{https://cs161.org/assets/lectures/lec06_defenses_crypto.key.pdf}.
+
+\bibitem{muller_aslr_nodate}
+Tilo Muller.
+\newblock {ASLR} {Smack} \& {Laugh} {Reference}.
+\newblock page~21.
+
+\bibitem{symEnc}
+David Wagner.
+\newblock Symmetric encryption notes, 2019.
+\newblock \url{https://cs161.org/assets/notes/Symmetric.2.21.pdf}.
+
+\bibitem{SymEncSlide}
+Nicholas Weaver.
+\newblock Symmetric encryption slides, 2019.
+\newblock \url{https://cs161.org/assets/lectures/lec07_crypto.key.pdf}.
+
 \bibitem{guideX86}
 David Evans, 2018.
 \newblock \url{https://www.cs.virginia.edu/~evans/cs216/guides/x86.html}.
