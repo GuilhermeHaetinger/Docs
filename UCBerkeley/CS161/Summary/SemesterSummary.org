@@ -183,7 +183,7 @@
     
     Note that (2) and (5) are random, meaning that the oracle could have chose $M1$ on (2) or $M3$ on (5). However, this is irrelevant since the Attacker can just repeat the operation to get the only two possible outputs (it's exactly two because the "\oplus" operation is deterministic) and then compare which output repeats on both cases. Note that once it knows the encrypted message, it can simple derive the key /K/ from $K = C1 \oplus M2$.
 *** Block Ciphers
-    Block Ciphers divide the message $M$ into blocks and encrypt each one with /K/. The encryption algorithm itself is deterministic. cite:noauthor_block_2019,weaver_symmetric_nodate 
+    Block Ciphers divide the message $M$ into blocks and encrypt each one with /K/. The encryption algorithm itself is deterministic. The ones I'm listing are the most important ones. CFB has the same properties as CBC buck it's worse with IV reuse. cite:noauthor_block_2019,weaver_symmetric_nodate 
 **** *Electronic Code Book*
      
      The simplest block cipher. Every chunk of code goes through the same encryption process. It can be defined by the following: $C_i = E_K(M_i), M_i \in M$. The encryption is deterministic and the ECB doesn't do anything to keep the Ciphers from having no entropy whatsoever. This means that chunks with the same value in the message will have the same cipher output, leaking information and, clearly, losing the IND-CPA game.
@@ -217,7 +217,128 @@
      #+ATTR_LaTeX: :height 0.15\textwidth :center nil
      [[file:res/CTR-DEC.png]]
      #+END_center
-**** 
+** Hashes
+   Hash functions have the following:
+   - Variable input size
+   - Fixed output size
+   - Efficient computation
+   - Pseudo-Random
+   Along with that, we must make sure that the hash functions provide us with these properties:
+   - One-way: easy to compute, almost impossible to revert the process.
+   - Second Preimage resistant: given /x/, almost impossible to find a /x'/ s.t. Hash(x) = Hash(x').
+   - Collision resistant: Almost impossible to find x, y s.t. Hash(x) = Hash(y) (Collision resistance implies second preimage resistance)
+** Message Authentication Codes
+   MACs are checksums for messages, meaning they are sent with the message so that they are proven to be untampered. MACs, as encryption algorithms, need a key to be private only between the ones that are sharing the message. As an example:
+
+   \begin{align*}
+      A &: C = E_{EK}(M) \\
+      A &: T = MAC(MK, C) \\
+      A &\to_{\{C, T\}}B \\
+      B &: T = MAC(MK, C)?
+   \end{align*}
+
+   If the operation on the last line says that they are not equal, B can assume that the message has been tampered with. Also, the convention of using the MAC in the encrypted message is the correct way of using it since *MACs are deterministic and leak information*. *Never use the same key for MAC and Encryption*. 
+** Password Storage
+  Passwords should not be stored in a map =\{User, Password\}= because if someone gets ahold of this structure, they can simply impersonate everyone. We want the password to be a secret to our server. To do that we can store the map =\{User, Hash(Password)\}=. This way, if someone gets this information, they can't do much because of the /One-way property/ of hashes. The user would input the password and send the hash of it to the server, which would then check if it's correct.
+
+  However, many people choose poor passwords. Consider that the attacker knows what's the hash function by using the server as an oracle. _What can he do with the fact that there are simple passwords scattered around many users?_ He can create a brute forced dictionary with all the simple passwords and their hashes so that, when it gets ahold of the server's structure, it can just match the hashes with its dictionary (Dictionary Attack). We can mitigate that by adding a random, user-specific (unique) Salt (giant random number) to the user's password before it's hashed. This way, even if the attacker can get its hands on the hash, they will never match the weak password's. We also would like for the hashing process to be slow, which would make the brute forcing much slower.
+** Pseudo Random Number Generators (PRNGs)
+   A PRNG needs the following functions: =seed(x), reseed(x), generate(size, x=optional)=. The /x/ in the functions are the true sources of entropy. The PRNGs should be predictable only if you know its internal state and should be roll-back resistant, meaning their internal state at time /T-1/ should not be determinable by someone with the knowledge of the state at /T/. 
+** Asymmetric Encryption
+   Although symmetric encryption looked as if it had everything taken care of, we must understand how /A/ and /B/ shared the secret key /K/. If they haven't met up in person to share it, it is very likely the key is not a secret. Let's look at some encryption algorithms that take care of this aspect.
+*** Diffie-Hellman
+    <<DH>>
+    The event /A/ wants to communicate with /B/ follows this sequence of operations for /p/ (huge prime) and /g/, $1 < g < p - 1$ public. 
+
+    \begin{align*}
+      A &: a \in \{0,1,...,p-2\} \\ 
+        &: X_A = g^a \mod(p) \\
+      B &: b \in \{0,1,...,p-2\} \\ 
+        &: X_B = g^b \mod(p) \\
+      A &: broadcast(X_A) \\
+      B &: broadcast(X_B) \\
+      A &: S = B^a \mod(p) = g^{ab} \mod(p) \\
+      B &: S = A^b \mod(p) = g^{ab} \mod(p)
+    \end{align*}
+
+    Now that they have a symmetric key /S/, they can simply use a symmetric encryption system. Have in mind that a man in the middle can read $g^a$, $g^b$ and $g^{a+b}$ but can never get to $g^{ab}$ because they don't know /a/ or /b/ and can't break the modular equation because that would require it to break the discrete log, which is extremely hard. However, a man in the middle can intercept the messages and just create its own $X_M$ and /m/ to structure two different channels: one with /A/ and one with /B/.
+*** El-gamal Encryption
+    This algorithm uses a similar idea as /Diffie-Hellman's/. We have all the information listed above. From that, we want /A/ to send a message to /B/ (the message must be $\in \{1,...,p-1\}$). We do:
+
+    \begin{align*}
+      A &: r \in {0,...,p-2} \\
+      A &: \{R, S\} = \{g^r \mod(p), M * X_B^r \mod(p)\} \\
+      A &\to_C B \\
+      B &: R^{-b}*S \equiv g^{-br}*M*X_B^{r} \equiv g^{-br}*M*g^{br }\equiv M \mod(p)
+    \end{align*}
+
+    We know that only /B/ can decrypt it because it is the only one that knows its private key /b/ and can compute $R^{-b}$. We must not reuse /r/ or else it will leak information.
+*** RSA Encryption
+    This one is definitely the most complicated one. /A/ generates two private primes /p, g/; calculates public $n=p*g$ and private $\phi(n) = (p-1)(g-1)$; picks random public $2 < e < \phi(n)$; solves private $d = e^{-1} \mod(\phi(n))$. Now if /B/ wants to send a message to /A/, this is how it goes:
+
+    \begin{align*}
+      B &: C = M^e \mod(n) \\
+      B &\to_{C }A \\
+      A &: C^d \equiv M^{ed} \mod(n) \\
+        &: ed \equiv 1 \mod (\phi(n)) \to ed - 1 = k\phi(n) \\
+        &: M^ed \equiv (M^{\phi(n)})^k * M \equiv_{Euler_{thm}} 1^k * M \equiv M \mod (n)  
+    \end{align*}
+
+    However, the encryption is deterministic for the same /e/, meaning it can leak information! There should be a source of entropy in it, but it isn't that important for our scope.
+    
+** DSA Signatures
+   Based on Diffie-Hellman. Signatures are used to avoid the man in the middle attack listed in ref:DH. Initial parameters: =L, N, Hash(x)=. /A/ creates an N-bit prime /q/, L-bit prime /p/, s.t. $q|p$ and $g = h^{\frac{p-1}{q} \mod(p), 1 < h < p-1$. We say /p,g,q/ are public. /A/ has the private key /a/ and the public key $g^a \mod(p)$. /A/ calculates a random $k < q$. And the process of signing by /A/ and verifying by /B/ goes as such:
+
+   \begin{align*}
+    A &: r = (g^k \mod (p)) \mod (q), r \neq 0 \\
+      &: s = k^{-1}(Hash(M) + ar) \mod (q) \\
+      &: Sign = \{r, s\} \\
+      &\to_{...||Sign} B \\
+    B &: w = s^-1 \mod(q) \\
+      &: u_1 = Hash(M) * w \mod (q) \\
+      &: u_2 = rw \mod(q) \\
+      &: v = (g^{u_1}g^{au_2} \mod(p))\mod(q)
+   \end{align*}
+
+   And if $v = r$, the signature is valid!
+   
+** Certification and Authentication
+   We trust a certificate authority, which gives us the correct certificate (public key) for whomever we want to speak to. The certificate should be signed by the CA itself or by someone the CA has signed a certificate to, meaning that it is trustworthy. The latter is the method for certification scaling, avoiding the bottleneck of having one CA authenticating numerous users and implementing a signature delegation (Hierarchical). We should also be able to receive a list of certificate revokations so we can avoid insecure connections. 
+
+* Web Security
+  This section will focus on the possible exploits and mitigation options for web pages as well as the structure of the web.
+** SQL Injection
+   This is probably the most known system attack these days. It's really simple to understand and avoid.
+   
+   Web servers/pages can have databases. The most known Database Query language is SQL. Usually, the web server/page would have queries to fill out information on the HTML rendering and such. For this, they must, sometimes, read user input and add it as a field to the query code. _You have a social media website. You want to display someone's profile when it is searched for. You create a field in the web page asking "Looking for...?". The intended output of a query in this scenario would be all the users information (name, age, ...). So you add the following to your code:_
+
+   #+NAME: SQL Query
+   #+attr_latex: :options bgcolor=yellow
+   #+BEGIN_SRC SQL
+SELECT name, age, photo FROM users WHERE username = input; 
+   #+END_SRC
+   
+   _What can an attacker do?_ It can use a string like the following: =''; DROP TABLE users;--=, which will end the query, break the line, add a /drop table/ command and comment whatever is in the right just to make sure. This will break the website.
+   The best mitigation for this are /prepared statements/, which will send the input all the way to a leaf inside the tree structured query, taking away all its privileges of running any commands.
+** Javascript & Cookies
+   Javascript is a scripting lenaguage used to structure and add functionalities to your webpage. It can basically do whatever it wants to the *DOM* as well as read/change the session cookies. In order to make your computer safe from dangerous websites with Javascript that you may end up visiting, Javascript is /sandboxed/, which means it cannot change files or programs in the computer it is being run on.
+*** Same-Origin Policy
+    Another danger of Javascript is the fact that it should be able to tamper with other websites. That's why there is *SOP*. The policy restrains webpages from affect things that are out of their origin. For two origins to be the same, they must have the same =domain, port, protocol=. _For example, the website http://amazon.com/idk/1023 has the same origin as http://amazon.com:80/babyyoda/1123421 but not of https://amazon.com/idk/1023, http://store.amazon.com/idk/1023 or http://amazon.com:1234/idk/1023_.
+*** Cookies!
+    Cookies are basically variables for someone's session in a website. They are structured with a =host, path= key and a value. This is how companies track what Ads you want to see. Here are some cookie properties:
+**** *Cookie Origin Policy*
+     
+     *Don't confuse this with SOP!* Cookie origin policy restrains the cookie sharing process as in /"which websites can receive my cookies"/. The only websites that can share your cookie are the ones that have matching suffixes. _E.g. example.com/foo shares with www.example.com/foo but not with example.com/bar_. 
+**** *Secure Flag*
+     
+     A cookie can be set with a secure flag, which means it can only be sent via /HTTPS/ connection.
+**** *HTTP-Only Flag*
+     
+     A cookie set with the HTTP-Only flag will only be accessible in the server side.
+*** Spectre Attack
+    A hardware side channel developed to access the nested iframe's information by treaking the processor's predictor. Solution is to make the browser *eat RAM* by giving every website it's own process.
+** Cross-site Forgery Attack (CSRF)
+    
 
 * Appendix
 ** Assembly code for Immediate suffering
