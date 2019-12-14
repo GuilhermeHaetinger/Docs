@@ -1,38 +1,29 @@
 \begin{thebibliography}{1}
 
-\bibitem{secPrinc}
+\bibitem{wagner_security_2019}
 David Wagner.
-\newblock Security principles notes, 2019.
-\newblock \url{https://cs161.org/assets/notes/Principles.1.19.pdf}.
-
-\bibitem{MemoryDefenseSlide}
-Nicholas Weaver.
-\newblock Memory defenses \& crypto slides, 2019.
-\newblock
-  \url{https://cs161.org/assets/lectures/lec06_defenses_crypto.key.pdf}.
+\newblock Security {Principles} notes, 2019.
 
 \bibitem{muller_aslr_nodate}
 Tilo Muller.
 \newblock {ASLR} {Smack} \& {Laugh} {Reference}.
 \newblock page~21.
 
-\bibitem{symEnc}
-David Wagner.
-\newblock Symmetric encryption notes, 2019.
-\newblock \url{https://cs161.org/assets/notes/Symmetric.2.21.pdf}.
-
-\bibitem{SymEncSlide}
+\bibitem{weaver_symmetric_nodate}
 Nicholas Weaver.
-\newblock Symmetric encryption slides, 2019.
-\newblock \url{https://cs161.org/assets/lectures/lec07_crypto.key.pdf}.
+\newblock Symmetric {Encryption} slides.
+\newblock Technical report.
 
-\bibitem{guideX86}
-David Evans, 2018.
-\newblock \url{https://www.cs.virginia.edu/~evans/cs216/guides/x86.html}.
+\bibitem{noauthor_block_2019}
+Block cipher mode of operation, December 2019.
+\newblock Page Version ID: 928920577.
 
-\bibitem{functionCall}
-Zeyuan Hu, 2017.
-\newblock
-  \url{https://zhu45.org/posts/2017/Jul/30/understanding-how-function-call-works/}.
+\bibitem{evans_guide_nodate}
+David Evans.
+\newblock Guide to x86 {Assembly}.
+
+\bibitem{hu_understanding_nodate}
+Zeyuan Hu.
+\newblock Understanding how function call works.
 
 \end{thebibliography}

@@ -1,39 +1,17 @@
-@Misc{secPrinc,
-  author =    {David Wagner},
-  title =     {Security Principles Notes},
-  year =      {2019},
-  note =      {\url{https://cs161.org/assets/notes/Principles.1.19.pdf}}
+@misc{evans_guide_nodate,
+	title = {Guide to x86 {Assembly}},
+	url = {https://www.cs.virginia.edu/~evans/cs216/guides/x86.html},
+	urldate = {2019-12-13},
+	author = {Evans, David}
 }
-@Misc{secPatt,
-  author =    {David Wagner},
-  title =     {Security Design Pattern Notes},
-  year =      {2019},
-  note =      {\url{https://cs161.org/assets/notes/Patterns.1.19.pdf}}
+
+@misc{hu_understanding_nodate,
+	title = {Understanding how function call works},
+	url = {https://zhu45.org/posts/2017/Jul/30/understanding-how-function-call-works/#:~:targetText=The%20return%20address%20is%20a,after%20the%20function%20is%20completed.&targetText=In%20assembly%20language%2C%20the%20call,you%20called%20the%20function%20from.},
+	urldate = {2019-12-13},
+	author = {Hu, Zeyuan}
 }
-@Misc{symEnc,
-  author =    {David Wagner},
-  title =     {Symmetric Encryption Notes},
-  year =      {2019},
-  note =      {\url{https://cs161.org/assets/notes/Symmetric.2.21.pdf}}
-}
-@Misc{MemoryDefenseSlide,
-  author =    {Nicholas Weaver},
-  title =     {Memory Defenses \& Crypto slides},
-  year =      {2019},
-  note =      {\url{https://cs161.org/assets/lectures/lec06_defenses_crypto.key.pdf}}
-}
-@Misc{SymEncSlide,
-  author =    {Nicholas Weaver},
-  title =     {Symmetric Encryption slides},
-  year =      {2019},
-  note =      {\url{https://cs161.org/assets/lectures/lec07_crypto.key.pdf}}
-}
-@Misc{functionCall,
-  author =    {Zeyuan Hu},
-  title =     {},
-  year =      {2017},
-  note =      {\url{https://zhu45.org/posts/2017/Jul/30/understanding-how-function-call-works/}}
-}
+
 @article{muller_aslr_nodate,
 	title = {{ASLR} {Smack} \& {Laugh} {Reference}},
 	language = {en},
@@ -41,9 +19,39 @@
 	pages = {21},
 	file = {Muller - ASLR Smack & Laugh Reference.pdf:C\:\\Users\\ghaet\\Zotero\\storage\\KLXDL3J9\\Muller - ASLR Smack & Laugh Reference.pdf:application/pdf}
 }
-@Misc{guideX86,
-  author =    {David Evans},
-  title =     {},
-  year =      {2018},
-  note =      {\url{https://www.cs.virginia.edu/~evans/cs216/guides/x86.html}}
+
+@misc{noauthor_block_2019,
+	title = {Block cipher mode of operation},
+	copyright = {Creative Commons Attribution-ShareAlike License},
+	url = {https://en.wikipedia.org/w/index.php?title=Block_cipher_mode_of_operation&oldid=928920577},
+	abstract = {In cryptography, a block cipher mode of operation is an algorithm that uses a block cipher to provide information security such as confidentiality or authenticity.
+A block cipher by itself is only suitable for the secure cryptographic transformation (encryption or decryption) of one fixed-length group of bits called a block. A mode of operation describes how to repeatedly apply a cipher's single-block operation to securely transform amounts of data larger than a block.Most modes require a unique binary sequence, often called an initialization vector (IV), for each encryption operation. The IV has to be non-repeating and, for some modes, random as well. The initialization vector is used to ensure distinct ciphertexts are produced even when the same plaintext is encrypted multiple times independently with the same key. Block ciphers may be capable of operating on more than one block size, but during transformation the block size is always fixed. Block cipher modes operate on whole blocks and require that the last part of the data be padded to a full block if it is smaller than the current block size. There are, however, modes that do not require padding because they effectively use a block cipher as a stream cipher.
+Historically, encryption modes have been studied extensively in regard to their error propagation properties under various scenarios of data modification. Later development regarded integrity protection as an entirely separate cryptographic goal. Some modern modes of operation combine confidentiality and authenticity in an efficient way, and are known as authenticated encryption modes.},
+	language = {en},
+	urldate = {2019-12-13},
+	journal = {Wikipedia},
+	month = dec,
+	year = {2019},
+	note = {Page Version ID: 928920577},
+	file = {Snapshot:C\:\\Users\\ghaet\\Zotero\\storage\\IV8GEIIZ\\index.html:text/html}
+}
+
+@techreport{weaver_symmetric_nodate,
+	title = {Symmetric {Encryption} slides},
+	url = {https://cs161.org/assets/lectures/lec07_crypto.key.pdf},
+	author = {Weaver, Nicholas}
+}
+
+@misc{wagner_seucrity_2019,
+	title = {Seucrity {Design} {Patterns} notes},
+	url = {https://cs161.org/assets/notes/Patterns.1.19.pdf},
+	author = {Wagner, David},
+	year = {2019}
+}
+
+@misc{wagner_security_2019,
+	title = {Security {Principles} notes},
+	url = {https://cs161.org/assets/notes/Principles.1.19.pdf},
+	author = {Wagner, David},
+	year = {2019}
 }

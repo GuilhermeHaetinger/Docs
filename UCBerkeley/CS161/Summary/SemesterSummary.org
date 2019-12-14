@@ -7,7 +7,7 @@
 * Security Design
   Let's discuss on how to make a system theoretically secure, as in the decisions that should be made and what are the main points we should leverage when designing a system from scratch. 
 ** Security Principles
-   We have a number of security principles that must be considered once we are developing software cite:secPrinc. Some of them can be enumerated as the most important. These are:
+   We have a number of security principles that must be considered once we are developing software cite:wagner_security_2019. Some of them can be enumerated as the most important. These are:
    * *Security is Economics*: Only spend as much money as what you are trying protect is worth. _Don't buy a $10000 lock for a $10 bike_.
    * *Least Privilege*: Only give a program the actual amount of privilege it needs to do its purpose. _We should not give ROOT access to a program that plays the nyan cat video_.
    * *Fail-safe Defaults*: Safe defaults in the sense of "/if something fails, what should be the current state?/". It's recommended that we use /default-deny/ policies. _The light goes down on a server's building. Should the electronic lock on the server access door be unlocked or stay locked?_ \to If we want /default-deny/ policies, the door will stay shut, keeping the server's hardware safe from whomever wants to access it, which will keep it secure from someone who jammed the building's circuits just to get to the computers.
@@ -138,7 +138,7 @@
 **** *Stack Canaries*
      
      Random value generated when program starts that is stored below the =EBP=. Its value is checked once the function returns and, if it has changed, the program will know it has been hijacked. The idea behind it is to avoid simple Buffer Overflows to change the value of the =EBP= or the /return address/. _How can we go around this mitigation?_ We have to find a way /not to kill the Canary/. For this, we have the following options :
-    - Find out the value of the canary and rewrite it in the process of modifying the =ECB= or /return address/. To do that we either have to find a string formatting vulnerability that may print the value or any other information leak that might dump it, e.g. finding a way for the program not to read a ='\0'= character in the end of a string while printing it out will make the program leak every information until the next ='\0'=. The example can be easily prevented by making the first bytes of the canary always be equivalent to the end-string character, making it stop before reading the canary. While this is effective against this attack, we can see that the entropy of the canary is lowered by 25%, which is supposed to make brute-force plausible since we now have 24 bits of entropy.
+    - Find out the value of the canary and rewrite it in the process of modifying the =EBP= or /return address/. To do that we either have to find a string formatting vulnerability that may print the value or any other information leak that might dump it, e.g. finding a way for the program not to read a ='\0'= character in the end of a string while printing it out will make the program leak every information until the next ='\0'=. The example can be easily prevented by making the first bytes of the canary always be equivalent to the end-string character, making it stop before reading the canary. While this is effective against this attack, we can see that the entropy of the canary is lowered by 25%, which is supposed to make brute-force plausible since we now have 24 bits of entropy.
     - Use a string formatting vulnerability to write around it with specific addresses.
 
 **** *Non-executable pages*
@@ -160,7 +160,7 @@
 
    If the Attacker wins the game, we can assume that the output of the encryption algorithm can be predicted by its input even without knowing /K/. This makes the algorithm extremely flawed because someone eavesdropping an encrypted conversation might be able to deterministically understand and hijack it. Therefore we seek the algorithms that win it.  
 ** Symmetric Encryption
-   Given that two people (A, B) have a secret key /K/ known only by them. Consider $E_K(M)$ as the encryption function and $D_K(C)$ as the Decryption function ($M$ is the message and $C$ is the cypher).cite:symEnc,SymEncSlide   
+   Given that two people (A, B) have a secret key /K/ known only by them. Consider $E_K(M)$ as the encryption function and $D_K(C)$ as the Decryption function ($M$ is the message and $C$ is the cypher).cite:weaver_symmetric_nodate,symEnc,SymEncSlide   
 *** One Time Pad
     This is the most simple encryption algorithm we saw. The calculations are self-explaining.
 
@@ -183,10 +183,41 @@
     
     Note that (2) and (5) are random, meaning that the oracle could have chose $M1$ on (2) or $M3$ on (5). However, this is irrelevant since the Attacker can just repeat the operation to get the only two possible outputs (it's exactly two because the "\oplus" operation is deterministic) and then compare which output repeats on both cases. Note that once it knows the encrypted message, it can simple derive the key /K/ from $K = C1 \oplus M2$.
 *** Block Ciphers
-   Block Ciphers divide the message $M$ into blocks and encrypt each one with /K/. The encryption algorithm itself is deterministic.
+    Block Ciphers divide the message $M$ into blocks and encrypt each one with /K/. The encryption algorithm itself is deterministic. cite:noauthor_block_2019,weaver_symmetric_nodate 
 **** *Electronic Code Book*
      
      The simplest block cipher. Every chunk of code goes through the same encryption process. It can be defined by the following: $C_i = E_K(M_i), M_i \in M$. The encryption is deterministic and the ECB doesn't do anything to keep the Ciphers from having no entropy whatsoever. This means that chunks with the same value in the message will have the same cipher output, leaking information and, clearly, losing the IND-CPA game.
+     #+BEGIN_center
+     #+ATTR_LaTeX: :height 0.15\textwidth :center nil
+     [[file:res/ECB-ENC.png]] 
+     #+ATTR_LaTeX: :height 0.15\textwidth :center nil
+     [[file:res/ECB-DEC.png]]
+     #+END_center
+**** *Cipher Block Chaining*
+     This block cipher uses the concept of nonces (/nonsense/) to add entropy to the cipher output. If the IV (nonce) isn't reused, CBC is IND-CPA. Note that although we can't parallelize the encryption, we can parallelize the decryption. The structure is the following:
+
+     \begin{align*}
+     C_0 &= IV \\
+     C_1 &= E_k(C_{i-1} \oplus P_i) \\
+     P_i &= D_k(C_i) \oplus C_{i-1}
+     \end{align*}
+
+     #+BEGIN_center
+     #+ATTR_LaTeX: :height 0.15\textwidth :center nil
+     [[file:res/CBC-ENC.png]] 
+     #+ATTR_LaTeX: :height 0.15\textwidth :center nil
+     [[file:res/CBC-DEC.png]]
+     #+END_center
+**** *Counter Mode*
+     All-parallelizable alternative to CBC. Instead of one IV, uses $nonce || i, i \in [0,...,n]$ with /n/ being the number of blocks. Reusing the IV in CBC makes it lose the IND-CPA game, but it's not catastrophic because the attacker will only find out the first block. If you reuse the IV in CTR mode, it transforms itself into the one time pad, leaking all the message. Note that CTR decryption uses the nonce encryption instead of a decryption function and that it is not exactly a block cypher but more of a stream cypher because it doesn't need padding. The structure is the following:
+     
+     #+BEGIN_center
+     #+ATTR_LaTeX: :height 0.15\textwidth :center nil
+     [[file:res/CTR-ENC.png]] 
+     #+ATTR_LaTeX: :height 0.15\textwidth :center nil
+     [[file:res/CTR-DEC.png]]
+     #+END_center
+**** 
 
 * Appendix
 ** Assembly code for Immediate suffering
@@ -194,7 +225,7 @@
    Let's review some topics for the Assembly code structure when generated through C code.
 *** Registers
     For the purpose of this class, I'm sure we'll only need to know 32-bit registers (not that there are many differences between 32 to 64, but the names differ).
-    * Data registers cite:guideX86:
+    * Data registers cite:evans_guide_nodate:
       * *EAX* \to Accumulator: IO and Arithmetic functions, *Is where the return value is stored*;
       * *EBX* \to Base: Indexed addressing;
       * *ECX* \to Count: Loops
@@ -208,10 +239,10 @@
   #+ATTR_HTML: width="%"
   #+CAPTION: The Stack registers layout
   #+NAME: StackReg
-  [[file:stack-convention.png]]
+  [[file:res/stack-convention.png]]
  
 *** How do function calls work?
-    This part is really important for us so we actually understand how the stack layouts itself on /return/ and exploit the return address. It follows these operations cite:functionCall:
+    This part is really important for us so we actually understand how the stack layouts itself on /return/ and exploit the return address. It follows these operations cite:hu_understanding_nodate:
      
     + Setup & execution
       - Push all the function parameters into the stack (piles up from last to first \to first one in the lowest memory address);
