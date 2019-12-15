@@ -338,8 +338,109 @@ SELECT name, age, photo FROM users WHERE username = input;
 *** Spectre Attack
     A hardware side channel developed to access the nested iframe's information by treaking the processor's predictor. Solution is to make the browser *eat RAM* by giving every website it's own process.
 ** Cross-site Forgery Attack (CSRF)
+   Attacker inserts malicious request in a page it has control inside an =<img>= tag or any other operation that causes the request to run. _E.g. You visit the attacker's webpage, which files a transfer request in your name on www.bank.com. Is that going to work?_. It depends on how the bank implements its system. The point of this attack is to take advantage of the cookies saved for the victim. So if the bank determines who is logged in by the cookies, then the attack might work. There are two important mitigation options for this exploit:
+*** "Referer" validation
+    The "referer" validation allows the website to identify from which website the request is coming from. If the website is not itself, it makes sense to terminate the operation. However, there are still some ways of going around it.
+*** Secret Token Validation
+    A short TTL random cookie that defines the login session for the user. We can add this cookie to the URL, making the URL itself hold entropy, which means the attacker's only option is to brute force the cookie (probably infeasible) or find a way to retrieve it. The solution, however, is not really pretty and Weaver doesn't consider any solutions regarding the STV perfect, but it is better than the "referer" validation.
     
+** Cross-site Scripting (XSS)
+   Its main objective is to Subvert the SOP.
+*** Stored XSS
+    Persisting a malicious script (Javascript) in a server that's going to be accessed by the victim, running the code. In the end, it can either execute whatever malicious operation it wants in the website using the victims authentication cookie or it can send data (cookies mostly) to the evil server.
+*** Reflected XSS
+    User enters malicious website, clicks on a link that redirects him to a website whose cookies are interesting with a script in the URL. The script can either send data to the attacker or perform malicious operations in the name of the user.
+*** How to fix?
+    - Input sanitation (CSP) \to Removes whatever might be fishy about an input
+      + Prohibit inline scripts
+      + Whitelisting
+      + Blacklisting
+    - HTTP-only flag \to doesn't allow the user to access its cookies, so the script can't get them.
 
+** Clickjacking
+   Placement of invisible i-frames of a target website over some enticing content or placement of visible of a target under a malicious invisible frame to capture user input. We can fix it by frame-busting: website prohibits its page from being a frame or by using the HTTP *X-Frame-Options*, which whitelists some websites for frame use. 
+
+* Network Security
+  This is most certainly the hardest part of the content. This is an overview for Networking as well as an observation set for its vulnerabilities.
+** The 5 layers that actually matter
+   We can divide networking into 5 different layers, the lowest their number, the lower levelled they are. These are:
+
+   |---+----------------+---------------------------------------------------------------|
+   | / | <              | <                                                             |
+   | 7 | Application    | Communication of whatever (e-mail, torrent,...)               |
+   |---+----------------+---------------------------------------------------------------|
+   | 4 | Transport      | End-to-end communication between processes ()TCP/UDP          |
+   |---+----------------+---------------------------------------------------------------|
+   | 3 | (inter)Network | Bridges multiple "subnets" to provide end-to-end connectivity |
+   |---+----------------+---------------------------------------------------------------|
+   | 2 | Link           | Framing and transmission of bits into a message               |
+   |---+----------------+---------------------------------------------------------------|
+   | 1 | Physical       | Encoding bits to send them over a link (single)               |
+   |---+----------------+---------------------------------------------------------------|
+** Basic stuff
+   + IPv4 \to 32-bits
+   + IPv6 \to 64-bits
+   + localhost \to 127.0.0/24
+   + Broadcast \to 255.255.255.255
+   + Protocols \to agreement on how to communicate (Format, order of message, etc.)
+   + Packets \to What communication is broke into
+     - Software doesn't see it;
+     - May be dropped;
+   + Attacker types:
+     - Off-Path Attacker: Can't see the victim's traffic;
+     - On-Path Attacker: Can see the victim's traffic and add packets with race condition;
+     - In-Path Attacker: Can see the victim's traffic, add packets without race conditions and drop packets.
+
+** Local Network Connection
+   When connecting to a network, a device needs to receive a configuration (IP Addr., Gateway and DNS Addr.) from some other system inside a network. 
+
+*** DHCP (Dynamic Host Control Protocol)
+    To receive the configuration, our host will broadcast a /Server-Discovery/ message that will be answered by the *DHCP* server of the network. The answer will consist of an offer which our host will accept or not and communicate to the server, that will ACKnowledge it. The offer has all the configuration needed.
+
+    If someone hears the broadcast and sends an offer before he DHCP server, it could result in big trouble since they can redirect us to any DNS and Gateway of their choosing, meaning our connection has been completely hijacked and they have full control of what we are looking for and at. We now have a complete Man in the Middle. This scenario is called the /Rogue Access point/.
+
+*** ARP
+    The Link can't see the IP Addr. and that's why we need a MAC address for communication. the *ARP* protocol is to whom we will turn we need to find another device. We send its IP and:
+    + If the IP is in the local network \to receive its MAC;
+    + Else \to redirects us to the Gateway, to whom we will send our packets in order to get routed towards the destination;
+
+*** /AirPwn/
+    When the traffic is non-encrypted and the attacker knows to whom the traffic belongs, it can inject packets, meaning they can race the server to which the client is connected for a response. If the attacker wins, the client receives its malicious packets.
+
+*** WPA2
+   The WPA2 execution works as the followin sequence of events (C \to client, AC \to Access Point, F \to Key derivation function):
+   
+   \begin{align*}
+    C,AC &: PSK = F(passwd||SSID) \\
+    AC &: Anonce = generate() \\
+    C &: Snonce = generate() \\
+    AC &\to_{Anonce }C \\
+    C &: PTK = F(PSK, Anonce, Snonce, MAC_AP, MAC_C) \\
+    C &\to_{Snonce||MIC} AC \\
+    AC &: PTK = F(PSK, Anonce, Snonce, MAC_AP, MAC_C) \\
+    AC &\to_{GTK||MIC} C \\
+    C &\to_{ACK}_{} AC
+   \end{align*}
+
+   Now both devices have the symmetric PTK (Pairwise Transient Key)! Although all the communication between /C/ and /AC/ can be encrypted from now on, this doesn't prevent someone that has the password from deriving the key if it knows the MAC of the client because the attacker would be able to see all the rest! Even if it doesn't know the PSK, it can still try to brute-force it. This isn't a really safe protocol.
+
+*** WPA2 Enterprise
+    WPA2 Enterprise is different. It is much better. The 4-way handshake now happens between the device and an Authentication Server that holds the information required for each user, i.e. each user has an username and a password. This idea makes it so that if someone has access to the internet, it has its own PSK. So, even if the attacker had access to the internet, it wouldn't be able to understand someone else's 4-way handshake. Also, the Authentication Server's connection is encrypted with public-key encryption.
+   
+*** LAN Security
+    Either we don't provide or we do some /smart switching/ and /active monitoring/. 
+**** *Switch*
+
+     The Switch keeps track of where the MAC addresses inside the local network are seen in order to make things more efficient.
+**** *VLANs*
+
+     VLANs are smarter switches. They isolate different parts of the network, making all network traffic inside a VLAN stay inside it.
+** Transport Protocols
+   Before we get into actual communication between IPs and connection resolution for those, we need to clear up what are the transportation protocols for messages and how they work in a pretty abstract way.
+*** UDP (User Datagram Protocol)
+    Also called "Unreliable" Datagram Protocol, UDP is a lightweight datagram transportation protocol that relies itself in a /best effort/ execution, meaning packets can be dropped or arrive in a different and it won't care. Now this clearly seems a really bad way to send a message. The point is: *It is really efficient*.
+*** TCP (Transmission Control Protocol)
+    
 * Appendix
 ** Assembly code for Immediate suffering
    <<sec:Assemble>>
@@ -433,6 +534,9 @@ SELECT name, age, photo FROM users WHERE username = input;
      |----------------------+----------------+---------|
      | HIGHEST Memory Addr. | return address | 4 bytes |
      |----------------------+----------------+---------|
+
+
+
 
 bibliographystyle:unsrt
 bibliography:CS_161_Summary.bib
