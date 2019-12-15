@@ -369,7 +369,7 @@ SELECT name, age, photo FROM users WHERE username = input;
    | / | <              | <                                                             |
    | 7 | Application    | Communication of whatever (e-mail, torrent,...)               |
    |---+----------------+---------------------------------------------------------------|
-   | 4 | Transport      | End-to-end communication between processes ()TCP/UDP          |
+   | 4 | Transport      | End-to-end communication between processes (TCP/UDP)          |
    |---+----------------+---------------------------------------------------------------|
    | 3 | (inter)Network | Bridges multiple "subnets" to provide end-to-end connectivity |
    |---+----------------+---------------------------------------------------------------|
@@ -440,7 +440,24 @@ SELECT name, age, photo FROM users WHERE username = input;
 *** UDP (User Datagram Protocol)
     Also called "Unreliable" Datagram Protocol, UDP is a lightweight datagram transportation protocol that relies itself in a /best effort/ execution, meaning packets can be dropped or arrive in a different and it won't care. Now this clearly seems a really bad way to send a message. The point is: *It is really efficient*.
 *** TCP (Transmission Control Protocol)
-    
+    The TCP usual communication between two entities are set and terminated goes as the image ref:tcp shows us. Once the communication is set, we can start sending and receiving data. As shown, the connection starts with a Sequence Number from the client as well as another one from the server. The acknowledgment field is always sent as the received Sequence Number plus the amount of data (flag packets are sized one) received and the Sequence Number is always sent as the previous received ACK. The same will happen on data transferring.  
+
+    #+ATTR_LaTeX: :height 0.5\textwidth
+    #+name: tcp
+    #+caption: TCP execution
+    [[file:res/TCP.png]] 
+
+*** Flags
+    It's also important to understand what the packet flags mean.
+    - SYN \to Initiate connection;
+    - ACK \to Acknowledge message arrival;
+    - FIN \to Warn that data won't be sent anymore, but the channel is still open for receiving;
+    - RST \to Terminate connection \to *Something went wrong!*
+*** Packet & RST Injection
+    Also, someone who can see the TCP traffic can inject packages. Someone who doesn't can guess the port and Sequence Number. A "RST" packet doesn't need any Sequence Number, so if someone knows the target IP and can guess the port, it can just terminate a connection.
+*** SYN Flooding!
+    SYN Packets allocate state inside the server. Spamming SYN requests can cause Denial of service. To fix this, we need *SYN Cookies!* The idea behind it is to send a random generated number as the sequence number to the client so that the client has to send it back to you before you actually allocate state. However, we need to assert that the number is the same. For this, we use HMAC. We allocate space, but it's much less than before. The space allocated is for the number we input in the HMAC function. This way we send HMAC(k) and check if the return /x/ provides us with HMAC(x) = HMAC(k).  
+
 * Appendix
 ** Assembly code for Immediate suffering
    <<sec:Assemble>>
