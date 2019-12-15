@@ -457,6 +457,56 @@ SELECT name, age, photo FROM users WHERE username = input;
     Also, someone who can see the TCP traffic can inject packages. Someone who doesn't can guess the port and Sequence Number. A "RST" packet doesn't need any Sequence Number, so if someone knows the target IP and can guess the port, it can just terminate a connection.
 *** SYN Flooding!
     SYN Packets allocate state inside the server. Spamming SYN requests can cause Denial of service. To fix this, we need *SYN Cookies!* The idea behind it is to send a random generated number as the sequence number to the client so that the client has to send it back to you before you actually allocate state. However, we need to assert that the number is the same. For this, we use HMAC. We allocate space, but it's much less than before. The space allocated is for the number we input in the HMAC function. This way we send HMAC(k) and check if the return /x/ provides us with HMAC(x) = HMAC(k).  
+** DNS
+   Finds an IP Addr. for communication based on a given URL. Uses UDP because it's performance critical. It's considered a distributed database in which the DNS resolver asks each Name Server for the URL's existance.
+*** DNS Resolver
+    The DNS Resolver can be Reursive or Iterative. _Recursive_: Local DNS server \to Root (.) \to following name server \to ...; _Iterative_: Local DNS server looks for Root, that returns the following name server, and then looks for the name server...
+*** DNS Response
+    The DNS Response has the following structure:
+    
+    |--------------------+------------------------------------------------------------------|
+    | /                  | <                                                                |
+    | Question           | Request                                                          |
+    |--------------------+------------------------------------------------------------------|
+    | Transaction ID     | Identification                                                   |
+    |--------------------+------------------------------------------------------------------|
+    | Answer             | If there is any, the requested IP                                |
+    |--------------------+------------------------------------------------------------------|
+    | Authority Section  | Name Servers responsible for the answer or the following lookups |
+    |--------------------+------------------------------------------------------------------|
+    | Additional Section | Useful info to be cached (possible following lookups)            |
+    |--------------------+------------------------------------------------------------------|
+
+    All sections besides "Transaction ID" are consisted by Resource Records. RRs are structures that contain the following values:
+    - Hostname \to The hostname it represents;
+    - TTL \to Time to live;
+    - Family \to Always going to be "IN" (Internet);
+    - Type \to Type for the value:
+      + NS \to Name Server;
+      + A \to IPv4 Addr;
+      + AAAA \to IPv6 Addr;
+    - Value \to The value it holds
+*** Bailiwick Check
+    Name server can't add names in the Additional or Authority section for names that aren't in bailiwick, meaning they aren't part of the lookup host. This is to avoid that the Name Server for "mit.edu" adds "berkeley.edu" to the Additional Section with some malicious IP address when someone looks it up. E.g. if you are looking up "eecs.mit.edu" only accept from "***.mit.edu".
+*** Blind Spoofing
+   This attack involves having someone in a malicious webpage or having them click some bait so that they try to access a specific website, say "bank.com". Once they run the DNS query, the attacker is going to try running against the server response so it may be able to poison the user's DNS cache. To do this, the attacker must be able to spoof the transaction ID, which is random. If it succeeds, the user may have a malicious website instead of "bank.com" and so it goes. 
+*** The Kaminsky Attack
+    Although the idea above seems doable, it's really hard to actually make anything out of it. Consider that you have only one chance of succeeding. Once the value of the lookup is cached, there is nothing we can do about it but wait its TTL. The Kaminsky Attack is a well elaborated alternative to the blind spoofing. In spite of it actually doing mostly the same thing (guessing ID and trying to run), this method, instead of running the lookup to the actual website, looks up fake websites such as "a.bank.com", "b.bank.com",...; Websites that are in Bailiwick and that aren't cached. This way, it still only caches the value when it guesses the correct ID and wins the race, but it can try that as many times as it wants! Some techniques to avoid that is to add CaMeLcAsE letters in the Name Servers and randomize the source port. These two options make spoofing much harder, but still very possible.
+
+** TLS
+   Built on top of TCP, TLS uses the same ACK/SEQ behaviour. The process is shown by ref:TLS +With some english mistakes but I found that on Google Images so I don't care+. As we can see, the handshake happens by them agreeing on a Cipher spec available for one of the Client's Crypto options. Each one also sends a random 256-bit number (R_C, R_S) to add entropy and avoid replay attacks (isn't shown on image though). The server also sends its certificate for the client to authenticate and start the key sharing process. When the key exchange is done, the data will be communicated in the following format: $\{M,MAC(I, M)\}_C$. Each entity will have its own Cipher and Integrity key to avoid replay attacks with same Sequence Numbers. The key exchange, however, isn't tackled in depth. For that, let's keep going.
+
+#+attr_latex: :height 0.5\textwidth
+#+Name: TLS
+#+caption: TLS Behaviour 
+[[file:res/TLS.png]]
+
+*** TLS with Diffie-Hellman
+    Once having its certificate authenticated by the client, the server sends $\{g,p,g^a \mod(p)\}_{K_{server}^{-1}}$. Once the client receives this, the server sends a "end of handshake" message as the client sends $g^b \mod(p)$. Now they both have the /PS/ and can derive $C_C, C_S$ (cipher keys) and $I_C, I_S$ (Integrity keys) from {PS, R_C, R_S}. Having all keys, they MAC and send the whole handshake using the Integrity keys to make sure they were derived correctly. Using DH provides forward secrecy, which means that if someone gets ahold of the client or the server's private key in the future, they wouldn't be able to understand the dialog since /a/ and /b/ were deleted when the conversation stopped.
+*** TLS with RSA Encryption
+   The difference is that, instead of sending a generated DH public key with its certificate, the server waits for the client to send $\{PS\}_{K_{server}}$ and then all goes along the same way. 
+** TODO Certificate Authorities - Revised
+** TODO DNSSEC
 
 * Appendix
 ** Assembly code for Immediate suffering
@@ -553,6 +603,10 @@ SELECT name, age, photo FROM users WHERE username = input;
      |----------------------+----------------+---------|
 
 
+
+
+** TODO Using GDB & Shell Exploits
+** TODO Nick's Insane way of Checking a Lie
 
 
 bibliographystyle:unsrt
