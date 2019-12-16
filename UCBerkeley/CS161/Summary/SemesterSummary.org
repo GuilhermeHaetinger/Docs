@@ -447,18 +447,21 @@ SELECT name, age, photo FROM users WHERE username = input;
     #+caption: TCP execution
     [[file:res/TCP.png]] 
 
-*** Flags
-    It's also important to understand what the packet flags mean.
-    - SYN \to Initiate connection;
-    - ACK \to Acknowledge message arrival;
-    - FIN \to Warn that data won't be sent anymore, but the channel is still open for receiving;
-    - RST \to Terminate connection \to *Something went wrong!*
-*** Packet & RST Injection
-    Also, someone who can see the TCP traffic can inject packages. Someone who doesn't can guess the port and Sequence Number. A "RST" packet doesn't need any Sequence Number, so if someone knows the target IP and can guess the port, it can just terminate a connection.
-*** SYN Flooding!
-    SYN Packets allocate state inside the server. Spamming SYN requests can cause Denial of service. To fix this, we need *SYN Cookies!* The idea behind it is to send a random generated number as the sequence number to the client so that the client has to send it back to you before you actually allocate state. However, we need to assert that the number is the same. For this, we use HMAC. We allocate space, but it's much less than before. The space allocated is for the number we input in the HMAC function. This way we send HMAC(k) and check if the return /x/ provides us with HMAC(x) = HMAC(k).  
+**** Flags
+     
+     It's also important to understand what the packet flags mean.
+     - SYN \to Initiate connection;
+     - ACK \to Acknowledge message arrival;
+     - FIN \to Warn that data won't be sent anymore, but the channel is still open for receiving;
+     - RST \to Terminate connection \to *Something went wrong!*
+**** Packet & RST Injection
+     
+     Also, someone who can see the TCP traffic can inject packages. Someone who doesn't can guess the port and Sequence Number. A "RST" packet doesn't need any Sequence Number, so if someone knows the target IP and can guess the port, it can just terminate a connection.
+**** SYN Flooding!
+     
+     SYN Packets allocate state inside the server. Spamming SYN requests can cause Denial of service. To fix this, we need *SYN Cookies!* The idea behind it is to send a random generated number as the sequence number to the client so that the client has to send it back to you before you actually allocate state. However, we need to assert that the number is the same. For this, we use HMAC. We allocate space, but it's much less than before. The space allocated is for the number we input in the HMAC function. This way we send HMAC(k) and check if the return /x/ provides us with HMAC(x) = HMAC(k).  
 ** DNS
-   Finds an IP Addr. for communication based on a given URL. Uses UDP because it's performance critical. It's considered a distributed database in which the DNS resolver asks each Name Server for the URL's existance.
+   Finds an IP Addr. for communication based on a given URL. Uses UDP because it's performance critical. It's considered a distributed database in which the DNS resolver asks each Name Server for the URL's existence.
 *** DNS Resolver
     The DNS Resolver can be Reursive or Iterative. _Recursive_: Local DNS server \to Root (.) \to following name server \to ...; _Iterative_: Local DNS server looks for Root, that returns the following name server, and then looks for the name server...
 *** DNS Response
@@ -494,19 +497,105 @@ SELECT name, age, photo FROM users WHERE username = input;
     Although the idea above seems doable, it's really hard to actually make anything out of it. Consider that you have only one chance of succeeding. Once the value of the lookup is cached, there is nothing we can do about it but wait its TTL. The Kaminsky Attack is a well elaborated alternative to the blind spoofing. In spite of it actually doing mostly the same thing (guessing ID and trying to run), this method, instead of running the lookup to the actual website, looks up fake websites such as "a.bank.com", "b.bank.com",...; Websites that are in Bailiwick and that aren't cached. This way, it still only caches the value when it guesses the correct ID and wins the race, but it can try that as many times as it wants! Some techniques to avoid that is to add CaMeLcAsE letters in the Name Servers and randomize the source port. These two options make spoofing much harder, but still very possible.
 
 ** TLS
-   Built on top of TCP, TLS uses the same ACK/SEQ behaviour. The process is shown by ref:TLS +With some english mistakes but I found that on Google Images so I don't care+. As we can see, the handshake happens by them agreeing on a Cipher spec available for one of the Client's Crypto options. Each one also sends a random 256-bit number (R_C, R_S) to add entropy and avoid replay attacks (isn't shown on image though). The server also sends its certificate for the client to authenticate and start the key sharing process. When the key exchange is done, the data will be communicated in the following format: $\{M,MAC(I, M)\}_C$. Each entity will have its own Cipher and Integrity key to avoid replay attacks with same Sequence Numbers. The key exchange, however, isn't tackled in depth. For that, let's keep going.
+   Built on top of TCP, TLS uses the same ACK/SEQ behavior. The process is shown by ref:TLS +With some english mistakes but I found that on Google Images so I don't care+. As we can see, the handshake happens by them agreeing on a Cipher spec available for one of the Client's Crypto options. Each one also sends a random 256-bit number (R_C, R_S) to add entropy and avoid replay attacks (isn't shown on image though). The server also sends its certificate for the client to authenticate and start the key sharing process. When the key exchange is done, the data will be communicated in the following format: $\{M,MAC(I, M)\}_C$. Each entity will have its own Cipher and Integrity key to avoid replay attacks with same Sequence Numbers. TLS is slow because it depends on Public-key crypto. Even though TLS provides confidentiality and it is good at it, RST exploits are still very possible.
 
 #+attr_latex: :height 0.5\textwidth
 #+Name: TLS
-#+caption: TLS Behaviour 
+#+caption: TLS Behavior 
 [[file:res/TLS.png]]
 
 *** TLS with Diffie-Hellman
     Once having its certificate authenticated by the client, the server sends $\{g,p,g^a \mod(p)\}_{K_{server}^{-1}}$. Once the client receives this, the server sends a "end of handshake" message as the client sends $g^b \mod(p)$. Now they both have the /PS/ and can derive $C_C, C_S$ (cipher keys) and $I_C, I_S$ (Integrity keys) from {PS, R_C, R_S}. Having all keys, they MAC and send the whole handshake using the Integrity keys to make sure they were derived correctly. Using DH provides forward secrecy, which means that if someone gets ahold of the client or the server's private key in the future, they wouldn't be able to understand the dialog since /a/ and /b/ were deleted when the conversation stopped.
 *** TLS with RSA Encryption
    The difference is that, instead of sending a generated DH public key with its certificate, the server waits for the client to send $\{PS\}_{K_{server}}$ and then all goes along the same way. 
-** TODO Certificate Authorities - Revised
-** TODO DNSSEC
+** Certificate Authorities - Revised
+  Certificates should be trusted but verified. They should also be public as a transparency mechanism so that you can see the certificates issued in your name, avoiding fake ones. They can be expensive to maintain, that's why /LetsEncrypt/ exists. They issue short-term certificates, which lead to low costs. 
+** Denial of Service Attacks
+   We have three main DoS attacks in the content. One we have already seen, which is SYN Flooding, and the others are:
+   * Resource Consumption \to Fix with quota;
+   * Reflected Amplified Attack \to when the attacker makes a number of requests with the victim's IP, making it receive numerous answers and crowding the link layer.
+   We can fix most DoS attacks with either Isolation, proper identification or a ton of money (have a huge server that never gets jammed by a number of requests).
+** Firewall
+   I'm no getting into as much detail as Weaver on this case because I don't think there is much to it. The idea of a firewall is to mediate the connection between the internal network and the internet. It can restrict connections from happening or restrict only one side from sending messages. They are central controls that are easy to deploy but reduce the network's usefulness and trust malicious insiders. A single breach in the mediation allows an attacker to get inside the system and pivot itself to where it wants to be. the =allow/drop= command to specify the sending and receiving IP and port allowed for a connection. You can see more of this in the [[sec:commands][important commands]] appendix section.
+** TOR (The Onion Router)
+   Referred as the /Dark web/, TOR is the protocol of anonymous communication. It's called the onion router because it has different layers that are peeled off as the message goes from router to router. The abstract way of describing the process is that there are entering and exit nodes, both of which are known by everyone, but in between them, there are many anonymous routers that pass your message around without knowing its destination or your identity (the exit node knows the destination). This is achievable by different layers of encryption. The client has a list of all the Onion routers and their public keys. _Let's say your message is routed 3 times before getting to server. You agree on a different key for each router and encapsulate your message in the as such: E(K1, E(K2, E(K3, Enc_Message))). The first node will be able to understand the following node's address and the message encrypted by K1. The second one will get the third address and the message encrypted by K2. The third one will get the final encrypted message with the address to the server you want to communicate with_.
+
+   The key exchange can happen easily with DH. The client generates its private/public key and sends the public key to N1, which sends his generated public key back to generate a session key. The client asks N1 to extend to N2, which does the same. If N1 is malicious, it can be considered a MITM in this case, but, since it's DH, it can't actually read the messages between the client and N2 (unless it fakes the N2 interaction). The same keeps happening by the number of onion routers.
+
+   The onion network process is shown on ref:onion.
+
+#+attr_latex: :height 0.5\textwidth
+#+Name: onion
+#+caption: Onion network layout
+[[file:res/onion.png]]
+** DNSSEC
+   We know that TLS provides integrity to the communication channel so the first thing we think when we hear about DNS security is that we should implement TLS on DNS. This is a bad idea. As already mentioned, DNS is performance critical and that's why it uses UDP. Since TLS is TCP, that would make DNS *really slow*. _And if we, somehow, manage to implement TLS in a super fast way?_ It would provide confidentiality about the website we are visiting but not integrity or authentication (consider that the attacker might get ahold of the DNS resolver). So that's kind of useless. We want something that runs fast and provides integrity and authentication! That's where DNSSEC comes in.
+
+   DNSSEC is an add-on for DNS. Think of it as the same as DNS but with some extra types, flags and validation operations.
+*** Flags
+    + DO \to Want DNSSEC checks;
+    + CD \to Give me all the crypto stuff and I'll check it myself;
+*** Types
+    + OPT \to Request for DNSSEC info;
+    + RRSIG \to Signature over the RRset (RRs of same name and type);
+    + DNSKey \to Key information (protocol, algorithm, key, ...);
+    + DS \to Delegated signature (hash of signer's name and the KSK);
+*** Key types
+    + KSK \to Key signing key;
+    + ZSK \to Zone signing key
+*** Process
+    The process of DNSSEC is basically trust delegation. Everyone knows root's KSK. So everyone can check root's integrity by verifying if it signed its own DNSKey. Once we have checked if DNSKey was signed with root's KSK, we know root's ZSK and can continue with the DNS lookup. Now we look at the child node and:
+    - Hash the node's KSK and root's name with root's ZSK;
+    - Check if it matches with the DS entry;
+    - If it does, then this means the entry is trusted by root;
+    - Knowing that the entry is trusted, we check if the DNSKey entry is properly signed with the KSK and get the ZSK;
+    - The ZSK is how the RRSIG is generated, so we check that;
+    - Repeat the process for its child node using the found ZSK instead of root's.
+    
+    If you understood the process, you would see that there is no way someone can create a malicious entry with root's trust and, thus, this protocol is completely integrity safe if our root KSK isn't wrong. This even prevents us from being tricked by the DNS resolver itself! Consider that it is malicious, if we do all the checking it can't just send us malicious entries, because we know the top hierarchical key. We can also see that there is no overhead comparing to DNS. Mostly, the difference is that we need to ask for the DNSKey entry as well, but this is parallelizable!
+*** Name existence
+    There should be a way to warn the client that the name doesn't exist. This is why there are types of RRSIG that say that. These are:
+    - NOERROR \to Name exists but not for the lookup type;
+    - NXDOMAIN \to Name doesn't exist;
+    For these RRSIGs, we also get a NSEC entry, which contains the next valid domain name with all its valid types. This, however, enables us to prove a name doesn't exist and let's us enumerate, trivially, all the the possible domain names. A simple fix would be to Hash all domain names, so someone that knows the next domain name can still check if that's the one, but someone that doesn't can't enumerate it. This is called NSEC3 and it is still vulnerable to brute-force dictionary attacks. The only possible fix is to actually hash things dinamicallydas tn tn   
+
+** Network Monitoring 
+   We should be able to detect intrusions by monitoring it. The following are network monitoring methods: 
+*** NIDS (Network Intrusion Detection System)
+    NIDS looks at the network traffic and looks for suspicious requests (\/etc\/password,...). It doesn't have to touch or trust the end systems, uses a single monitor and has all management centralized. The most important idea of NIDS is that it runs external to the system. Some can avoid being caught by NIDS by using evasion attacks: using requests that read by NIDS don't trigger any problems, but once semantically evaluated, can cause different malicious situations (..//././//..//./). It only runs through HTTP.
+*** IDS (Host-based Intrusion Detection System)
+    IDS, unlike NIDS, reads and scans the argument sent to the system by running inside the webserver. It now can run through HTTPS and scan bad escape HTTP %-escapes. It still has to consider UNIX semantics but I'm sure that, because they are in the host, it should be easier to identify what is sigilous.
+*** Log Analysis
+    It's cheap, it's easy. Runs in the server. It can't, unlike the two above, stop attacks from happening.
+*** HIDS (System Call Monitoring)
+    Monitors the system calls in the back-end. No issues involving the protocol used for connection. Easier to avoid issues with filename tricks. Only alerts if the attack succeeds. There are a few issues with the detector, however. It can lead to false negatives and false positives.
+*** Alternative ways of detection
+    * Signature based \to Looking for activities with known attack structure;
+    * Vulnerability Signature based \to Look for activities that match known problems;
+    * Specification based \to Specify what kind of activity is allowed;
+    * Behavioral \to Look for evidence of compromise instead of attacks (good for novel attack detection);
+    * *Honeypots* \to deploy system with no operational purpose, if it starts operating then there is something wrong;
+** Dragonfly
+   WPA2-PSK is really vulnerable to offline attacks. Dragonfly is an EC and DH variant that turns offline attacks into only online attacks. Nothing can be learned about the password by eavesdropping. Won't go into details because it's pretty specific. It is used in WPA3 (EC) and eliminates the use of offline attacks and the "adversary that knows the PW" attack.
+
+* Malcode
+  Malware is a malicious code running on the victim's computer.
+** Payload
+   Payload is what the malware does. It can do basically everything if it has root permission. Some examples are: Launch other software, keylogging, file stealing.
+** Propagation
+   How a malcode spreads. It can either be a virus or a worm. Both generally infect by changing existing code.
+*** Virus
+    code that propagates because it was run eventually. When it runs, it looks for infection opportunities. Are opportunistic, e.g. can attach themselves to e-mails, or add them inside a drive. Generally modifies stored code.
+    
+    Signature-based detection \to By identifying a virus you can eliminate all other instances by byte matching. When a virus is discovered, it is sent to the anti-virus company, that tries  eliminating it from every computer.
+
+    To try stopping that from happening, virus can be polymorphic, meaning they can still do the same thing but have a different representation of itself stored \to Encryption! Changing keys guarantees it is different every time! When the code runs, it decrypts the functionality and runs it. Some counter measures to stop this involve running code to see the decrypted source.
+
+    The virus can also be metamorphic, changing the semantics of the code but maintaining the results. To mitigate that, we need to examine the code execution, a much harder approach.
+
+    Root-kits \to controlling the operational system makes it easy to hide super well.
+*** Worm 
+    code that self-propagates. Generally modifies running code. Propagates in an exponential factor \to super fast. Weave slides just show a bunch of additional, but not that insightful stuff. $\frac{dInfected}{dt} = attemptsPerTime * \frac{SusceptibleHosts}{PopulationSize}$.
 
 * Appendix
 ** Assembly code for Immediate suffering
@@ -569,6 +658,7 @@ SELECT name, age, photo FROM users WHERE username = input;
    For structures, however, we have a more complex layout. The first declared variable will be in the lowest memory position and the last one in the highest. The following example shows the Stack layout once we declare a structure variable:
 
    #+NAME: Structure Variable Layout
+   #+attr_latex: :options bgcolor=yellow
    #+BEGIN_SRC C
      typedef struct {
        int i;
@@ -602,12 +692,69 @@ SELECT name, age, photo FROM users WHERE username = input;
      | HIGHEST Memory Addr. | return address | 4 bytes |
      |----------------------+----------------+---------|
 
+** Using GDB & Shell Exploits
+   GDB Commands:
 
+   |--------------------+-------------------------------------------------------|
+   | /                  | <                                                     |
+   | run                | start program                                         |
+   |--------------------+-------------------------------------------------------|
+   | break <func, line> | add breakpoint                                        |
+   |--------------------+-------------------------------------------------------|
+   | step               | next line                                             |
+   |--------------------+-------------------------------------------------------|
+   | next               | next line (skip function calls)                       |
+   |--------------------+-------------------------------------------------------|
+   | stepi, nexti       | same but with instructions                            |
+   |--------------------+-------------------------------------------------------|
+   | continue           | continue until next breakpoint                        |
+   |--------------------+-------------------------------------------------------|
+   | <enter>            | repeat previous command                               |
+   |--------------------+-------------------------------------------------------|
+   | print <format>     | print in format                                       |
+   |--------------------+-------------------------------------------------------|
+   | list <line>        | show source code around current line or the parameter |
+   |--------------------+-------------------------------------------------------|
+   | layout split       | splits interface: Assembly - commands                 |
+   |--------------------+-------------------------------------------------------|
+   | disassemble <func> | show assembly code for specific context or func       |
+   |--------------------+-------------------------------------------------------|
+   | x/nx[b-w]          | print n bytes (b) or 4-bytes (w) in hex               |
+   |--------------------+-------------------------------------------------------|
+   | i f                | show stack status                                     |
+   |--------------------+-------------------------------------------------------|
 
+   In project 1 we used the command =invoke=, which runs a script in a deterministic environment: environment variables and arguments all in the same place every time. some simple invoke commands:
 
-** TODO Using GDB & Shell Exploits
-** TODO Nick's Insane way of Checking a Lie
+   #+NAME: invoke
+   #+attr_latex: :options bgcolor=yellow
+   #+BEGIN_SRC bash
+     invoke foo arg1 arg2 # deterministic invocation of foo file with 2 arguments
+     invoke -e Y foo # deterministic invocation with ENV=Y of foo file
+     invoke -d foo # deterministic invocation of foo file in gdb
+     invoke foo > output.txt
+     # deterministic invocation of foo file redirecting output to output.txt file
+     invoke foo < input.txt # deterministic invocation of foo file with input.txt as input
+     script | invoke foo # deterministic invocation of foo with script output piped into it
+   #+END_SRC
 
+** Important Commands
+   <<sec:commands>>
+   Some important commands related to Network Security.
 
-bibliographystyle:unsrt
-bibliography:CS_161_Summary.bib
+   #+attr_latex: :options bgcolor=yellow
+   #+BEGIN_SRC bash
+     dig +norecurse +dnssec NAME mit.edu # lookup query for mit.edu with dnssec
+     allow tcp connection {ip1}:{port1} -> {ip2}:{port2}
+     # allow conn.initiated by ip1 in port 1 to ip2 in port2
+     allow tcp connection *:*/int -> {ip2}:{port2}/ext
+     # allow conn.initiated by whatever ip and port internal to ip2 in port2 external
+     drop udp connection *:*/ext -> *:*/int # drop every udp connection coming from outside
+   #+END_SRC
+   #+attr_latex: :options bgcolor=yellow
+   #+BEGIN_SRC javascript
+     print(document.cookie) // Prints cookies!
+     document.cookie = "SESSION_ID=123123123123" // set SESSION_ID cookie to 123123...
+     // and delete other cookies in the process
+   #+END_SRC
+
