@@ -1,8 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-invoke foo arg1 arg2 \PYG{c+c1}{\PYGZsh{} deterministic invocation of foo file with 2 arguments}
-invoke \PYGZhy{}e Y foo \PYG{c+c1}{\PYGZsh{} deterministic invocation with ENV=Y of foo file}
-invoke \PYGZhy{}d foo \PYG{c+c1}{\PYGZsh{} deterministic invocation of foo file in gdb}
-invoke foo \PYGZgt{} output.txt \PYG{c+c1}{\PYGZsh{} deterministic invocation of foo file redirecting output to output.txt file}
-invoke foo \PYGZlt{} input.txt \PYG{c+c1}{\PYGZsh{} deterministic invocation of foo file with input.txt as input}
-script \PYG{p}{|} invoke foo \PYG{c+c1}{\PYGZsh{} deterministic invocation of foo with script output piped into it}
-\end{Verbatim}

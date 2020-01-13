@@ -1,5 +1,0 @@
-\begin{Verbatim}[commandchars=\\\{\}]
-\PYG{n+nx}{print}\PYG{p}{(}\PYG{n+nb}{document}\PYG{p}{.}\PYG{n+nx}{cookie}\PYG{p}{)} \PYG{c+c1}{// Prints cookies!}
-\PYG{n+nb}{document}\PYG{p}{.}\PYG{n+nx}{cookie} \PYG{o}{=} \PYG{l+s+s2}{\PYGZdq{}SESSION\PYGZus{}ID=123123123123\PYGZdq{}} \PYG{c+c1}{// set SESSION\PYGZus{}ID cookie to 123123...}
-                                            \PYG{c+c1}{// and delete other cookies in the process}
-\end{Verbatim}

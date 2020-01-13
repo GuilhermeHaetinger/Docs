@@ -1,4 +1,4 @@
-% Created 2019-12-15 Sun 18:13
+% Created 2019-12-30 Mon 17:51
 % Intended LaTeX compiler: pdflatex
 \documentclass[11pt]{article}
 \usepackage[utf8]{inputenc}
@@ -25,7 +25,7 @@
  pdftitle={\huge Computer Security - Semester Review},
  pdfkeywords={},
  pdfsubject={},
- pdfcreator={Emacs 27.0.50 (Org mode 9.2.6)}, 
+ pdfcreator={Emacs 26.1 (Org mode 9.3)}, 
  pdflang={English}}
 \begin{document}
 
@@ -34,10 +34,10 @@
 
 
 \section{Security Design}
-\label{sec:orgcb49479}
+\label{sec:orgc27213e}
 Let's discuss on how to make a system theoretically secure, as in the decisions that should be made and what are the main points we should leverage when designing a system from scratch. 
 \subsection{Security Principles}
-\label{sec:org65d3d5b}
+\label{sec:org7690809}
 We have a number of security principles that must be considered once we are developing software \cite{wagner_security_2019}. Some of them can be enumerated as the most important. These are:
 \begin{itemize}
 \item \textbf{Security is Economics}: Only spend as much money as what you are trying protect is worth. \uline{Don't buy a \$10000 lock for a \$10 bike}.
@@ -54,20 +54,20 @@ We have a number of security principles that must be considered once we are deve
 \item \textbf{Kerkchoff's Principle}: Similar to the \emph{Don't rely on Security through Obscurity} principle, this one asks you to "Design your system as if the attacker could read your code". We can consider the same example as the referred principle.
 \end{itemize}
 \subsection{Security Design Patterns \& What you should think about when designing your system}
-\label{sec:org25dd19e}
+\label{sec:org56a7e3e}
 How should we go at \emph{Developing your own secure system}?
 \subsubsection{Trusted Computing Base - the \textbf{TCB}}
-\label{sec:orge59c117}
+\label{sec:orgd821695}
 The simpler definition for this abstraction would be \emph{the part of the system in which we rely so that it works properly}, meaning that no problem outside of this part can obliterate your service. Now, the point of this design is to minimize it so that it is easier for us to place our trust in it. \uline{It's easier to place your trust in a 10 line code than in a 100.000 line code}. We want the \textbf{TCB} to be \emph{unbypassable}, \emph{tamper-resistant}, \emph{verifiable}. It is called a \emph{primitive yet effective kind of modularity}.
 \subsubsection{Modularity and Isolation}
-\label{sec:orgc5b3895}
+\label{sec:orgb2126ab}
 The whole idea of modularity can impact on different levels of the system. Sometimes it can bring efficiency by assuming that each module already has it's own required data to run correctly. It can also provide legibility since we can understand how the code is divided into multiple responsibilities, which can impact on refactoring (can eventually help quick security patches). Now, most importantly, modularity can provide us with \emph{isolation}, meaning that each module is independent and can keep its problems to itself \(\to\) minimizes assumptions made by other components that it interacts with, enabling them to treat errors in the system without crashing it (understand what happened to the other component and act accordingly).
 
 \section{System Implementation Vulnerabilities}
-\label{sec:org19b44e6}
+\label{sec:org6120bf1}
 What are the main system threats regarding its code implementation? Let's see how we can generally exploit and fix these vulnerabilities.
 \subsection{Time-of-Check To Time-of-Use (TOCTTOU)}
-\label{sec:org08cb600}
+\label{sec:org55408f0}
 This is a general vulnerability (when I write general I mean it can happen in any logical programming environment (when I say environment I mostly mean language (when I say language it's just because Weaver specifically tells us not to use C))). As the title already says, this vulnerability takes into account the time of check for a variable and the time you assign its value. Take a look at the following code:
 
 \begin{minted}[,bgcolor=yellow]{ruby}
@@ -85,11 +85,11 @@ end
 This code has a flaw. As you can see, its purpose is to only read files that have the size less or equal to 200. The code reads the file metadata and checks it size. If it's bigger than the purposed value, it exits. \uline{What if I changed the file size while the program sleeps? \(\to\) The file with the larger size is read in the end, because the time of check, which is when the if-statement is run, for being far away from the time of use, enables us to bypass the check}.
 
 \subsection{The Stack \& How C breaks it (Memory Safety)}
-\label{sec:org06c0465}
-Before you read anything from this section, take a look at the Appendix section on \hyperref[sec:Assemble]{Assembly code}! There is a lot of review on it needed for this part of the content. Now that that's out of the way, let's smash the stack.
+\label{sec:orgd663285}
+Before you read anything from this section, take a look at the Appendix section on \hyperref[orgf8c9fec]{Assembly code}! There is a lot of review on it needed for this part of the content. Now that that's out of the way, let's smash the stack.
 \subsubsection{Format String Vulnerability}
-\label{sec:orged3777d}
-  For this exploit, it \textbf{very} important to understand the layout of variables inside the stack. For this, see the \hyperref[sec:VarLayoutStack]{appendix notes} on it.
+\label{sec:orga2622d4}
+  For this exploit, it \textbf{very} important to understand the layout of variables inside the stack. For this, see the \hyperref[org10d266d]{appendix notes} on it.
 We're all very familiar with \texttt{printf}. It can take \emph{1 to n} arguments, being the first a string with \textbf{hotkeys} such as \texttt{\%d, \%c, \%f, \%s, ...}. These keys represent the format of representation of a given argument. If someone just prints out user input with \texttt{printf}, the formatting string (the one with hotkeys) will be determined by the user, meaning that it can use whatever formatting string. \uline{What can a user do with its arbitrary formatting string, when the number of arguments given to printf is smaller than the number of hotkeys?}. Considering the structure of the stack when \texttt{printf} is called, the hotkeys will make the function look for a specific argument that doesn't exist, which will make it interpret whatever is in the Stack in argument's position as the one itself. The following example might clear up what I'm passing on:
 
 \begin{minted}[]{c}
@@ -107,12 +107,12 @@ There is another way to approach this exploit by using a specific hotkey that en
 
 This vulnerability is easily fixed by calling \texttt{printf("\%s", buf)} instead of \texttt{printf(buf)}.
 \subsubsection{Integer Conversion \& Overflow Vulnerabilities}
-\label{sec:org2d7e8a6}
+\label{sec:orgf885378}
 This is a simple vulnerability. Always check the type of your input as you use it in other functions. Be careful because negative \texttt{int} values can be less than whatever size check you have in your code but be extremely big when converted to \texttt{unsigned} types that are used in standard writing functions such as \texttt{memcpy}.
 
 Also, be careful when using arithmetic operations when trying to allocate the correct amount of space for a variable. Values can overflow and allocate a much smaller memory chunk for that variable, allowing a sizable input to overflow your small sized buffer.
 \subsubsection{General Protection Against Memory Attacks}
-\label{sec:org5da1712}
+\label{sec:orga6b4554}
 \begin{itemize}
 \item Secure code Practices
 \begin{itemize}
@@ -133,7 +133,7 @@ Also, be careful when using arithmetic operations when trying to allocate the co
 \end{itemize}
 
 \subsubsection{Buffer Overflow}
-\label{sec:org73f0f81}
+\label{sec:orgcdaced6}
 This is the easiest vulnerability we were able to exploit in this class. As a trade-off of being easy to exploit, it is also easy to fix.
 
 Given a program in a language that doesn't implement memory safety (C), we can have programs that for a given input behave maliciously. We can do this via the \emph{Buffer Overflow} vulnerability in some programs. This is, nonetheless, the ability of filling a variable with a value that doesn't fit in it, enabling us to write on the memory that is above it in the Stack. For example:
@@ -183,12 +183,12 @@ HIGHEST Mem Addr. &  & \\
 We can also use this to change variables that are on top of the input variables.
 
 \subsubsection{Stack Smashing Mitigation}
-\label{sec:org167ed7f}
+\label{sec:org12ffea2}
 This is a more dense subject. Considering that buffer overflow is one of the most common exploits, the following mitigation options are more complex and are harder to barge through \cite{MemoryDefenseSlide}.
 
 \begin{enumerate}
 \item \textbf{Stack Canaries}
-\label{sec:org4135e8e}
+\label{sec:org2652aa2}
 
 Random value generated when program starts that is stored below the \texttt{EBP}. Its value is checked once the function returns and, if it has changed, the program will know it has been hijacked. The idea behind it is to avoid simple Buffer Overflows to change the value of the \texttt{EBP} or the \emph{return address}. \uline{How can we go around this mitigation?} We have to find a way \emph{not to kill the Canary}. For this, we have the following options :
 \begin{itemize}
@@ -197,21 +197,21 @@ Random value generated when program starts that is stored below the \texttt{EBP}
 \end{itemize}
 
 \item \textbf{Non-executable pages}
-\label{sec:orgce16d96}
+\label{sec:org789d165}
 
 We maintain the permission of writing and executing in a \texttt{XOR} condition, meaning that the program can either write code on stack/heap or execute it. This is insufficient since it is easily breakable by \textbf{Return Oriented Programming}, which is basically changing the return addresses of the code to known portions of standard libraries or even the code itself, i.e. using already written code as modules for writing your own malicious execution.
 
 \item \textbf{Address Space Layout Randomization}
-\label{sec:orgec1f48c}
+\label{sec:org4d0d385}
 
 Consists on rearranging/relocating the chunks of memory into different addresses. This makes things much harder to exploit considering that we don't have fixed addresses to write code and then redirect the execution to it. Together with \textbf{Non-executable pages}, requires an information leak to be broken. \uline{How can we bypass this?} There are some ways we can do it, but require really specific scenarios \cite{muller_aslr_nodate} and are probably not worth getting into.
 \end{enumerate}
 
 \section{Cryptography}
-\label{sec:org3c48bbd}
+\label{sec:org97c89f0}
 Cryptography is the field of studies and implementations regarding algorithms and systems that seek to ensure \textbf{Confidentiality} (Prevent others from reading our data without authorization), \textbf{Integrity} (Prevent others from modifying our data without authorization) and \textbf{Authentication} (Asserting the identity of someone who sent a message, edited a file, etc.) to our private data. Weaver clearly emphasizes the fact that these systems are not meant to be redesigned by us because they are really easy to screw up. We'll keep using message sending as our example for every algorithm.
 \subsection{Independence under Chosen Plain-Text Attack Game (IND-CPA)}
-\label{sec:org869516c}
+\label{sec:org214891a}
 The IND-CPA game is designed to check whether the algorithm in question is not deterministic and, thus, is a step closer to safety. It consists of the following steps:
 \begin{itemize}
 \item Attacker sends two messages to an \emph{Oracle} (Entity that encrypts the messages using the encryption algorithm being tested and the \emph{K} key unknown to the Attacker);
@@ -222,10 +222,10 @@ The IND-CPA game is designed to check whether the algorithm in question is not d
 
 If the Attacker wins the game, we can assume that the output of the encryption algorithm can be predicted by its input even without knowing \emph{K}. This makes the algorithm extremely flawed because someone eavesdropping an encrypted conversation might be able to deterministically understand and hijack it. Therefore we seek the algorithms that win it.  
 \subsection{Symmetric Encryption}
-\label{sec:org2d4df78}
+\label{sec:org80e9d2a}
 Given that two people (A, B) have a secret key \emph{K} known only by them. Consider \(E_K(M)\) as the encryption function and \(D_K(C)\) as the Decryption function (\(M\) is the message and \(C\) is the cypher).\cite{weaver_symmetric_nodate,symEnc,SymEncSlide}   
 \subsubsection{One Time Pad}
-\label{sec:org687816f}
+\label{sec:orga647c4e}
 This is the most simple encryption algorithm we saw. The calculations are self-explaining.
 
 \begin{align*}
@@ -247,11 +247,11 @@ A &: C1 = C2 \to C1 = C2 = M2 \oplus K
 
 Note that (2) and (5) are random, meaning that the oracle could have chose \(M1\) on (2) or \(M3\) on (5). However, this is irrelevant since the Attacker can just repeat the operation to get the only two possible outputs (it's exactly two because the "\(\oplus\)" operation is deterministic) and then compare which output repeats on both cases. Note that once it knows the encrypted message, it can simple derive the key \emph{K} from \(K = C1 \oplus M2\).
 \subsubsection{Block Ciphers}
-\label{sec:orgbc846f8}
+\label{sec:orga363757}
 Block Ciphers divide the message \(M\) into blocks and encrypt each one with \emph{K}. The encryption algorithm itself is deterministic. The ones I'm listing are the most important ones. CFB has the same properties as CBC buck it's worse with IV reuse. \cite{noauthor_block_2019,weaver_symmetric_nodate} 
 \begin{enumerate}
 \item \textbf{Electronic Code Book}
-\label{sec:orge721e52}
+\label{sec:orge4f0893}
 
 The simplest block cipher. Every chunk of code goes through the same encryption process. It can be defined by the following: \(C_i = E_K(M_i), M_i \in M\). The encryption is deterministic and the ECB doesn't do anything to keep the Ciphers from having no entropy whatsoever. This means that chunks with the same value in the message will have the same cipher output, leaking information and, clearly, losing the IND-CPA game.
 \begin{center}
@@ -259,7 +259,7 @@ The simplest block cipher. Every chunk of code goes through the same encryption 
 \includegraphics[height=0.15\textwidth]{res/ECB-DEC.png}
 \end{center}
 \item \textbf{Cipher Block Chaining}
-\label{sec:org651ac4f}
+\label{sec:org4c204a6}
 This block cipher uses the concept of nonces (\emph{nonsense}) to add entropy to the cipher output. If the IV (nonce) isn't reused, CBC is IND-CPA. Note that although we can't parallelize the encryption, we can parallelize the decryption. The structure is the following:
 
 \begin{align*}
@@ -273,7 +273,7 @@ P_i &= D_k(C_i) \oplus C_{i-1}
 \includegraphics[height=0.15\textwidth]{res/CBC-DEC.png}
 \end{center}
 \item \textbf{Counter Mode}
-\label{sec:org9ba7571}
+\label{sec:orgdcf74fe}
 All-parallelizable alternative to CBC. Instead of one IV, uses \(nonce || i, i \in [0,...,n]\) with \emph{n} being the number of blocks. Reusing the IV in CBC makes it lose the IND-CPA game, but it's not catastrophic because the attacker will only find out the first block. If you reuse the IV in CTR mode, it transforms itself into the one time pad, leaking all the message. Note that CTR decryption uses the nonce encryption instead of a decryption function and that it is not exactly a block cypher but more of a stream cypher because it doesn't need padding. The structure is the following:
 
 \begin{center}
@@ -282,7 +282,7 @@ All-parallelizable alternative to CBC. Instead of one IV, uses \(nonce || i, i \
 \end{center}
 \end{enumerate}
 \subsection{Hashes}
-\label{sec:orgc31d60a}
+\label{sec:org94fd1ff}
 Hash functions have the following:
 \begin{itemize}
 \item Variable input size
@@ -297,7 +297,7 @@ Along with that, we must make sure that the hash functions provide us with these
 \item Collision resistant: Almost impossible to find x, y s.t. Hash(x) = Hash(y) (Collision resistance implies second preimage resistance)
 \end{itemize}
 \subsection{Message Authentication Codes}
-\label{sec:orga8218e6}
+\label{sec:org03d9459}
 MACs are checksums for messages, meaning they are sent with the message so that they are proven to be untampered. MACs, as encryption algorithms, need a key to be private only between the ones that are sharing the message. As an example:
 
 \begin{align*}
@@ -309,19 +309,19 @@ MACs are checksums for messages, meaning they are sent with the message so that 
 
 If the operation on the last line says that they are not equal, B can assume that the message has been tampered with. Also, the convention of using the MAC in the encrypted message is the correct way of using it since \textbf{MACs are deterministic and leak information}. \textbf{Never use the same key for MAC and Encryption}. 
 \subsection{Password Storage}
-\label{sec:org6a42e11}
+\label{sec:org1f3cf01}
 Passwords should not be stored in a map \texttt{\textbackslash{}\{User, Password\textbackslash{}\}} because if someone gets ahold of this structure, they can simply impersonate everyone. We want the password to be a secret to our server. To do that we can store the map \texttt{\textbackslash{}\{User, Hash(Password)\textbackslash{}\}}. This way, if someone gets this information, they can't do much because of the \emph{One-way property} of hashes. The user would input the password and send the hash of it to the server, which would then check if it's correct.
 
 However, many people choose poor passwords. Consider that the attacker knows what's the hash function by using the server as an oracle. \uline{What can he do with the fact that there are simple passwords scattered around many users?} He can create a brute forced dictionary with all the simple passwords and their hashes so that, when it gets ahold of the server's structure, it can just match the hashes with its dictionary (Dictionary Attack). We can mitigate that by adding a random, user-specific (unique) Salt (giant random number) to the user's password before it's hashed. This way, even if the attacker can get its hands on the hash, they will never match the weak password's. We also would like for the hashing process to be slow, which would make the brute forcing much slower.
 \subsection{Pseudo Random Number Generators (PRNGs)}
-\label{sec:org1b38d91}
+\label{sec:orgd741112}
 A PRNG needs the following functions: \texttt{seed(x), reseed(x), generate(size, x=optional)}. The \emph{x} in the functions are the true sources of entropy. The PRNGs should be predictable only if you know its internal state and should be roll-back resistant, meaning their internal state at time \emph{T-1} should not be determinable by someone with the knowledge of the state at \emph{T}. 
 \subsection{Asymmetric Encryption}
-\label{sec:orgf4e72b9}
+\label{sec:org89d75b4}
 Although symmetric encryption looked as if it had everything taken care of, we must understand how \emph{A} and \emph{B} shared the secret key \emph{K}. If they haven't met up in person to share it, it is very likely the key is not a secret. Let's look at some encryption algorithms that take care of this aspect.
 \subsubsection{Diffie-Hellman}
-\label{sec:orgadeaa27}
-\label{DH}
+\label{sec:orgd8302f9}
+\label{org69695a5}
 The event \emph{A} wants to communicate with \emph{B} follows this sequence of operations for \emph{p} (huge prime) and \emph{g}, \(1 < g < p - 1\) public. 
 
 \begin{align*}
@@ -337,7 +337,7 @@ The event \emph{A} wants to communicate with \emph{B} follows this sequence of o
 
 Now that they have a symmetric key \emph{S}, they can simply use a symmetric encryption system. Have in mind that a man in the middle can read \(g^a\), \(g^b\) and \(g^{a+b}\) but can never get to \(g^{ab}\) because they don't know \emph{a} or \emph{b} and can't break the modular equation because that would require it to break the discrete log, which is extremely hard. However, a man in the middle can intercept the messages and just create its own \(X_M\) and \emph{m} to structure two different channels: one with \emph{A} and one with \emph{B}.
 \subsubsection{El-gamal Encryption}
-\label{sec:org5c5d7f9}
+\label{sec:org1f1f1e6}
 This algorithm uses a similar idea as \emph{Diffie-Hellman's}. We have all the information listed above. From that, we want \emph{A} to send a message to \emph{B} (the message must be \(\in \{1,...,p-1\}\)). We do:
 
 \begin{align*}
@@ -349,7 +349,7 @@ This algorithm uses a similar idea as \emph{Diffie-Hellman's}. We have all the i
 
 We know that only \emph{B} can decrypt it because it is the only one that knows its private key \emph{b} and can compute \(R^{-b}\). We must not reuse \emph{r} or else it will leak information.
 \subsubsection{RSA Encryption}
-\label{sec:orgffe3102}
+\label{sec:org22784e3}
 This one is definitely the most complicated one. \emph{A} generates two private primes \emph{p, g}; calculates public \(n=p*g\) and private \(\phi(n) = (p-1)(g-1)\); picks random public \(2 < e < \phi(n)\); solves private \(d = e^{-1} \mod(\phi(n))\). Now if \emph{B} wants to send a message to \emph{A}, this is how it goes:
 
 \begin{align*}
@@ -363,7 +363,7 @@ This one is definitely the most complicated one. \emph{A} generates two private 
 However, the encryption is deterministic for the same \emph{e}, meaning it can leak information! There should be a source of entropy in it, but it isn't that important for our scope.
 
 \subsection{DSA Signatures}
-\label{sec:orgc2e21ac}
+\label{sec:orgb8815e0}
 Based on Diffie-Hellman. Signatures are used to avoid the man in the middle attack listed in \ref{DH}. Initial parameters: \texttt{L, N, Hash(x)}. \emph{A} creates an N-bit prime \emph{q}, L-bit prime \emph{p}, s.t. \(q|p\) and \(g = h^{\frac{p-1}{q} \mod(p), 1 < h < p-1\). We say \emph{p,g,q} are public. \emph{A} has the private key \emph{a} and the public key \(g^a \mod(p)\). \emph{A} calculates a random \(k < q\). And the process of signing by \emph{A} and verifying by \emph{B} goes as such:
 
 \begin{align*}
@@ -380,14 +380,14 @@ Based on Diffie-Hellman. Signatures are used to avoid the man in the middle atta
 And if \(v = r\), the signature is valid!
 
 \subsection{Certification and Authentication}
-\label{sec:org0e28d53}
+\label{sec:orgf3ef0a8}
 We trust a certificate authority, which gives us the correct certificate (public key) for whomever we want to speak to. The certificate should be signed by the CA itself or by someone the CA has signed a certificate to, meaning that it is trustworthy. The latter is the method for certification scaling, avoiding the bottleneck of having one CA authenticating numerous users and implementing a signature delegation (Hierarchical). We should also be able to receive a list of certificate revokations so we can avoid insecure connections. 
 
 \section{Web Security}
-\label{sec:orgf10f167}
+\label{sec:org89f0ea3}
 This section will focus on the possible exploits and mitigation options for web pages as well as the structure of the web.
 \subsection{SQL Injection}
-\label{sec:org93852ee}
+\label{sec:org92a9a44}
 This is probably the most known system attack these days. It's really simple to understand and avoid.
 
 Web servers/pages can have databases. The most known Database Query language is SQL. Usually, the web server/page would have queries to fill out information on the HTML rendering and such. For this, they must, sometimes, read user input and add it as a field to the query code. \uline{You have a social media website. You want to display someone's profile when it is searched for. You create a field in the web page asking "Looking for\ldots{}?". The intended output of a query in this scenario would be all the users information (name, age, \ldots{}). So you add the following to your code:}
@@ -399,52 +399,52 @@ SELECT name, age, photo FROM users WHERE username = input;
 \uline{What can an attacker do?} It can use a string like the following: \texttt{''; DROP TABLE users;-{}-}, which will end the query, break the line, add a \emph{drop table} command and comment whatever is in the right just to make sure. This will break the website.
 The best mitigation for this are \emph{prepared statements}, which will send the input all the way to a leaf inside the tree structured query, taking away all its privileges of running any commands.
 \subsection{Javascript \& Cookies}
-\label{sec:org78ed3ce}
+\label{sec:orge199f50}
 Javascript is a scripting lenaguage used to structure and add functionalities to your webpage. It can basically do whatever it wants to the \textbf{DOM} as well as read/change the session cookies. In order to make your computer safe from dangerous websites with Javascript that you may end up visiting, Javascript is \emph{sandboxed}, which means it cannot change files or programs in the computer it is being run on.
 \subsubsection{Same-Origin Policy}
-\label{sec:org0b1e589}
+\label{sec:org9633eb7}
 Another danger of Javascript is the fact that it should be able to tamper with other websites. That's why there is \textbf{SOP}. The policy restrains webpages from affect things that are out of their origin. For two origins to be the same, they must have the same \texttt{domain, port, protocol}. \uline{For example, the website \url{http://amazon.com/idk/1023} has the same origin as \url{http://amazon.com:80/babyyoda/1123421} but not of \url{https://amazon.com/idk/1023}, \url{http://store.amazon.com/idk/1023} or \url{http://amazon.com:1234/idk/1023}}.
 \subsubsection{Cookies!}
-\label{sec:org2f8adca}
+\label{sec:orgb2bf578}
 Cookies are basically variables for someone's session in a website. They are structured with a \texttt{host, path} key and a value. This is how companies track what Ads you want to see. Here are some cookie properties:
 \begin{enumerate}
 \item \textbf{Cookie Origin Policy}
-\label{sec:org26e6649}
+\label{sec:orgdedf674}
 
 \textbf{Don't confuse this with SOP!} Cookie origin policy restrains the cookie sharing process as in \emph{"which websites can receive my cookies"}. The only websites that can share your cookie are the ones that have matching suffixes. \uline{E.g. example.com/foo shares with www.example.com/foo but not with example.com/bar}. 
 \item \textbf{Secure Flag}
-\label{sec:org4e2f94d}
+\label{sec:orge39f662}
 
 A cookie can be set with a secure flag, which means it can only be sent via \emph{HTTPS} connection.
 \item \textbf{HTTP-Only Flag}
-\label{sec:org1b6d082}
+\label{sec:org4770d8d}
 
 A cookie set with the HTTP-Only flag will only be accessible in the server side.
 \end{enumerate}
 \subsubsection{Spectre Attack}
-\label{sec:orgbd0e740}
+\label{sec:org6348901}
 A hardware side channel developed to access the nested iframe's information by treaking the processor's predictor. Solution is to make the browser \textbf{eat RAM} by giving every website it's own process.
 \subsection{Cross-site Forgery Attack (CSRF)}
-\label{sec:org3a5d0bd}
+\label{sec:org2daae2d}
 Attacker inserts malicious request in a page it has control inside an \texttt{<img>} tag or any other operation that causes the request to run. \uline{E.g. You visit the attacker's webpage, which files a transfer request in your name on www.bank.com. Is that going to work?}. It depends on how the bank implements its system. The point of this attack is to take advantage of the cookies saved for the victim. So if the bank determines who is logged in by the cookies, then the attack might work. There are two important mitigation options for this exploit:
 \subsubsection{"Referer" validation}
-\label{sec:org3917fe4}
+\label{sec:orgf7121d5}
 The "referer" validation allows the website to identify from which website the request is coming from. If the website is not itself, it makes sense to terminate the operation. However, there are still some ways of going around it.
 \subsubsection{Secret Token Validation}
-\label{sec:orgc4d5bd3}
+\label{sec:org434b413}
 A short TTL random cookie that defines the login session for the user. We can add this cookie to the URL, making the URL itself hold entropy, which means the attacker's only option is to brute force the cookie (probably infeasible) or find a way to retrieve it. The solution, however, is not really pretty and Weaver doesn't consider any solutions regarding the STV perfect, but it is better than the "referer" validation.
 
 \subsection{Cross-site Scripting (XSS)}
-\label{sec:org80ca37a}
+\label{sec:org506da28}
 Its main objective is to Subvert the SOP.
 \subsubsection{Stored XSS}
-\label{sec:orged621a8}
+\label{sec:org1e6f177}
 Persisting a malicious script (Javascript) in a server that's going to be accessed by the victim, running the code. In the end, it can either execute whatever malicious operation it wants in the website using the victims authentication cookie or it can send data (cookies mostly) to the evil server.
 \subsubsection{Reflected XSS}
-\label{sec:org4041b3e}
+\label{sec:org576a339}
 User enters malicious website, clicks on a link that redirects him to a website whose cookies are interesting with a script in the URL. The script can either send data to the attacker or perform malicious operations in the name of the user.
 \subsubsection{How to fix?}
-\label{sec:orgec8663d}
+\label{sec:org52f6bf9}
 \begin{itemize}
 \item Input sanitation (CSP) \(\to\) Removes whatever might be fishy about an input
 \begin{itemize}
@@ -456,14 +456,14 @@ User enters malicious website, clicks on a link that redirects him to a website 
 \end{itemize}
 
 \subsection{Clickjacking}
-\label{sec:orgfbf5787}
+\label{sec:org6a604d5}
 Placement of invisible i-frames of a target website over some enticing content or placement of visible of a target under a malicious invisible frame to capture user input. We can fix it by frame-busting: website prohibits its page from being a frame or by using the HTTP \textbf{X-Frame-Options}, which whitelists some websites for frame use. 
 
 \section{Network Security}
-\label{sec:org9df9586}
+\label{sec:orgbceb958}
 This is most certainly the hardest part of the content. This is an overview for Networking as well as an observation set for its vulnerabilities.
 \subsection{The 5 layers that actually matter}
-\label{sec:org0d29f2e}
+\label{sec:orgb5d0ebb}
 We can divide networking into 5 different layers, the lowest their number, the lower levelled they are. These are:
 
 \begin{center}
@@ -482,7 +482,7 @@ We can divide networking into 5 different layers, the lowest their number, the l
 \end{tabular}
 \end{center}
 \subsection{Basic stuff}
-\label{sec:org01bcb6e}
+\label{sec:orgaefa9a6}
 \begin{itemize}
 \item IPv4 \(\to\) 32-bits
 \item IPv6 \(\to\) 64-bits
@@ -503,17 +503,17 @@ We can divide networking into 5 different layers, the lowest their number, the l
 \end{itemize}
 
 \subsection{Local Network Connection}
-\label{sec:orge61437a}
+\label{sec:org17f9f47}
 When connecting to a network, a device needs to receive a configuration (IP Addr., Gateway and DNS Addr.) from some other system inside a network. 
 
 \subsubsection{DHCP (Dynamic Host Control Protocol)}
-\label{sec:org808fd5b}
+\label{sec:org23c6201}
 To receive the configuration, our host will broadcast a \emph{Server-Discovery} message that will be answered by the \textbf{DHCP} server of the network. The answer will consist of an offer which our host will accept or not and communicate to the server, that will ACKnowledge it. The offer has all the configuration needed.
 
 If someone hears the broadcast and sends an offer before he DHCP server, it could result in big trouble since they can redirect us to any DNS and Gateway of their choosing, meaning our connection has been completely hijacked and they have full control of what we are looking for and at. We now have a complete Man in the Middle. This scenario is called the \emph{Rogue Access point}.
 
 \subsubsection{ARP}
-\label{sec:orgc1d95bf}
+\label{sec:org31482e4}
 The Link can't see the IP Addr. and that's why we need a MAC address for communication. the \textbf{ARP} protocol is to whom we will turn we need to find another device. We send its IP and:
 \begin{itemize}
 \item If the IP is in the local network \(\to\) receive its MAC;
@@ -521,11 +521,11 @@ The Link can't see the IP Addr. and that's why we need a MAC address for communi
 \end{itemize}
 
 \subsubsection{\emph{AirPwn}}
-\label{sec:org9fe1132}
+\label{sec:orgf6dc684}
 When the traffic is non-encrypted and the attacker knows to whom the traffic belongs, it can inject packets, meaning they can race the server to which the client is connected for a response. If the attacker wins, the client receives its malicious packets.
 
 \subsubsection{WPA2}
-\label{sec:org9f34a48}
+\label{sec:orgdd06d4c}
 The WPA2 execution works as the followin sequence of events (C \(\to\) client, AC \(\to\) Access Point, F \(\to\) Key derivation function):
 
 \begin{align*}
@@ -543,42 +543,41 @@ The WPA2 execution works as the followin sequence of events (C \(\to\) client, A
 Now both devices have the symmetric PTK (Pairwise Transient Key)! Although all the communication between \emph{C} and \emph{AC} can be encrypted from now on, this doesn't prevent someone that has the password from deriving the key if it knows the MAC of the client because the attacker would be able to see all the rest! Even if it doesn't know the PSK, it can still try to brute-force it. This isn't a really safe protocol.
 
 \subsubsection{WPA2 Enterprise}
-\label{sec:org40f4aa9}
+\label{sec:org2feb7fb}
 WPA2 Enterprise is different. It is much better. The 4-way handshake now happens between the device and an Authentication Server that holds the information required for each user, i.e. each user has an username and a password. This idea makes it so that if someone has access to the internet, it has its own PSK. So, even if the attacker had access to the internet, it wouldn't be able to understand someone else's 4-way handshake. Also, the Authentication Server's connection is encrypted with public-key encryption.
 
 \subsubsection{LAN Security}
-\label{sec:org0b59c3b}
+\label{sec:org7b05561}
 Either we don't provide or we do some \emph{smart switching} and \emph{active monitoring}. 
 \begin{enumerate}
 \item \textbf{Switch}
-\label{sec:org13ef4b8}
+\label{sec:orgc57c70e}
 
 The Switch keeps track of where the MAC addresses inside the local network are seen in order to make things more efficient.
 \item \textbf{VLANs}
-\label{sec:orgcdb5b78}
+\label{sec:orgf7311f6}
 
 VLANs are smarter switches. They isolate different parts of the network, making all network traffic inside a VLAN stay inside it.
 \end{enumerate}
 \subsection{Transport Protocols}
-\label{sec:org3b8ba8a}
+\label{sec:org04f35ec}
 Before we get into actual communication between IPs and connection resolution for those, we need to clear up what are the transportation protocols for messages and how they work in a pretty abstract way.
 \subsubsection{UDP (User Datagram Protocol)}
-\label{sec:orgde1086c}
+\label{sec:org2e94130}
 Also called "Unreliable" Datagram Protocol, UDP is a lightweight datagram transportation protocol that relies itself in a \emph{best effort} execution, meaning packets can be dropped or arrive in a different and it won't care. Now this clearly seems a really bad way to send a message. The point is: \textbf{It is really efficient}.
 \subsubsection{TCP (Transmission Control Protocol)}
-\label{sec:orge3e90a8}
+\label{sec:orgad54d88}
 The TCP usual communication between two entities are set and terminated goes as the image \ref{tcp} shows us. Once the communication is set, we can start sending and receiving data. As shown, the connection starts with a Sequence Number from the client as well as another one from the server. The acknowledgment field is always sent as the received Sequence Number plus the amount of data (flag packets are sized one) received and the Sequence Number is always sent as the previous received ACK. The same will happen on data transferring.  
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[height=0.5\textwidth]{res/TCP.png}
-\caption{\label{tcp}
-TCP execution}
+\caption{\label{fig:org487b4e7}TCP execution}
 \end{figure} 
 
 \begin{enumerate}
 \item Flags
-\label{sec:orgb8b3923}
+\label{sec:org750246b}
 
 It's also important to understand what the packet flags mean.
 \begin{itemize}
@@ -588,22 +587,22 @@ It's also important to understand what the packet flags mean.
 \item RST \(\to\) Terminate connection \(\to\) \textbf{Something went wrong!}
 \end{itemize}
 \item Packet \& RST Injection
-\label{sec:orge349e0b}
+\label{sec:org4cba98c}
 
 Also, someone who can see the TCP traffic can inject packages. Someone who doesn't can guess the port and Sequence Number. A "RST" packet doesn't need any Sequence Number, so if someone knows the target IP and can guess the port, it can just terminate a connection.
 \item SYN Flooding!
-\label{sec:orgf621c77}
+\label{sec:org3bcbc9b}
 
 SYN Packets allocate state inside the server. Spamming SYN requests can cause Denial of service. To fix this, we need \textbf{SYN Cookies!} The idea behind it is to send a random generated number as the sequence number to the client so that the client has to send it back to you before you actually allocate state. However, we need to assert that the number is the same. For this, we use HMAC. We allocate space, but it's much less than before. The space allocated is for the number we input in the HMAC function. This way we send HMAC(k) and check if the return \emph{x} provides us with HMAC(x) = HMAC(k).
 \end{enumerate}
 \subsection{DNS}
-\label{sec:org0cb05b0}
+\label{sec:orgb82f03e}
 Finds an IP Addr. for communication based on a given URL. Uses UDP because it's performance critical. It's considered a distributed database in which the DNS resolver asks each Name Server for the URL's existence.
 \subsubsection{DNS Resolver}
-\label{sec:orgfe50515}
+\label{sec:org2a65a70}
 The DNS Resolver can be Reursive or Iterative. \uline{Recursive}: Local DNS server \(\to\) Root (.) \(\to\) following name server \(\to\) \ldots{}; \uline{Iterative}: Local DNS server looks for Root, that returns the following name server, and then looks for the name server\ldots{}
 \subsubsection{DNS Response}
-\label{sec:orgabfb49f}
+\label{sec:org4d267e5}
 The DNS Response has the following structure:
 
 \begin{center}
@@ -636,37 +635,36 @@ All sections besides "Transaction ID" are consisted by Resource Records. RRs are
 \item Value \(\to\) The value it holds
 \end{itemize}
 \subsubsection{Bailiwick Check}
-\label{sec:org3536c6f}
+\label{sec:org0509911}
 Name server can't add names in the Additional or Authority section for names that aren't in bailiwick, meaning they aren't part of the lookup host. This is to avoid that the Name Server for "mit.edu" adds "berkeley.edu" to the Additional Section with some malicious IP address when someone looks it up. E.g. if you are looking up "eecs.mit.edu" only accept from "\textbf{*}.mit.edu".
 \subsubsection{Blind Spoofing}
-\label{sec:orgec5daa6}
+\label{sec:orgbd44e28}
 This attack involves having someone in a malicious webpage or having them click some bait so that they try to access a specific website, say "bank.com". Once they run the DNS query, the attacker is going to try running against the server response so it may be able to poison the user's DNS cache. To do this, the attacker must be able to spoof the transaction ID, which is random. If it succeeds, the user may have a malicious website instead of "bank.com" and so it goes. 
 \subsubsection{The Kaminsky Attack}
-\label{sec:org96d88cd}
+\label{sec:orgac06e7f}
 Although the idea above seems doable, it's really hard to actually make anything out of it. Consider that you have only one chance of succeeding. Once the value of the lookup is cached, there is nothing we can do about it but wait its TTL. The Kaminsky Attack is a well elaborated alternative to the blind spoofing. In spite of it actually doing mostly the same thing (guessing ID and trying to run), this method, instead of running the lookup to the actual website, looks up fake websites such as "a.bank.com", "b.bank.com",\ldots{}; Websites that are in Bailiwick and that aren't cached. This way, it still only caches the value when it guesses the correct ID and wins the race, but it can try that as many times as it wants! Some techniques to avoid that is to add CaMeLcAsE letters in the Name Servers and randomize the source port. These two options make spoofing much harder, but still very possible.
 
 \subsection{TLS}
-\label{sec:org78ff2f8}
+\label{sec:orge89b1fd}
 Built on top of TCP, TLS uses the same ACK/SEQ behavior. The process is shown by \ref{TLS} \sout{With some english mistakes but I found that on Google Images so I don't care}. As we can see, the handshake happens by them agreeing on a Cipher spec available for one of the Client's Crypto options. Each one also sends a random 256-bit number (R\textsubscript{C}, R\textsubscript{S}) to add entropy and avoid replay attacks (isn't shown on image though). The server also sends its certificate for the client to authenticate and start the key sharing process. When the key exchange is done, the data will be communicated in the following format: \(\{M,MAC(I, M)\}_C\). Each entity will have its own Cipher and Integrity key to avoid replay attacks with same Sequence Numbers. TLS is slow because it depends on Public-key crypto. Even though TLS provides confidentiality and it is good at it, RST exploits are still very possible.
 
 \begin{figure}[htbp]
 \centering
 \includegraphics[height=0.5\textwidth]{res/TLS.png}
-\caption{\label{TLS}
-TLS Behavior}
+\caption{\label{fig:org49cee2a}TLS Behavior}
 \end{figure}
 
 \subsubsection{TLS with Diffie-Hellman}
-\label{sec:org6609e8c}
+\label{sec:org50cb996}
 Once having its certificate authenticated by the client, the server sends \(\{g,p,g^a \mod(p)\}_{K_{server}^{-1}}\). Once the client receives this, the server sends a "end of handshake" message as the client sends \(g^b \mod(p)\). Now they both have the \emph{PS} and can derive \(C_C, C_S\) (cipher keys) and \(I_C, I_S\) (Integrity keys) from \{PS, R\textsubscript{C}, R\textsubscript{S}\}. Having all keys, they MAC and send the whole handshake using the Integrity keys to make sure they were derived correctly. Using DH provides forward secrecy, which means that if someone gets ahold of the client or the server's private key in the future, they wouldn't be able to understand the dialog since \emph{a} and \emph{b} were deleted when the conversation stopped.
 \subsubsection{TLS with RSA Encryption}
-\label{sec:orge45b0e2}
+\label{sec:org9179958}
 The difference is that, instead of sending a generated DH public key with its certificate, the server waits for the client to send \(\{PS\}_{K_{server}}\) and then all goes along the same way. 
 \subsection{Certificate Authorities - Revised}
-\label{sec:org3097296}
+\label{sec:org5b493b3}
 Certificates should be trusted but verified. They should also be public as a transparency mechanism so that you can see the certificates issued in your name, avoiding fake ones. They can be expensive to maintain, that's why \emph{LetsEncrypt} exists. They issue short-term certificates, which lead to low costs. 
 \subsection{Denial of Service Attacks}
-\label{sec:org3d5348e}
+\label{sec:org1ffb52b}
 We have three main DoS attacks in the content. One we have already seen, which is SYN Flooding, and the others are:
 \begin{itemize}
 \item Resource Consumption \(\to\) Fix with quota;
@@ -674,10 +672,10 @@ We have three main DoS attacks in the content. One we have already seen, which i
 \end{itemize}
 We can fix most DoS attacks with either Isolation, proper identification or a ton of money (have a huge server that never gets jammed by a number of requests).
 \subsection{Firewall}
-\label{sec:org255631f}
-I'm no getting into as much detail as Weaver on this case because I don't think there is much to it. The idea of a firewall is to mediate the connection between the internal network and the internet. It can restrict connections from happening or restrict only one side from sending messages. They are central controls that are easy to deploy but reduce the network's usefulness and trust malicious insiders. A single breach in the mediation allows an attacker to get inside the system and pivot itself to where it wants to be. the \texttt{allow/drop} command to specify the sending and receiving IP and port allowed for a connection. You can see more of this in the \hyperref[sec:commands]{important commands} appendix section.
+\label{sec:org23bcdd3}
+I'm no getting into as much detail as Weaver on this case because I don't think there is much to it. The idea of a firewall is to mediate the connection between the internal network and the internet. It can restrict connections from happening or restrict only one side from sending messages. They are central controls that are easy to deploy but reduce the network's usefulness and trust malicious insiders. A single breach in the mediation allows an attacker to get inside the system and pivot itself to where it wants to be. the \texttt{allow/drop} command to specify the sending and receiving IP and port allowed for a connection. You can see more of this in the \hyperref[org5d0c7d0]{important commands} appendix section.
 \subsection{TOR (The Onion Router)}
-\label{sec:orgbb59e4b}
+\label{sec:org12608c2}
 Referred as the \emph{Dark web}, TOR is the protocol of anonymous communication. It's called the onion router because it has different layers that are peeled off as the message goes from router to router. The abstract way of describing the process is that there are entering and exit nodes, both of which are known by everyone, but in between them, there are many anonymous routers that pass your message around without knowing its destination or your identity (the exit node knows the destination). This is achievable by different layers of encryption. The client has a list of all the Onion routers and their public keys. \uline{Let's say your message is routed 3 times before getting to server. You agree on a different key for each router and encapsulate your message in the as such: E(K1, E(K2, E(K3, Enc\textsubscript{Message}))). The first node will be able to understand the following node's address and the message encrypted by K1. The second one will get the third address and the message encrypted by K2. The third one will get the final encrypted message with the address to the server you want to communicate with}.
 
 The key exchange can happen easily with DH. The client generates its private/public key and sends the public key to N1, which sends his generated public key back to generate a session key. The client asks N1 to extend to N2, which does the same. If N1 is malicious, it can be considered a MITM in this case, but, since it's DH, it can't actually read the messages between the client and N2 (unless it fakes the N2 interaction). The same keeps happening by the number of onion routers.
@@ -687,22 +685,21 @@ The onion network process is shown on \ref{onion}.
 \begin{figure}[htbp]
 \centering
 \includegraphics[height=0.5\textwidth]{res/onion.png}
-\caption{\label{onion}
-Onion network layout}
+\caption{\label{fig:org8864b29}Onion network layout}
 \end{figure}
 \subsection{DNSSEC}
-\label{sec:orgb108a06}
+\label{sec:org9eb95a3}
 We know that TLS provides integrity to the communication channel so the first thing we think when we hear about DNS security is that we should implement TLS on DNS. This is a bad idea. As already mentioned, DNS is performance critical and that's why it uses UDP. Since TLS is TCP, that would make DNS \textbf{really slow}. \uline{And if we, somehow, manage to implement TLS in a super fast way?} It would provide confidentiality about the website we are visiting but not integrity or authentication (consider that the attacker might get ahold of the DNS resolver). So that's kind of useless. We want something that runs fast and provides integrity and authentication! That's where DNSSEC comes in.
 
 DNSSEC is an add-on for DNS. Think of it as the same as DNS but with some extra types, flags and validation operations.
 \subsubsection{Flags}
-\label{sec:org12f70bf}
+\label{sec:org4af370b}
 \begin{itemize}
 \item DO \(\to\) Want DNSSEC checks;
 \item CD \(\to\) Give me all the crypto stuff and I'll check it myself;
 \end{itemize}
 \subsubsection{Types}
-\label{sec:orgfcba65e}
+\label{sec:org4339a04}
 \begin{itemize}
 \item OPT \(\to\) Request for DNSSEC info;
 \item RRSIG \(\to\) Signature over the RRset (RRs of same name and type);
@@ -710,13 +707,13 @@ DNSSEC is an add-on for DNS. Think of it as the same as DNS but with some extra 
 \item DS \(\to\) Delegated signature (hash of signer's name and the KSK);
 \end{itemize}
 \subsubsection{Key types}
-\label{sec:orga937467}
+\label{sec:org4ee3144}
 \begin{itemize}
 \item KSK \(\to\) Key signing key;
 \item ZSK \(\to\) Zone signing key
 \end{itemize}
 \subsubsection{Process}
-\label{sec:org407e2f2}
+\label{sec:org650ac83}
 The process of DNSSEC is basically trust delegation. Everyone knows root's KSK. So everyone can check root's integrity by verifying if it signed its own DNSKey. Once we have checked if DNSKey was signed with root's KSK, we know root's ZSK and can continue with the DNS lookup. Now we look at the child node and:
 \begin{itemize}
 \item Hash the node's KSK and root's name with root's ZSK;
@@ -729,7 +726,7 @@ The process of DNSSEC is basically trust delegation. Everyone knows root's KSK. 
 
 If you understood the process, you would see that there is no way someone can create a malicious entry with root's trust and, thus, this protocol is completely integrity safe if our root KSK isn't wrong. This even prevents us from being tricked by the DNS resolver itself! Consider that it is malicious, if we do all the checking it can't just send us malicious entries, because we know the top hierarchical key. We can also see that there is no overhead comparing to DNS. Mostly, the difference is that we need to ask for the DNSKey entry as well, but this is parallelizable!
 \subsubsection{Name existence}
-\label{sec:orgc1e7307}
+\label{sec:org524df5a}
 There should be a way to warn the client that the name doesn't exist. This is why there are types of RRSIG that say that. These are:
 \begin{itemize}
 \item NOERROR \(\to\) Name exists but not for the lookup type;
@@ -738,22 +735,22 @@ There should be a way to warn the client that the name doesn't exist. This is wh
 For these RRSIGs, we also get a NSEC entry, which contains the next valid domain name with all its valid types. This, however, enables us to prove a name doesn't exist and let's us enumerate, trivially, all the the possible domain names. A simple fix would be to Hash all domain names, so someone that knows the next domain name can still check if that's the one, but someone that doesn't can't enumerate it. This is called NSEC3 and it is still vulnerable to brute-force dictionary attacks. The only possible fix is to actually hash things dinamicallydas tn tn   
 
 \subsection{Network Monitoring}
-\label{sec:org91d2229}
+\label{sec:org9cea2ff}
 We should be able to detect intrusions by monitoring it. The following are network monitoring methods: 
 \subsubsection{NIDS (Network Intrusion Detection System)}
-\label{sec:orga127561}
+\label{sec:orga5c478a}
 NIDS looks at the network traffic and looks for suspicious requests ($\backslash$/etc$\backslash$/password,\ldots{}). It doesn't have to touch or trust the end systems, uses a single monitor and has all management centralized. The most important idea of NIDS is that it runs external to the system. Some can avoid being caught by NIDS by using evasion attacks: using requests that read by NIDS don't trigger any problems, but once semantically evaluated, can cause different malicious situations (..//././//..//./). It only runs through HTTP.
 \subsubsection{IDS (Host-based Intrusion Detection System)}
-\label{sec:org49ba04f}
+\label{sec:org7f29821}
 IDS, unlike NIDS, reads and scans the argument sent to the system by running inside the webserver. It now can run through HTTPS and scan bad escape HTTP \%-escapes. It still has to consider UNIX semantics but I'm sure that, because they are in the host, it should be easier to identify what is sigilous.
 \subsubsection{Log Analysis}
-\label{sec:orge35c373}
+\label{sec:org06c2b63}
 It's cheap, it's easy. Runs in the server. It can't, unlike the two above, stop attacks from happening.
 \subsubsection{HIDS (System Call Monitoring)}
-\label{sec:orgf53108a}
+\label{sec:org853698e}
 Monitors the system calls in the back-end. No issues involving the protocol used for connection. Easier to avoid issues with filename tricks. Only alerts if the attack succeeds. There are a few issues with the detector, however. It can lead to false negatives and false positives.
 \subsubsection{Alternative ways of detection}
-\label{sec:orgb4f28c9}
+\label{sec:orgb704710}
 \begin{itemize}
 \item Signature based \(\to\) Looking for activities with known attack structure;
 \item Vulnerability Signature based \(\to\) Look for activities that match known problems;
@@ -762,20 +759,20 @@ Monitors the system calls in the back-end. No issues involving the protocol used
 \item \textbf{Honeypots} \(\to\) deploy system with no operational purpose, if it starts operating then there is something wrong;
 \end{itemize}
 \subsection{Dragonfly}
-\label{sec:org0939cf2}
+\label{sec:org81e6943}
 WPA2-PSK is really vulnerable to offline attacks. Dragonfly is an EC and DH variant that turns offline attacks into only online attacks. Nothing can be learned about the password by eavesdropping. Won't go into details because it's pretty specific. It is used in WPA3 (EC) and eliminates the use of offline attacks and the "adversary that knows the PW" attack.
 
 \section{Malcode}
-\label{sec:org7438d0b}
+\label{sec:orgd192f8d}
 Malware is a malicious code running on the victim's computer.
 \subsection{Payload}
-\label{sec:org7fcb379}
+\label{sec:orgf260e09}
 Payload is what the malware does. It can do basically everything if it has root permission. Some examples are: Launch other software, keylogging, file stealing.
 \subsection{Propagation}
-\label{sec:org7408b62}
+\label{sec:orgd849338}
 How a malcode spreads. It can either be a virus or a worm. Both generally infect by changing existing code.
 \subsubsection{Virus}
-\label{sec:org62ed3b9}
+\label{sec:orgbb4f4ed}
 code that propagates because it was run eventually. When it runs, it looks for infection opportunities. Are opportunistic, e.g. can attach themselves to e-mails, or add them inside a drive. Generally modifies stored code.
 
 Signature-based detection \(\to\) By identifying a virus you can eliminate all other instances by byte matching. When a virus is discovered, it is sent to the anti-virus company, that tries  eliminating it from every computer.
@@ -786,17 +783,17 @@ The virus can also be metamorphic, changing the semantics of the code but mainta
 
 Root-kits \(\to\) controlling the operational system makes it easy to hide super well.
 \subsubsection{Worm}
-\label{sec:org5cdc2af}
+\label{sec:orgecbbc11}
 code that self-propagates. Generally modifies running code. Propagates in an exponential factor \(\to\) super fast. Weave slides just show a bunch of additional, but not that insightful stuff. \(\frac{dInfected}{dt} = attemptsPerTime * \frac{SusceptibleHosts}{PopulationSize}\).
 
 \section{Appendix}
-\label{sec:orge9d75e0}
+\label{sec:orgf83d5d4}
 \subsection{Assembly code for Immediate suffering}
-\label{sec:org8943dba}
-\label{sec:Assemble}
+\label{sec:org014aaf9}
+\label{orgf8c9fec}
 Let's review some topics for the Assembly code structure when generated through C code.
 \subsubsection{Registers}
-\label{sec:orge76f2df}
+\label{sec:org9ab2e0e}
 For the purpose of this class, I'm sure we'll only need to know 32-bit registers (not that there are many differences between 32 to 64, but the names differ).
 \begin{itemize}
 \item Data registers \cite{evans_guide_nodate}:
@@ -806,7 +803,7 @@ For the purpose of this class, I'm sure we'll only need to know 32-bit registers
 \item \textbf{ECX} \(\to\) Count: Loops
 \item \textbf{EDX} \(\to\) Data: Basically the same as \textbf{EAX};
 \end{itemize}
-\item \hyperref[StackReg]{Pointer registers}
+\item \hyperref[fig:org5ed3963]{Pointer registers}
 \begin{itemize}
 \item \textbf{EBP} \(\to\) Base: Holds the base address for the stack;
 \item \textbf{ESP} \(\to\) Stack: Holds the top address for the stack;
@@ -817,12 +814,11 @@ For the purpose of this class, I'm sure we'll only need to know 32-bit registers
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=3in]{res/stack-convention.png}
-\caption{\label{StackReg}
-The Stack registers layout}
+\caption{\label{fig:org5ed3963}The Stack registers layout}
 \end{figure}
 
 \subsubsection{How do function calls work?}
-\label{sec:org817ebfa}
+\label{sec:org9cc9e19}
 This part is really important for us so we actually understand how the stack layouts itself on \emph{return} and exploit the return address. It follows these operations \cite{hu_understanding_nodate}:
 
 \begin{itemize}
@@ -848,8 +844,8 @@ This part is really important for us so we actually understand how the stack lay
 \end{itemize}
 
 \subsection{Variable Layout in the Stack}
-\label{sec:orgf2b07e4}
-\label{sec:VarLayoutStack}
+\label{sec:org8a21194}
+\label{org10d266d}
 We have some important fields and their data size. Their data size is the amount of space they occupy in the Stack, Heap, etc. These are:
 
 \begin{center}
@@ -907,7 +903,7 @@ HIGHEST Memory Addr. & return address & 4 bytes\\
 \end{center}
 
 \subsection{Using GDB \& Shell Exploits}
-\label{sec:org5fdf0cf}
+\label{sec:org43ccef8}
 GDB Commands:
 
 \begin{center}
@@ -955,8 +951,8 @@ script | invoke foo # deterministic invocation of foo with script output piped i
 \end{minted}
 
 \subsection{Important Commands}
-\label{sec:org76649a9}
-\label{sec:commands}
+\label{sec:org7b2d90c}
+\label{org5d0c7d0}
 Some important commands related to Network Security.
 
 \begin{minted}[,bgcolor=yellow]{bash}
