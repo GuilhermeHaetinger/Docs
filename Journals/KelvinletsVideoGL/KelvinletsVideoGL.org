@@ -1,4 +1,4 @@
-#+attr_latex: :width 100px
+#+attr_latex: :width 3in
 #+ATTR_HTML: width="%" 
 [[file:res/inf.png]]
 #+TITLE: Kelvinlets Video Deformation
@@ -9,7 +9,7 @@
 * New Idea for 3D Interpolation <2019-05-28 ter>
   
   #+ATTR_HTML: width="%"
-  #+ATTR_LATEX: :width 200px
+  #+ATTR_LATEX: :width 4in
   #+caption: Figure 1: 3D Interpolation with Prism projection. (A) is the first grid involving the frame (B), and (C) is the second one.
   [[file:res/interpolationExample.png]]
 
@@ -195,11 +195,10 @@ For the second one, seen as it is a more abstract method, we will have to search
   Referring to this link: [[https://doc.cgal.org/latest/Polygon_mesh_processing/index.html]], we can start testing the function located in the section *3.5*: =CGAL::Polygon_mesh_processing::clip()=. Other options would be the Slicer and the Mesh Intersection. Should start testing the pixel approach and then start a new project to understand these CGAL functions behavior.
 
 * Getting this thing to work <2019-08-02 sex>
-
   Implementing the idea of rounding each deformed pixel to a frame in the time axis turned out to be a bad solution, for it throws away information. This is shown in the following image:
 
   #+ATTR_HTML: width="%"
-  #+ATTR_LATEX: :width 300px
+  #+ATTR_LATEX: :width 5in
   #+caption: Figure for the rounded method without corner retardation. 
   [[file:res/roundResult.png]]
 

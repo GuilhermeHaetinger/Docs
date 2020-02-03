@@ -1,0 +1,4 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+env \PYG{n+nv}{KELVIN}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}FATAL\PYGZdq{}} ./kelvin
+\PYG{c+c1}{\PYGZsh{}          \PYGZdq{}ERROR\PYGZdq{}/\PYGZdq{}WARNING\PYGZdq{}/\PYGZdq{}CORRECT\PYGZdq{}/\PYGZdq{}DEBUG\PYGZdq{}}
+\end{Verbatim}

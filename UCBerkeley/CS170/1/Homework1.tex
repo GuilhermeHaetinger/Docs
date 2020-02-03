@@ -1,0 +1,165 @@
+% Created 2020-01-27 Mon 17:18
+% Intended LaTeX compiler: pdflatex
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{grffile}
+\usepackage{longtable}
+\usepackage{wrapfig}
+\usepackage{rotating}
+\usepackage[normalem]{ulem}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{capt-of}
+\usepackage{hyperref}
+\usepackage{minted}
+\usepackage[margin=0.7in]{geometry}
+\author{Guilherme G. Haetinger \\ University of California, Berkeley}
+\date{\today}
+\title{Homework 1 - CS 170}
+\hypersetup{
+ pdfauthor={Guilherme G. Haetinger \\ University of California, Berkeley},
+ pdftitle={Homework 1 - CS 170},
+ pdfkeywords={},
+ pdfsubject={},
+ pdfcreator={Emacs 26.1 (Org mode 9.3)}, 
+ pdflang={English}}
+\begin{document}
+
+\maketitle
+\noindent\rule{\textwidth}{0.5pt}
+
+\section{Study Group}
+\label{sec:org205d6ea}
+None\\
+\newpage\\
+\section{Course Policies}
+\label{sec:org986551d}
+\begin{itemize}
+\item \textbf{What dates and times are the exams for CS170 this semester?}\\
+\begin{itemize}
+\item Midterm 1 \(\to\) \textit{<2020-02-20 Thu> } 8-10pm\\
+\item Midterm 2 \(\to\) \textit{<2020-03-17 Tue> } 8-10pm\\
+\item Final \(\to\) \textit{<2020-05-15 Fri> } 7-10pm\\
+\end{itemize}
+\item \textbf{Homework is due at 10:00pm, with a late deadline at 10:30pm. At what time do we recommend you have your homework finished?}\\
+10:00pm.\\
+\item \textbf{We provide 2 homework drops for cases of emergency or technical issues that may arise due to homework submission. If you miss the Gradescope late deadline (even by a few minutes) and need to submit the homework, what should you do?}\\
+There is no extensions!\\
+\item \textbf{What is the primary source of communication for CS170 to reach students? We will emailout all important deadlines through this medium, and you are responsible for checking your emails and reading each announcement fully.}\\
+Piazza.\\
+\item \textbf{Read all guidelines, etiquette and policies}\\
+I have read and understood the course syllabus and policies.\\
+\textbf{Guilherme Gomes Haetinger}\\
+\end{itemize}
+\newpage\\
+\section{Understanding Academic Dishonesty}
+\label{sec:org668d98e}
+\begin{itemize}
+\item \textbf{You ask a friend who took CS 170 previously for their homework solutions, some of which overlap with this semester’s problem sets. You look at their solutions, then later writethem down in your own words.}\\
+\emph{Not OK}\\
+\item \textbf{You had 5 midterms on the same day and are behind on your homework. You decide to ask your classmate, who’s already done the homework, for help.  They tell you how to do the first three problems.}\\
+\emph{Not OK}\\
+\item \textbf{You look up a homework problem online and find the exact solution. You then write it in your words and cite the source.}\\
+\emph{OK}\\
+\item \textbf{You were looking up Dijkstra’s on the internet, and run into a website with a problemvery similar to one on your homework. You read it, including the solution, and then youclose the website, write up your solution, and cite the website URL in your homework writeup.}\\
+\emph{OK}\\
+\end{itemize}
+\newpage\\
+\section{Asymptotic Complexity Comparison}
+\label{sec:org421d4aa}
+\subsection{Order the following functions so that for all \(i,j\), if \(f_i\) comes before \(f_j\) in the order then \(f_i=O(f_j)\). Do not justify your answers.}
+\label{sec:org2f70b9d}
+\(f_3, f_7, f_2, f_5, f_9, f_4, f_8, f_6, f_1\)\\
+\subsection{In each of the following, indicate whether \(f=O(g)\),\(f= Ω(g)\), or both (in which case \(f= \theta(g)\)). Briefly justify each of your answers.  Recall that in terms of asymptotic growth rate, logarithmic < linear < polynomial < exponential.}
+\label{sec:orgb1220e7}
+\subsubsection{\(log_{3}n = \theta(log_{4}n)\)}
+\label{sec:org3631f85}
+As it is said on the textbook, the base is irrelevant on the big-O notation \cite[p. 22]{Alg}.\\
+\subsubsection{\(nlog(n^4) = O(n^{2}log(n^3))\)}
+\label{sec:org1bb6581}
+\(nlog(n^4) = 4nlogn = O(n^{2}log(n^3) = 3n^{2}^{}log(n))\)\\
+\subsubsection{\(\sqrt{n} = \Omega((log(n))^3)\)}
+\label{sec:orgfa952ce}
+Log functions increase much slower than root operations. By that, we can see how \((log(n))^3 = log(n^{log(n^{log(n)})})\) grows in a slower rate than \(\sqrt{n}\).\\
+\subsubsection{\(n + log(n) = O(n + (log(n))^2)\)}
+\label{sec:orga551408}
+The only difference between the two is the squared log, which eventually will make the right-side of the equality will grow faster.\\
+\newpage\\
+\section{Computing Factorials}
+\label{sec:org17447f5}
+\subsection{\(N\) is  \(log(N)\) bits long (this is how many bits are needed to store a number the size of \(N\)). Find an \(f(N)\) so that \(N!\) is \(Θ(f(N)))\) bits long. Simplify your answer as much as possible, and give an argument for why it is true}
+\label{sec:orga72e244}
+
+As the book shows, the product of two numbers has at most the sum of its bits \cite[p. 24]{Alg}. This means that the size of \(N!\) is at most \(\sum_{k=0}^{N}log(k)\). Now, by the Stirling's formula, we can say that, \(f(n) = log(\sqrt{2\pi n}(\frac{n}{e})^n) \to size(N!) = \theta(f(n))\).\\
+
+\subsection{Give a simple (naive) algorithm to compute \(N!\). You may assume that multiplying two bits together (e.g.  0x0,0x1) takes 1 unit of time.}
+\label{sec:org9644d27}
+\begin{enumerate}
+\item Algorithm
+\label{sec:org0dbfbfe}
+
+\begin{minted}[]{ruby}
+def factorial(n)
+  result = n
+  n -= 1
+  while n >= 1
+    retult *= n
+    n -= 1
+  end
+  return result
+end
+\end{minted}
+\item Proof of correctness
+\label{sec:org2ce2e5f}
+
+We can see that the base case \(n = 1\) works as it will simply ignore the loop. Now, let's say it works for \(n\), if we input \(n+1\), the algorithm will run the loop one extra time, multiplying the value of \texttt{factorial(n)} by \(n+1\), which is theta definition of the factorial functions, meaning that the functions holds for \(n+1\). By induction, the algorithm is proven to be correct.\\
+\item Runtime Analysis
+\label{sec:org5007da3}
+
+The first two operations will always run, so we have \(2\) as the starting time. They loop will, then, run \(n-1\) times, seen as it starts with \(n = n - 1\) and breaks when \(n = 0\). The internal runtime for each loop is \(2\). This means that the algorithm will have a runtime complexity of \(2 + 2(n-1) = 2 + 2n + 2 = 2n + 4\), which is linear.\\
+
+\newpage\\
+\end{enumerate}
+\section{Polynomial Evaluation}
+\label{sec:orgf093572}
+\subsection{Describe a naive algorithm that, given \([a_{0},...,a_{n}]\) and \(x\), computes \(p(x)\). Give an analysis of its runtime as a function of the degree of the polynomial \(n\).}
+\label{sec:orgc4191fc}
+\subsubsection{Algorithm}
+\label{sec:org879e2fc}
+\begin{minted}[]{python}
+def p(coef, x):
+    # coef: list
+    # x: list
+    result = 0
+    for k in range(0, len(coef)):
+        result += coef[k] * x**k
+    return result
+\end{minted}
+\subsubsection{Runtime Analysis}
+\label{sec:org1665022}
+We can see that the loop will run \(n\) times. Although the sum is of complexity \(O(1)\), when website power \(x\) to the \(k\), we have \(k\) operations. This way, as \(k\) increases, the loop's internal complexity increases proportionally. Thus, the final runtime complexity is \(\sum_{k=0}^{n}(1 + k) = n + \sum_{k=0}^{n}k = n + (\frac{n(n+1)}{2}) = \frac{2n + n(n+1)}{2} = \frac{2n + n^2 +n}{2} = \theta(n+n^2)\).\\
+\subsection{Describe and analyze an algorithm that evaluates the polynomial using the above expression. The runtime should be a function of \(n\) as well.}
+\label{sec:org97ebd1a}
+\subsubsection{Algorithm}
+\label{sec:org4c412d9}
+\begin{minted}[]{python}
+def p(coef, x):
+    if len(coef) == 1:
+        return coef[0]
+    else:
+        return coef[0] + x * p(coef[1:], x)
+\end{minted}
+\subsubsection{Proof of Correctness}
+\label{sec:org096bf9e}
+Considering the correctness of the presented expression, we can state the following: for the base case \(n=1, [a], x\) as input, we have that the first condition will be true, returning the properly value; Let the algorithm hold for \(n\), if we input \(n+1\), theta algorithm is still correct because it simply encapsulates the past execution of \(n\) in a another recursion layer that will be called and multiplied by \(x\). Therefore, by induction, the algorithm is correct. I.e. \(p([a_0, ..., a_n], x) = a_0+x(a_1+x(a_2+...+x(a_{n−1}+x*a_n)...)) \to p([a_0, ..., a_{n+1}], x) = a_0+x(a_1+x(a_2+...+x(a_{n}+x*a_{n+1})...)) = p([a_0, ..., a_n], x) + a_{n+1}*x\).\\
+\subsubsection{Runtime Analysis}
+\label{sec:org0e52485}
+We know there will be \(n\) recursion calls, in which there will be at most 2 operations of \(O(1)\) complexity. This makes the function of linear complexity.\\
+
+\newpage\\
+\bibliography{hw}\\
+\bibliographystyle{unsrtnat}\\
+\end{document}

@@ -1,0 +1,9 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{k}{def} \PYG{n+nf}{p}\PYG{p}{(}\PYG{n}{coef}\PYG{p}{,} \PYG{n}{x}\PYG{p}{):}
+    \PYG{c+c1}{\PYGZsh{} coef: list}
+    \PYG{c+c1}{\PYGZsh{} x: list}
+    \PYG{n}{result} \PYG{o}{=} \PYG{l+m+mi}{0}
+    \PYG{k}{for} \PYG{n}{k} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{coef}\PYG{p}{)):}
+        \PYG{n}{result} \PYG{o}{+=} \PYG{n}{coef}\PYG{p}{[}\PYG{n}{k}\PYG{p}{]} \PYG{o}{*} \PYG{n}{x}\PYG{o}{**}\PYG{n}{k}
+    \PYG{k}{return} \PYG{n}{result}
+\end{Verbatim}
