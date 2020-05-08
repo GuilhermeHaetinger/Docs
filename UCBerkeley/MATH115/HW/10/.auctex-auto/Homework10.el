@@ -1,11 +1,10 @@
 (TeX-add-style-hook
- "Homework1"
+ "Homework10"
  (lambda ()
    (TeX-add-to-alist 'LaTeX-provided-class-options
                      '(("article" "11pt")))
    (TeX-add-to-alist 'LaTeX-provided-package-options
-                     '(("inputenc" "utf8") ("fontenc" "T1") ("ulem" "normalem") ("geometry" "margin=0.7in")))
-   (add-to-list 'LaTeX-verbatim-environments-local "minted")
+                     '(("inputenc" "utf8") ("fontenc" "T1") ("ulem" "normalem") ("geometry" "margin=0.5in")))
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "href")
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperref")
    (add-to-list 'LaTeX-verbatim-macros-with-braces-local "hyperimage")
@@ -31,34 +30,21 @@
     "amssymb"
     "capt-of"
     "hyperref"
-    "minted"
     "geometry")
    (LaTeX-add-labels
-    "sec:org205d6ea"
-    "sec:org986551d"
-    "sec:org668d98e"
-    "sec:org421d4aa"
-    "sec:org2f70b9d"
-    "sec:orgb1220e7"
-    "sec:org3631f85"
-    "sec:org1bb6581"
-    "sec:orgfa952ce"
-    "sec:orga551408"
-    "sec:org17447f5"
-    "sec:orga72e244"
-    "sec:org9644d27"
-    "sec:org0dbfbfe"
-    "sec:org2ce2e5f"
-    "sec:org5007da3"
-    "sec:orgf093572"
-    "sec:orgc4191fc"
-    "sec:org879e2fc"
-    "sec:org1665022"
-    "sec:org97ebd1a"
-    "sec:org4c412d9"
-    "sec:org096bf9e"
-    "sec:org0e52485")
-   (LaTeX-add-bibliographies
-    "hw"))
+    "sec:org9246eae"
+    "sec:org3d0145d"
+    "sec:org7f0c505"
+    "sec:org252419f"
+    "sec:org72c4754"
+    "sec:orgfb852c8"
+    "sec:orgad7f980"
+    "sec:orgcc5c5ca"
+    "sec:orgfa20aba"
+    "sec:org778167f"
+    "sec:orgda0550f"
+    "sec:org975b2bb"
+    "sec:org1881b58"
+    "sec:org2ba12a7"))
  :latex)
 
