@@ -1,0 +1,30 @@
+#+TITLE: Regularized Kelvinlets Applied to Real-Time Image Warpping and Video Retiming
+#+OPTIONS: toc:nil author:nil date:nil
+#+LATEX_CLASS: IEEEtran
+#+LATEX_CLASS_OPTIONS: [10pt, conference]
+#+LATEX_HEADER: \usepackage{authblk}
+#+LATEX_HEADER: \author[1]{Guilherme G. Haetinger}
+#+LATEX_HEADER: \author[1]{Eduardo S. L. Gastal}
+#+LATEX_HEADER: \affil[1]{Universidade Federal do Rio Grande do Sul}
+
+#+BEGIN_abstract
+#+END_abstract
+
+* Introduction
+#+BEGIN_COMMENT
+Falar sobre a ideia de modificar o tempo dos video: qual seria o uso?
+#+END_COMMENT
+* Related Work
+* Image Warping
+#+BEGIN_COMMENT
+Acho que podemos comparar os resultados da deformaçao em imagens e em grids entre o meu método e os métodos do photoshop, GIMP, Krita, etc. Inclusive, podemos comparar com o uso de cage deformations.
+[[./mandrillKritaGrab.png]] [[./mandrillKelv.png]]
+[[./mandrillKritaWarp.png]] [[./mandrillKelvNoSlope.png]]
+#+END_COMMENT
+
+* Video Retiming
+* Conclusion
+* Future Work
+
+bibliography:Kelvinlets.bib
+bibliographystyle:unsrt
