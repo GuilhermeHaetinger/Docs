@@ -1,0 +1,3 @@
+[submodule "Articles/KelvinletsPaper"]
+	path = Articles/KelvinletsPaper
+	url = git@github.com:GuilhermeHaetinger/KelvinletsPaper.git
